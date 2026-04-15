@@ -1,0 +1,3198 @@
+﻿1
+1
+1
+0
+1
+La paroi de service n’a pas une hauteur minimum de 3,50 m. risque d'accès aux parties en mouvement par des personnes non habilitées.
+2
+1
+1
+0
+2
+Les  parois, autres que celle de service, n’ont pas une hauteur au minimum de 2,50  m . Risque d'accès aux parties en mouvement par des personnes non habilitées.
+3
+1
+1
+0
+3
+La dimension des ouvertures ou mailles des parois est supérieur à 10 mm x 60 mm .risque d'accès aux parties en mouvement par des personnes non habilitées.
+4
+1
+1
+0
+4
+Absence de ventilation règlementaire en haut de gaine - Risque d'asphyxie en cas d'incendie.
+1
+1
+2
+0
+1
+Le portillon de visite n'est pas muni d’un contact électrique de sécurité à arrachement commandant l’arrêt automatique de l’ascenseur lors de son ouverture, risque pour la sécurité des intervenants.
+2
+1
+2
+0
+2
+Le portillon de visite n'est pas équipé d’un dispositif de verrouillage à clef tel qu’il puisse  être refermé et verrouillé sans clef depuis l’extérieur de la gaine, risque pour la sécurité des intervenants.
+3
+1
+2
+0
+3
+Le portillon de visite ne s'ouvre pas vers l’extérieur de la gaine, risque de détérioration du matériel. 
+4
+1
+2
+0
+4
+La porte de visite n'est pas équipée d’un dispositif de verrouillage permettant l'  ouverture de l’intérieur de la gaine sans clef; risque pour la sécurité des intervenants. 
+5
+1
+2
+0
+5
+Détérioration de la porte ou portillon de visite technique, risque de cisaillement des utilisateurs.
+6
+1
+2
+0
+6
+Dysfonctionnement du dispositif de sécurité de la porte ou portillon de visite technique, risque de cisaillement des intervenants et usagers.
+7
+1
+2
+0
+7
+Dysfonctionnement du dispositif de verrouillage de la porte ou du portillon de visite technique, risque de chute en gaine pour les usagers et intervenants.
+8
+1
+2
+0
+8
+Présence d'un portillon de visite équipé d'un dispositif de verrouillage mécanique non règlementaire.
+1
+1
+3
+0
+1
+Présence d’oxydation sur le garde pieds du niveau X, risque d’inefficacité de ce dernier et risque pour les usagers
+2
+1
+3
+0
+2
+Absence de garde-pied au niveau X , risque de cisaillement pour les intervenants.
+3
+1
+3
+0
+3
+Détérioration du garde-pied , risque de cisaillement des intervenants.
+4
+1
+3
+0
+4
+Détérioration du seuil au niveau X , risque de chute des utilisateurs.
+1
+1
+4
+0
+1
+Absence de contact électrique d'asservissement de l'échelle d'accès en cuvette, risque de détérioration du matériel.
+2
+1
+4
+0
+2
+Absence de barre de préhension, risque de chute des intervenants.
+3
+1
+4
+0
+3
+Absence d'échelons d'accès, risque de chute des intervenants.
+4
+1
+4
+0
+4
+Absence de dispositif et moyen d'accès sécurisé à la cuvette, risque de chute des intervenants.
+5
+1
+4
+0
+5
+Détérioration des fixations de la barre de préhension, risque de chute des intervenants.
+6
+1
+4
+0
+6
+Détérioration des fixations des échelons d'accès, risque de chute des intervenants.
+7
+1
+4
+0
+7
+Dysfonctionnement du contact de contrôle d'asservissement de l'échelle d'accès en cuvette.
+1
+1
+5
+0
+1
+L'éclairage gaine n'assure pas un éclairement d'au moins 50 lux à 1m au-dessus du toit de cabine sur toute la hauteur de la gaine - Risque de heurt et/ou de chute des intervenants.
+2
+1
+5
+0
+2
+1.5A - Non fonctionnement de l’éclairage en gaine, risque de chute et de difficulté d'intervention.
+3
+1
+5
+0
+3
+1.5B - Absence de protection mécanique sur certains dispositifs d’éclairage en gaine, risque d'électrisation des intervenants.
+4
+1
+5
+0
+4
+1.5C - Absence de dispositif d’éclairage gaine aux distances normalisées, risque de difficulté d'intervention. 
+5
+1
+5
+0
+5
+Absence de dispositif d’éclairage en gaine, risque pour les intervenants.
+1
+1
+6
+0
+1
+Absence de protection sur l’ouverture en haut de gaine, risque de cisaillement pour les intervenants non ascensoristes et d’intrusion de volatiles.
+2
+1
+6
+0
+2
+Absence de dispositif de manutention en haut de gaine, risque de difficulté pour les intervenants.
+3
+1
+6
+0
+3
+Absence d’estampillage sur le dispositif de manutention en haut de gaine, risque de mauvaise utilisation.
+4
+1
+6
+0
+4
+Présence de canalisations étrangères à l’ascenseur dans la gaine, risque de dysfonctionnement  et risque pour les intervenants.
+5
+1
+6
+0
+5
+La gaine est sale, risque de dysfonctionnement et d’incendie. 
+6
+1
+6
+0
+6
+Présence de nombreux trous dans les parois de la gaine en béton, risque de propagation du feu en cas d'incendie, et de diffusion de bruit à l'extérieur de la gaine.
+7
+1
+6
+0
+7
+Présence d’une séparation gaine avec maille non réglementaire, risque pour les intervenants.
+8
+1
+6
+0
+8
+Absence de protection de points rentrants autour de la poulie de renvoi cabine en haut de gaine, risque de happement des intervenants.
+9
+1
+6
+0
+9
+La porte d'accès en gaine présente un dur mécanique, risque de détérioration du matériel.
+1
+2
+1
+0
+1
+Présence de papiers et autres produits inflammables en cuvette, risque d’incendie. 
+2
+2
+1
+0
+2
+Présence d’oxydation des parties métalliques en cuvette, risque de détérioration du matériel et de dysfonctionnement.
+3
+2
+1
+0
+3
+Présence d’humidité ou d’eau en cuvette, risque de détérioration du matériel et de dysfonctionnement.
+4
+2
+1
+0
+4
+Présence de corps gras en cuvette, risque d’incendie et de chute pour les intervenants.
+5
+2
+1
+0
+5
+Présence d'une surface inégale au sol, risque de chute des intervenants.
+6
+2
+1
+0
+6
+Présence de matériel étranger à l’installation – Risque de détérioration du matériel.
+1
+2
+2
+0
+1
+Inaccessibilité du dispositif d’arrêt en cuvette, risque pour les intervenants.
+2
+2
+2
+0
+2
+Absence de dispositif d’arrêt en cuvette, risque pour les intervenants.
+3
+2
+2
+0
+3
+La position « Marche/Arrêt » du bouton « stop » en cuvette n’est pas correctement identifiée, risque d'erreur pour les intervenants.
+4
+2
+2
+0
+4
+Absence de protection contre les risques de manœuvres involontaires du bouton « stop » en cuvette, risque pour les intervenants.
+1
+2
+3
+0
+1
+Non fonctionnement de la phonie sous cabine, risque d’enfermement pour les intervenants.
+2
+2
+3
+0
+2
+Absence de dispositif de demande de secours en cuvette, risque d’enfermement pour les intervenants.
+3
+2
+3
+0
+3
+Inaccessibilité du dispositif de demande de secours en cuvette ou sous cabine, risque d’enfermement pour les intervenants.
+4
+2
+3
+0
+4
+Dysfonctionnement du dispositif de demande de secours, risque d'enfermement pour les intervenants.
+1
+2
+4
+0
+1
+Absence du pêne carré sur la porte palière du niveau inférieur, risque d’enfermement pour les intervenants.
+2
+2
+4
+0
+2
+Détérioration du pêne carré de la serrure, risque d’enfermement pour les intervenants.
+3
+2
+4
+0
+3
+Dysfonctionnement du pêne carré sur la porte palière du niveau inférieur, risque d’enfermement pour les intervenants.
+1
+2
+5
+0
+1
+Absence d'amortisseurs sous cabine / contrepoids, risque de dégradation du matériel et de blessure pour les usagers.
+2
+2
+5
+0
+2
+
+3
+2
+5
+0
+3
+Absence de contact de contrôle électrique sur les amortisseurs, risque de dégradation du matériel et de blessure pour les usagers.
+4
+2
+5
+0
+4
+Absence d'amortisseurs à dissipation d'énergie, risque de dégradation du matériel et de blessure pour les usagers.
+5
+2
+5
+0
+5
+Détérioration des amortisseurs, risque de dégradation du matériel et de blessure pour les usagers.
+6
+2
+5
+0
+6
+Détérioration des socles d'amortisseurs, risque de dégradation du matériel et de blessure pour les usagers.
+7
+2
+5
+0
+7
+
+8
+2
+5
+0
+8
+Dysfonctionnement des contacts de contrôle électrique des amortisseurs, risque de dégradation du matériel et de blessure pour les usagers.
+9
+2
+5
+0
+9
+La réserve sous le contrepoids est inadaptée, risque de dysfonctionnement et de dégradation du matériel.
+10
+2
+5
+0
+10
+La réserve sous le contrepoids est inadaptée, risque de dysfonctionnement et de dégradation du matériel.
+1
+2
+6
+0
+1
+Dysfonctionnement du point de commande d'éclairage,risque de chute pour les intervenants.
+2
+2
+6
+0
+2
+Détérioration de l'éclairage en cuvette; risque pour les intervenants.
+3
+2
+6
+0
+3
+Absence d’éclairage en cuvette, risque pour les intervenants.
+1
+2
+7
+0
+1
+Présence de canalisations étrangères à l’ascenseur en cuvette, risque pour les intervenants et risque de dysfonctionnement.
+2
+2
+7
+0
+2
+Ecran de protection de contrepoids non réglementaire, risque d'écrasement des intervenants.
+3
+2
+7
+0
+3
+Absence de protection mécanique sur les raccordements électriques en cuvette, risque de dysfonctionnement et d’électrisation pour les intervenants.
+4
+2
+7
+0
+4
+Non fonctionnement de la prise de courant en cuvette, risque de difficulté pour les intervenants.
+5
+2
+7
+0
+5
+
+6
+2
+7
+0
+6
+Absence de commande d'éclairage gaine, risque de difficulté pour les intervenants.
+1
+3
+1
+0
+1
+Détérioration des garnitures de coulisseaux cabine / contrepoids,risque de détérioration de matériel.
+2
+3
+1
+0
+2
+Défaut d'alignement des guides cabine / contrepoids, risque de détérioration de matériel.
+3
+3
+1
+0
+3
+Absence de lubrification des guides cabine / contrepoids,risque de détérioration de matériel.
+4
+3
+1
+0
+4
+Absence de garniture de coulisseau cabine  / contrepoids, risque de détérioration de matériel.
+5
+3
+1
+0
+5
+Les fils guides contrepoids ne sont pas suffisamment tendus, risque d’endommagement du matériel de l’installation et pour les usagers.
+1
+4
+1
+0
+1
+Non fonctionnement du dispositif de signalisation de la cabine à l’étage, risque de confusion pour les usagers.
+2
+4
+1
+0
+2
+Dysfonctionnement des indicateurs de présence cabine et flèches de sens, risque de confusion pour les utilisateurs.
+1
+4
+2
+0
+1
+Non fonctionnement de ou des (l’) affichage(s) du déplacement de la cabine, risque de confusion ou d’information erronée pour les usagers.
+2
+4
+2
+0
+2
+Absence d'indicateur de position, risque de confusion pour les utilisateurs.
+3
+4
+2
+0
+3
+Détérioration de l'indicateur de position, risque de confusion pour les utilisateurs.
+4
+4
+2
+0
+4
+Dysfonctionnement de l'indicateur de position, risque de confusion pour les utilisateurs.
+1
+4
+3
+0
+1
+Le dispositif de manœuvre pompier n'est pas installé au niveau accès pompier, risque de difficulté d'intervention des services de secours.
+2
+4
+3
+0
+2
+Absence du dispositif de manœuvre pompier, risque de difficulté d'intervention des services de secours et cisaillement des utilisateurs.
+3
+4
+3
+0
+3
+Détérioration du dispositif de manœuvre pompier, risque de difficulté d'intervention des services de secours.
+4
+4
+3
+0
+4
+Absence de protection sur la commande de la manœuvre pompier, risque d’utilisation abusif et de dysfonctionnement.
+5
+4
+3
+0
+5
+Dysfonctionnement du dispositif de manœuvre pompier, risque de difficulté d'intervention des services de secours.
+6
+4
+3
+0
+6
+Dysfonctionnement du dispositif d'interphonie pompier, risque de difficulté d'intervention des services de secours.
+1
+4
+4
+0
+1
+Non fonctionnement du voyant d’enregistrement d’appel palier du X étage, risque de confusion pour les usagers.
+2
+4
+4
+0
+2
+Absence d'organe de commande, risque de blessure pour les utilisateurs.Etages concernés :
+3
+4
+4
+0
+3
+Détérioration d'organe de commande avec voyant, risque de dysfonctionnement de l'installation.Etages concernés :
+4
+4
+4
+0
+4
+Dysfonctionnement d'organes de commande, risque de confusion pour les utilisateurs.Etages concernés :
+5
+4
+4
+0
+5
+Dysfonctionnement du voyant de commande, risque de confusion pour les utilisateurs.Etages concernés :
+1
+4
+5
+0
+1
+Absence d’identification, d'indication du nom et des coordonnées du prestataire en charge de la maintenance sur le palier de base, risque de difficulté d'appel en cas de dysfonctionnement.
+2
+4
+5
+0
+2
+Absence d’étiquette au palier principal indiquant le numéro d’appareil et les coordonnées du centre d’intervention – Risque d’enfermement prolongé en cas de personne bloquée.
+3
+4
+5
+0
+3
+Détérioration de la vitre pompier - Risque de coupure.
+1
+5
+1
+0
+1
+Absence ou non fonctionnement de la liaison équipotentielle de la serrure de la porte palière du niveau X, risque d’électrisation pour les usagers et intervenant.
+2
+5
+1
+0
+2
+Accessibilité du dispositif de déverrouillage de la serrure de porte palière X avec un outil autre que celui approprié, risque d’intrusion en gaine et pour les usagers.
+3
+5
+1
+0
+3
+
+4
+5
+1
+0
+4
+Absence de protection sur certaines serrures de portes palières, risque d’électrisation des usagers et intervenants.
+5
+5
+1
+0
+5
+
+6
+5
+1
+0
+6
+Absence de serrure ayant satisfait à des essais de type tels que définis à l’annexe V du décret du 24 août 2000.Risque pour les usagers et intervenants.
+7
+5
+1
+0
+7
+Absence de tôles de protection en périphérie des leviers de déverrouillage, risque d'actes de malveillance.
+8
+5
+1
+0
+8
+Position inadaptée des tôles de protection en périphérie des leviers de déverrouillage, risque d'actes de malveillance.
+9
+5
+1
+0
+9
+Usure et détérioration des éléments constituant les serrures, risque de dysfonctionnement de l'installation.
+10
+5
+1
+0
+10
+Le contrôle électrique de la fermeture des portes palières lançant l'opération de verrouillage ou de départ de la cabine est absent du 2ème vantail sans serrure, risque de cisaillement ou de chute en gaine des usagers. 
+1
+5
+2
+0
+1
+Non fonctionnement de la fermeture automatique avec verrouillage des portes palières sans la présence de la cabine, risque de chute pour les usagers. (Porte automatique).
+2
+5
+2
+0
+2
+Insuffisance du dispositif de refermeture automatique des portes palières, risque de chute pour les usagers.
+3
+5
+2
+0
+3
+Usure du dispositif de refermeture automatique des portes palières, risque de chute pour les usagers.
+4
+5
+2
+0
+4
+Dysfonctionnement du dispositif de refermeture automatique des portes palières, risque de chute pour les usagers.
+5
+5
+2
+0
+5
+Dysfonctionnement du déverrouillage de secours de la serrure du XX étage, risque de difficultés dans les opérations de désincarcération.
+1
+5
+3
+0
+1
+Non fonctionnement du dispositif de déverrouillage de secours de la serrure de la porte palière du niveau X, risque de difficulté lors des opérations de désincarcération.
+2
+5
+3
+0
+2
+Absence de procédure de neutralisation du dispositif anti intrusion en gaine, risque de difficulté lors des opérations de désincarcération. 
+3
+5
+3
+0
+3
+Absence de neutralisation du dispositif anti intrusion en gaine depuis la cuvette et/ou du toit cabine, risque de difficulté pour refermer la porte palière du niveau X après une intervention ou d’enfermement pour les intervenants.
+4
+5
+3
+0
+4
+Absence d’information sur le palier de base de la présence de dispositifs visant à limiter le déverrouillage illicite des portes palières, risque de difficulté d’intervention.
+5
+5
+3
+0
+5
+Absence de dispositif empêchant le déverrouillage illicite des portes palières, risque d'actes de vandalisme.
+6
+5
+3
+0
+6
+Dysfonctionnement du dispositif empêchant le déverrouillage illicite des portes palières, risque d'actes de vandalisme.
+7
+5
+3
+0
+7
+Le dispositif empêchant le déverrouillage illicite des portes palières est incomplet  (absence du dispositif sonore d'une puissance de 65 dB minimum) - Risque d'actes de vandalisme.
+1
+5
+4
+0
+1
+Non fonctionnement du dispositif auditif et/ou lumineux en gaine, risque d’intrusion.
+2
+5
+4
+0
+2
+Absence de signalisation indiquant un déverrouillage illicite de portes palières, risque de chute pour les usagers.
+3
+5
+4
+0
+3
+Détérioration de la signalisation indiquant un déverrouillage illicite de portes palières, risque de chute les usagerss.
+4
+5
+4
+0
+4
+Dysfonctionnement de la signalisation indiquant un déverrouillage illicite de portes palières, risque de chute les usagers.
+1
+5
+5
+0
+1
+La surface vitrée de la porte palière du niveau X est dégradée, risque de coupure et d'insuffisance de protection pour les usagers.
+2
+5
+5
+0
+2
+Absence de certificat de conformité des surfaces vitrées des portes palières, risque d’information erronée.
+3
+5
+5
+0
+3
+L’élément constitutif (vitrage) des portes palières excède 150 millimètres et ne répond pas aux critères de conformité, risque de coupure et d'insuffisance de protection pour les usagers.
+4
+5
+5
+0
+4
+Absence d’élément de parclose sur la porte palière du niveau X, risque de coupure et d'insuffisance de protection pour les usagers.
+1
+5
+6
+0
+1
+Absence ou mauvaise fixation des patins de guidage inférieurs de la porte palière du X étage, risque de dysfonctionnement et risque pour les usagers.
+2
+5
+6
+0
+2
+Absence ou mauvais réglage des contre-galets de la porte palière du X étage, risque de dysfonctionnement et risque pour les usagers.
+3
+5
+6
+0
+3
+L'état de conservation des patins de guidage des vantaux de la porte palière du X n'est pas bon - Risque de détérioration du matériel.
+1
+6
+1
+0
+1
+Absence d’un câble de traction, risque d’usure prématurée des autres câbles.
+2
+6
+1
+0
+2
+Les câbles de traction ont un diamètre autre que ceux indiqué dans le dossier technique, risque de matériel inadapté.
+1
+6
+2
+0
+1
+Présence de corrosion sur les câbles de traction, risque d’usure prématurée.
+2
+6
+2
+0
+2
+Usure avancée des câbles de traction, risque de détérioration de matériel.
+3
+6
+2
+0
+3
+Les câbles de tractions ne sont pas égalisés - Risque de détérioration du matériel .
+1
+6
+3
+0
+1
+Il manque des goupilles sur les points d'attaches côté cabine / contrepoids - Risque de détérioration du matériel et/ou risque de choc pour les usagers
+2
+6
+3
+0
+2
+Mode de fixation inadapté aux ancrages des câbles de traction - Risque de détérioration de matériel.
+3
+6
+3
+0
+3
+La tension des câbles de traction au niveau des points d'attache n'est pas bonne - Risque de détérioration du matériel.
+4
+6
+3
+0
+4
+Couple de serrage inadapté aux ancrages des câbles de traction - Risque de détérioration de matériel.
+5
+6
+3
+0
+5
+Usure avancée des dispositifs d'ancrage des câbles de traction - Risque de détérioration de matériel.
+1
+6
+4
+0
+1
+Absence de protection des organes mobiles de transmission en gaine, risque de happement et de cisaillement pour les intervenants.
+2
+6
+4
+0
+2
+Insuffisance de protection des organes mobiles de transmission en gaine, risque de happement et de cisaillement pour les intervenants.
+3
+6
+4
+0
+3
+Absence de protection de points rentrants autour des poulies de traction / déflexion / renvoi, risque de happement des intervenants.
+4
+6
+4
+0
+4
+Absence de dispositif anti-dégorgement des câbles sur les poulies de renvoi, risque de détérioration du matériel.
+5
+6
+4
+0
+5
+Bruit de fonctionnement anormal sur la poulie de renvoi du contrepoids, risque de détérioration du matériel.
+6
+6
+4
+0
+6
+Position inadaptée des protections de points rentrants autour des poulies de traction / déflexion / renvoi, risque de happement des intervenants.
+7
+6
+4
+0
+7
+Usure avancée des paliers / arbres / roulements / contre paliers / gorges des poulies, risque de détérioration de matériel.
+1
+6
+5
+0
+1
+Présence de fuite sur le vérin, risque pour les usagers et intervenants.
+2
+6
+5
+0
+2
+Usure des joints racleurs du piston de vérin, risque de fuite hydraulique.
+3
+6
+5
+0
+3
+Présence de rayures sur la tige de vérin, risque de fuite hydraulique.
+1
+6
+6
+0
+1
+SANS OBSERVATION
+1
+7
+1
+0
+1
+Mauvaise fixation de la barre d’appui en cabine, risque de disparition de cette dernière.
+2
+7
+1
+0
+2
+Le revêtement de sol cabine est abîmé, risque de chute des usagers.
+3
+7
+1
+0
+3
+Le miroir cabine est endommagé, risque de blessures pour les usagers.
+4
+7
+1
+0
+4
+Une des parois de l’habillage cabine est décrochée, risque de chute de cette dernière et risque de blessures pour les usagers.
+5
+7
+1
+0
+5
+Présence d'ouvertures sur les parois, risque de cisaillement des utilisateurs.
+6
+7
+1
+0
+6
+Détérioration des parois / plancher / toit de cabine, risque de dégradation de l'installation.
+7
+7
+1
+0
+7
+Présence de corrosion avancée du plancher au niveau du seuil, risque de détérioration du matériel.
+8
+7
+1
+0
+8
+ Main courante démontée, risque de chute pour les usagers.
+9
+7
+1
+0
+9
+Absence de main courante, risque de chute pour les usagers.
+10
+7
+1
+0
+10
+L'état de conservation du seuil cabine n'est pas bon - Risque de détérioration du matériel.
+1
+7
+2
+0
+1
+Non fonctionnement du dispositif de verrouillage de la trappe ou de la porte de secours, risque pour les usagers.
+2
+7
+2
+0
+2
+Non fonctionnement du contact électrique de la trappe ou de la porte de secours, risque pour les usagers.
+3
+7
+2
+0
+3
+Absence d’un contact électrique sur la trappe ou la porte de secours, risque pour les usagers.
+4
+7
+2
+0
+4
+Détérioration du portillon d'extension de cabine, risque de dégradation de l'installation.
+5
+7
+2
+0
+5
+Détérioratin de la serrure du portillon d'extension de la cabine; risque de dégradation de l'installation.
+6
+7
+2
+0
+6
+Absence de contact de contrôle électrique sur la trappe de secours, risque de cisaillement des utilisateurs.
+7
+7
+2
+0
+7
+Dysfonctionnement du contact de contrôle électrique de la trappe de secours, risque de cisaillement des utilisateurs.
+8
+7
+2
+0
+8
+Trappe de secours condamnée, risque d'enfermement prolongé en cas de personne bloquée.
+9
+7
+2
+0
+9
+Trappe de secours inexploitable (présence d'un faux plafond), risque d'enfermement prolongé en cas de personne bloquée.
+1
+7
+3
+0
+1
+Présence d’un renfoncement dans la gaine et absence de paroi lisse ou de verrouillage de la porte cabine pendant la marche, risque de cisaillement et de chute pour les usagers.
+2
+7
+3
+0
+2
+Réglage inadapté des galets de suspension de vantaux de porte cabine - Risque de cisaillement des utilisateurs.
+3
+7
+3
+0
+3
+Espace non réglementaire entre les vantaux de porte et l'entrée de cabine - Risque de cisaillement des utilisateurs.
+4
+7
+3
+0
+4
+L'alignement de la navette de l'opérateur de la porte cabine avec les galets des serrures des portes palières n'est pas bon - Risque de désabrage et d'usagers bloqués.
+1
+7
+4
+0
+1
+SANS OBSERVATION
+1
+7
+5
+0
+1
+Non fonctionnement du détecteur de présence toute hauteur sur le passage libre cabine, risque pour les usagers.
+2
+7
+5
+0
+2
+Absence de dispositif de protection toute hauteur contre les chocs sur le passage libre cabine, risque de heurt pour les usagers.
+3
+7
+5
+0
+3
+Non fonctionnement du dispositif de protection contre les chocs de la porte cabine, risque pour les usagers.
+4
+7
+5
+0
+4
+Non fonctionnement du dispositif mono cellule sur le passage libre de la porte cabine, risque pour les usagers.
+5
+7
+5
+0
+5
+Le détecteur de présence toute hauteur à été installé sur la partie arrière du ou des vantaux de la porte cabine et empêche l’ouverture de la porte palière, risque d’impossibilité d’accès en cuvette et sous cabine pour l’intervenant.
+6
+7
+5
+0
+6
+Absence de cellule de réouverture de portes, risque de heurt des utilisateurs.
+7
+7
+5
+0
+7
+Dégradation de la cellule de réouverture de portes, risque de dysfonctionnement.
+8
+7
+5
+0
+8
+Dysfonctionnement de la cellule de réouverture, risque de heurt des utilisateurs et fonctionnement aléatoire de l'installation.
+1
+7
+6
+0
+1
+Absence de dispositif de verrouillage mécanique de l'opérateur de la porte cabine, risque de chute en gaine des utilisateurs.
+2
+7
+6
+0
+2
+Montage inadapté du dispositif de verrouillage mécanique de l'opérateur de la porte cabine, risque de chute en gaine des utilisateurs.
+3
+7
+6
+0
+3
+Dégradation du dispositif de verrouillage mécanique de l'opérateur de la porte cabine, risque de chute en gaine des utilisateurs.
+4
+7
+6
+0
+4
+Dysfonctionnement du dispositif de verrouillage mécanique de l'opérateur de porte, risque de chute en gaine des utilisateurs.
+1
+7
+7
+0
+1
+Absence d’un dispositif de contrôle de la fermeture de la porte cabine, risque de scisaillement pour les usagers.
+2
+7
+7
+0
+2
+Non fonctionnement dispositif de contrôle de la fermeture de la porte cabine, risque de scisaillement pour les usagers.
+3
+7
+7
+0
+3
+Dégradation du dispositif de contrôle de la fermeture de porte cabine, risque de dysfonctionnement de l'installation.
+4
+7
+7
+0
+4
+Dysfonctionnement du dispositif de contrôle de la fermeture de portes cabine - Risque de fonctionnement aléatoire de l'installation.
+1
+7
+8
+0
+1
+Non fonctionnement de l’éclairage normal de la cabine, risque pour les usagers.
+2
+7
+8
+0
+2
+L’éclairage de la cabine est temporisé et les portes palières sont de type battante, risque de chute pour les usagers.
+3
+7
+8
+0
+3
+L'éclairage cabine n'assure pas un éclairement d'au moins 50 lux au sol; risque de panique et/ou de confusion pour les usagers.
+4
+7
+8
+0
+4
+Détérioration des appareils d'éclairage en cabine, risque de dégradation de l'installation.
+5
+7
+8
+0
+5
+Dysfonctionnement des éléments d'éclairage cabine ne permettant pas d'assurer un éclairement d'au 50 lux au sol; risque de panique des usagers.
+1
+7
+9
+0
+1
+Absence d’ouïes de ventilation représentant 1 % de la surface utile au sol, risque d’asphyxie en cas d’enfermement prolongé.
+2
+7
+9
+0
+2
+Dégradation ou absence des grilles sur les aérations, risque de cisaillement des utilisateurs.
+3
+7
+9
+0
+3
+
+4
+7
+9
+0
+4
+Absence d’ouïes de ventilation derrière les plinthes hautes et basses représentant 1% de la surface utile du sol, risque d’asphyxie en cas d’enfermement prolongé.
+1
+7
+10
+0
+1
+Absence du numéro de marquage CE en cabine, risque d’information erronée.
+2
+7
+10
+0
+2
+Absence ou information erronée de la charge et/ou du nombre de personnes admissibles en cabine, risque de dysfonctionnement et de surcharge en cabine.
+3
+7
+10
+0
+3
+Absence du numéro de l’installation et/ou des coordonnées du prestataire en charge de la maintenance, risque de difficulté lors d’intervention de désincarcération.
+4
+7
+10
+0
+4
+Absence de notice d'instruction d'utilisation du dispositif de demande de secours, risque d'incarcération prolongée et panique des utilisateurs.
+5
+7
+10
+0
+5
+Dégradation des notices d'instruction en cabine; risque de panique des utilisateurs incarcérés.
+6
+7
+10
+0
+6
+Dysfonctionnement de l’indicateur de position en cabine, risque de confusion des utilisateurs.
+7
+7
+10
+0
+7
+Présence du numéro d'appareil de l'ancien prestataire, risque de confusion en cas de personne bloquée.
+8
+7
+10
+0
+8
+L'indication de la charge en cabine ne correspond pas à la l'indication de charge mentionnée sur la plaque des caractéristiques installée sur le toit de cabine - Risque de détérioration du matériel.
+1
+7
+11
+0
+1
+Absence de moyen d’éclairage de secours en cabine, risque de panique pour les usagers. 
+2
+7
+11
+0
+2
+Non fonctionnement du moyen d’éclairage de secours en cabine, risque de panique pour les usagers.
+3
+7
+11
+0
+3
+Dégradation de l'éclairage de secours, risque de dysfonctionnement du dispositif.
+1
+7
+12
+0
+1
+La hauteur du garde pieds sous cabine est inférieure au 750 mm exigé, risque pour les usagers. 
+2
+7
+12
+0
+2
+Non fonctionnement ou absence de contrôle électrique du garde pieds rétractable sous cabine, risque pour les usagers.
+3
+7
+12
+0
+3
+Insuffisance de rigidité du garde pieds sous cabine, risque pour les usagers.
+4
+7
+12
+0
+4
+Le garde pieds cabine est corrodé, risque d'affaiblissement de la résistance de ce dernier.
+5
+7
+12
+0
+5
+Les renforts de fixation du garde pieds cabine ont été fixés sur l’étrier de la cabine, risque de transfert de vibrations et/ou de dysfonctionnent du pèse charge.
+6
+7
+12
+0
+6
+Absence de tôle garde pied réglementaire sous le seuil cabine, risque de chute en gaine des utilisateurs lors des opérations de désincarcération.
+7
+7
+12
+0
+7
+Déformation de la tôle garde pied sous le seuil cabine, risque de chute en gaine des utilisateurs lors des opérations de désincarcération.
+1
+7
+13
+0
+1
+L'état de conservation des garnitures des coulisseaux cabine n'est pas bon - Risque de détérioration du matériel.
+2
+7
+13
+0
+2
+Absence de protection mécanique sur un équipement de l'éclairage cabine, risque d'electrisation pour les usagers.
+1
+8
+1
+0
+1
+Mauvaise fixation de la boîte à boutons cabine, risque pour les usagers.
+2
+8
+1
+0
+2
+Non fonctionnement du voyant d’enregistrement du bouton d’envoi du niveau X, risque de confusion pour les usagers.
+3
+8
+1
+0
+3
+Dégradation des organes de commande en cabine, risque de dysfonctionnement de l'installation.
+4
+8
+1
+0
+4
+Dysfonctionnement d'organes de commande en cabine, risque de détérioration de matériel.
+5
+8
+1
+0
+5
+L'état de conservation du panneau de commande n'est pas bon, risque de détérioration du matériel.
+6
+8
+1
+0
+6
+L'emplacement du panneau de commande ne permet pas son utilisation simple pour toute personne ayant un certain handicap, risque d'enfermement pour les usagers.
+1
+8
+2
+0
+1
+Non fonctionnement du système d’arrêt en cabine, risque pour les usagers.
+2
+8
+2
+0
+2
+Absence d’identification de la position « marche/arrêt » du dispositif  d’arrêt, risque pour les usagers. 
+3
+8
+2
+0
+3
+Dégradation du dispositif d'arrêt en cabine, risque de dysfonctionnement de l'installation.
+4
+8
+2
+0
+4
+Dysfonctionnement du dispositif d'arrêt en cabine, risque de détérioration de matériel.
+1
+8
+3
+0
+1
+Absence de bouton de réouverture des portes, risque de détérioration de matériel et choc des utilisateurs.
+2
+8
+3
+0
+2
+Dysfonctionnement du bouton de réouverture des portes, risque de détérioration de matériel et choc pour les usagers.
+1
+8
+4
+0
+1
+Non fonctionnement du dispositif de téléalarme en cabine, risque de panique pour les usagers.
+2
+8
+4
+0
+2
+Non fonctionnement du dispositif de téléalarme en cabine en cas de coupure de l’alimentation, risque de panique pour les usagers.
+3
+8
+4
+0
+3
+Absence de reconnaissance du poste appelant, risque d’information erronée pour les intervenants.
+4
+8
+4
+0
+4
+Absence de liaison bidirectionnelle du système de téléalarme, risque de panique des usagers.
+5
+8
+4
+0
+5
+Le bouton d’alarme en cabine n’est pas relié avec la téléalarme, risque de confusion et de panique des usagers.
+6
+8
+4
+0
+6
+Absence de dispositif de téléalarme en cabine, risque de panique des usagers.
+7
+8
+4
+0
+7
+Non fonctionnement de la sonnerie d’alarme en cabine, risque de panique des usagers.
+8
+8
+4
+0
+8
+Non fonctionnement de la sonnerie d’alarme en cabine en cas de coupure de l’alimentation, risque de panique des usagers.
+9
+8
+4
+0
+9
+Fonctionnement non réglementaire du dispositif de demande de secours, risque d'incarcération prolongée des utilisateurs.
+10
+8
+4
+0
+10
+Fonctionnement non réglementaire du dispositif de demande de secours (non fonctionnement de la LED jaune indiquant que la demande d'intervention a bien été prise en compte et non fonctionnement de la LED verte indiquant la mise en relation avec le centre d'intervention) - Risque de panique en cas de personne bloquée.
+11
+8
+4
+0
+11
+Détérioration du dispositif de demande de secours - Risque d'incarcération prolongée des utilisateurs.
+1
+8
+5
+0
+1
+Non fonctionnement du 2ème bouton de demande de secours - Risque de confusion et /ou d'enfermement prolongé en cas de personne bloquée.
+2
+8
+5
+0
+2
+Dysfonctionnement du bouton de sonnerie sur alimentation secourue - Risque d'enfermement prolongé en cas de personne bloquée en raison du dysfonctionnement concomittant du dispositif de demande de secours par téléalarme (cf.8.4).
+1
+9
+1
+0
+1
+Absence d’identification « Marche/Arrêt » du dispositif bouton « stop » sur les dessus cabine, risque d'erreur pour les intervenants.
+2
+9
+1
+0
+2
+Absence de protection contre les risques de manœuvres involontaires du bouton « stop », risque pour les intervenants.
+3
+9
+1
+0
+3
+Absence de dispositif d’arrêt situé à moins d’un mètre de la porte palière, risque pour les intervenants.
+4
+9
+1
+0
+4
+Absence de dispositif d'arrêt, risque d'écrasement des intervenants.
+5
+9
+1
+0
+5
+Présence d'un dispositif d'arrêt ne garantissant pas l'impossibilité d'action involontaire de remise en service, risque d'écrasement des intervenants.
+6
+9
+1
+0
+6
+Détérioration du dispositif d'arrêt, risque d'écrasement des intervenants.
+7
+9
+1
+0
+7
+Dysfonctionnement du dispositif d'arrêt, risque d'écrasement des intervenants.
+1
+9
+2
+0
+1
+Non fonctionnement de la manœuvre d’inspection sur le toit cabine, risque pour les intervenants.
+2
+9
+2
+0
+2
+Absence de la manœuvre d’inspection sur le toit cabine, risque pour les intervenants.
+3
+9
+2
+0
+3
+Absence de la manœuvre d’inspection sur le toit cabine en raison de l’insuffisance de volume de sécurité pour l’intervenant.
+4
+9
+2
+0
+4
+Mauvais emplacement de la manœuvre d’inspection sur le toit cabine, risque pour les intervenants.
+5
+9
+2
+0
+5
+Absence de protection contre les risques de manœuvres involontaires sur le commutateur « normal/inspection », risque pour les intervenants.
+6
+9
+2
+0
+6
+Absence de neutralisation du détecteur de présence toute hauteur pendant le fonctionnement en manœuvre d’inspection, risque pour les intervenants.
+7
+9
+2
+0
+7
+Non fonctionnement la manœuvre inspection en raison de la présence de la cellule toute hauteur incorrectement câblée, risque pour les intervenants.
+8
+9
+2
+0
+8
+Non fonctionnement la manœuvre inspection en raison de la présence de la cellule toute hauteur incorrectement câblée, risque pour les intervenants.
+9
+9
+2
+0
+9
+Dégradation du boîtier de commande d'inspection, risque d'écrasement des intervenants.
+10
+9
+2
+0
+10
+L'enclenchement de la manœuvre d'inspection ne neutralise pas le fonctionnement de la porte de cabine, risque de chute ou de choc pour les usagers.
+11
+9
+2
+0
+11
+Dysfonctionnement de la manœuvre d'inspection dans le sens montée, risque d'enfermement en gaine des intervenants.
+12
+9
+2
+0
+12
+Dysfonctionnement de la manœuvre d’inspection dans le sens descente, risque de difficultés dans les opérations de maintenance.
+1
+9
+3
+0
+1
+Absence de balustrade sur le dessus cabine, risque de chute pour les intervenants.
+2
+9
+3
+0
+2
+Absence de pancarte de signalisation de danger sur la balustrade du dessus cabine, risque de chute pour les intervenants.
+3
+9
+3
+0
+3
+Absence de lisse mi-hauteur sur balustrade du dessus cabine, risque de chute pour les intervenants.
+4
+9
+3
+0
+4
+Insuffisance de distance entre la balustrade sur le dessus cabine et le contre poids, risque de blessures pour les intervenants.
+5
+9
+3
+0
+5
+Non-conformité de la balustrade sur le toit cabine, risque de chute pour les intervenants.
+6
+9
+3
+0
+6
+Non fonctionnement du système de déploiement de la balustrade, risque de chute pour les intervenants.
+7
+9
+3
+0
+7
+Détérioration de la balustrade - Risque de chute en gaine des intervenants.
+8
+9
+3
+0
+8
+Dysfonctionnement des contacts électriques de contrôle de déploiement de la balustrade - Risque de détérioration de matériel.
+9
+9
+3
+0
+9
+Absence de plinthe au bas de la balustrade - Risque de blessure des intervenants.
+10
+9
+3
+0
+10
+Absence de contacts électriques de contrôle de déploiement de la balustrade - Risque de détérioration de matériel.
+11
+9
+3
+0
+11
+Hauteur de la balustrade non conforme – Risque de chute en gaine des intervenants.
+1
+9
+4
+0
+1
+Non fonctionnement de la demande de secours depuis le bouton du boîtier d’inspection sur le toit cabine, risque pour les intervenants.
+1
+9
+5
+0
+1
+Présence de corps gras sur le toit cabine, risque de chute des intervenants.
+2
+9
+5
+0
+2
+Absence de protection mécanique sur le câblage électrique, risque de dysfonctionnement et d’électrisation pour les intervenants.
+3
+9
+5
+0
+3
+Le câblage électrique sur le toit de cabine est désordonné, risque de dysfonctionnement.
+4
+9
+5
+0
+4
+Non fonctionnement de la prise de courant sur le toit cabine, risque de difficulté pour les intervenants.
+5
+9
+5
+0
+5
+Absence ou inaccessibilité de la prise de courant sur le toit cabine, risque de difficulté pour les intervenants.
+6
+9
+5
+0
+6
+Présence de matériel tel que : téléalarme, manœuvre de révision, commande de porte cabine, onduleur etc... sur le volume de sécurité du dessus cabine, risque pour l’intervenant.
+7
+9
+5
+0
+7
+Présence de matières ou matériaux inflammables, risque d'incendie.
+8
+9
+5
+0
+8
+Absence de l'échelle permettant l'évacuation par la trappe des usagers bloqués
+1
+10
+1
+0
+1
+Absence de verrouillage mécanique des gueuses sur le/les contrepoids, risque de chute des éléments.
+2
+10
+1
+0
+2
+Absence de garnitures sur le/les coulisseaux contrepoids, risque de dysfonctionnement et de nuisances sonores.
+1
+10
+2
+0
+1
+Absence ou inefficacité des ressorts de compensation aux amarrages des câbles de traction sur le contrepoids, risque de détérioration du matériel.
+2
+10
+2
+0
+2
+Mauvaise égalisation des câbles de traction aux amarrages du contrepoids, risque de détérioration du matériel.
+3
+10
+2
+0
+3
+Ancrage défaillant de la chaîne de compensation, risque de détérioration de matériel.
+4
+10
+2
+0
+4
+Détérioration des chaînes de compensation, risque de détérioration de matériel.
+1
+11
+1
+0
+1
+Non fonctionnement du système parachute, risque de chute de la cabine.
+2
+11
+1
+0
+2
+Non fonctionnement du contact électrique du système parachute, risque de dysfonctionnement et détérioration de matériel.
+3
+11
+1
+0
+3
+Absence de dispositif de parachute réglementaire - Risque de choc des utilisateurs et détérioration de matériel.
+4
+11
+1
+0
+4
+Usure ou grippement des éléments mécaniques du dispositif de parachute, risque de détérioration de matériel.
+5
+11
+1
+0
+5
+Le dispositif de parachute est n'est pas réglementaire - Risque de fonctionnement aléatoire du parachute entraînant un risque de détérioration du matériel et/ou risque de choc pour les utilisateurs.
+6
+11
+1
+0
+6
+Dysfonctionnement du déclenchement de la tringlerie de parachute, risque de détérioration de matériel et choc des utilisateurs.
+7
+11
+1
+0
+7
+Le réglage du mors fixe du parachute cabine n'est pas bon (bruit anormal au fonctionnement) - Risque de détérioration de matériel et/ou de personne bloquée 
+1
+11
+2
+0
+1
+Non fonctionnement du système parachute contrepoids, risque de chute de ce dernier.
+2
+11
+2
+0
+2
+Non fonctionnement du contact électrique du système parachute contrepoids, risque de dysfonctionnement.
+3
+11
+2
+0
+3
+Absence de dispositif de parachute contrepoids, risque de détérioration de matériel et pour les usagers.
+4
+11
+2
+0
+4
+Usure ou grippement des éléments mécaniques du dispositif de parachute, risque de détérioration de matériel.
+1
+11
+3
+0
+1
+Absence ou non visibilité de plaque de caractéristiques du limiteur de vitesse, risque de matériel inadapté.
+2
+11
+3
+0
+2
+Inaccessibilité du limiteur de vitesse et absence de dispositif d’essai à distance depuis l’extérieur de la gaine, risque de matériel inadapté.
+3
+11
+3
+0
+3
+Absence de contrôle électrique de l’allongement excessif du câble du limiteur de vitesse, risque de non fonctionnement du système parachute.
+4
+11
+3
+0
+4
+Non fonctionnement de contrôle électrique de l’allongement excessif du câble du limiteur de vitesse, risque de non fonctionnement du système parachute.
+5
+11
+3
+0
+5
+La vitesse de prise du limiteur de vitesse n’est pas adaptée à l’installation, risque de non fonctionnement.
+6
+11
+3
+0
+6
+Non fonctionnement du limiteur de vitesse, risque de chute de la cabine.
+7
+11
+3
+0
+7
+Le limiteur de vitesse n’est pas équipé de contact de survitesse alors que l’ascenseur est piloté par variation de fréquence, risque de prise parachute.
+8
+11
+3
+0
+8
+Absence ou détérioration du plombage du limiteur de vitesse, risque de fonctionnement aléatoire du dispositif parachute.
+9
+11
+3
+0
+9
+L’état de conservation du dispositif de contrôle d’allongement de la câblette du limiteur de vitesse n’est pas bon, risque de fonctionnement aléatoire du parachute cabine.
+10
+11
+3
+0
+10
+Dysfonctionnement du contrôle électrique de survitesse, risque de détérioration de matériel.
+11
+11
+3
+0
+11
+Vitesse de déclenchement du limiteur supérieure à son étalonage, risque de choc des utilisateurs.
+12
+11
+3
+0
+12
+Vitesse de déclenchement du limiteur non réglementaire à la vitesse nominale de l'installation, risque de détérioration de matériel.
+13
+11
+3
+0
+13
+Absence de limiteur de vitesse commandant le dispositif de parachute cabine, risque de choc des utilisateurs.
+14
+11
+3
+0
+14
+La position des serre-câbles sur la câblette du limiteur de vitesse cabine n'est pas bonne, risque de choc pour les usagers et/ou risque de détérioration du matériel.
+15
+11
+3
+0
+15
+Présence de bruit anormal au fonctionnement au niveau de la poulie du limiteur de vitesse cabine, risque de détérioration du matériel.
+16
+11
+3
+0
+16
+Usure de la poulie du limiteur de vitesse - Risque de prise parachute aléatoire.
+1
+11
+4
+0
+1
+Absence du dispositif s’opposant à la vitesse excessive de la cabine en montée, risque de survitesse.
+2
+11
+4
+0
+2
+Non fonctionnement du dispositif s’opposant à la vitesse excessive de la cabine en montée, risque de détérioration de matériel et/ou de choc pour les usagers.
+3
+11
+4
+0
+3
+Le dispositif s’opposant à la vitesse excessive de la cabine en montée n’est pas adapté à l’installation, risque de survitesse et de détérioration du matériel.
+4
+11
+4
+0
+4
+Usure du dispositif s'opposant à la dérive de la cabine en montée - Risque de choc des utilisateurs et détérioration de matériel.
+5
+11
+4
+0
+5
+Inefficacité du contact de survitesse montée - Risque de choc des utilisateurs et détérioration de matériel.
+6
+11
+4
+0
+6
+Défaut de réenclenchement du dispositif contre la dérive montée de la cabine - Risque de détérioration de matériel.
+7
+11
+4
+0
+7
+Dysfonctionnement du contrôle électrique de sécurité du dispositif s’opposant à la dérive excessive de la cabine en montée – Risque de détérioration de matériel et choc des utilisateurs.
+1
+11
+5
+0
+1
+Absence de dispositif de verrouillage de la cabine pour les opérations de maintenance, risque pour les intervenants.
+2
+11
+5
+0
+2
+Non fonctionnement du dispositif de verrouillage de la cabine pour les opérations de maintenance, risque pour les intervenants.
+3
+11
+5
+0
+3
+Non fonctionnement du contact électrique du dispositif de verrouillage de la cabine pour les opérations de maintenance, risque pour les intervenants.
+4
+11
+5
+0
+4
+Détérioration du dispositif de verrouillage de la cabine nécessaire aux opérations de maintenance, risque d'écrasement des intervenants.
+1
+11
+6
+0
+1
+Absence de butée ou élingue sur l’installation, risque pour les intervenants.
+2
+11
+6
+0
+2
+Absence de dispositif d’asservissement en manœuvre d’inspection, risque pour les intervenants.
+3
+11
+6
+0
+3
+Non fonctionnement du dispositif d’asservissement en manœuvre d’inspection, risque pour les intervenants.
+4
+11
+6
+0
+4
+Absence de notice explicative sur la mise en place des dispositifs d’asservissement, risque pour les intervenants.
+5
+11
+6
+0
+5
+Absence de butée sous cabine nécessaire aux opérations de maintenance - Risque d'écrasement des intervenants.
+6
+11
+6
+0
+6
+Détérioration de butée sous cabine nécessaire aux opérations de maintenance - Risque d'écrasement des intervenants.
+7
+11
+6
+0
+7
+Dysfonctionnement mécanique du dispositif de butée sous cabine nécessaire aux opérations de maintenance - Risque d'écrasement des intervenants.
+8
+11
+6
+0
+8
+Dysfonctionnement du contrôle électrique de déploiement du dispositif de butée sous cabine nécessaire aux opérations de maintenance - Risque de détérioration de matériel.
+1
+11
+7
+0
+1
+Non fonctionnement du dispositif de contrôle de rupture ou de mou de suspente, risque pour les usagers.
+2
+11
+7
+0
+2
+Absence ou non fonctionnement du contact électrique sur le dispositif de contrôle de rupture ou de mou de suspente, risque pour les usagers.
+3
+11
+7
+0
+3
+Absence du dispositif de contrôle de rupture ou de mou de suspente, risque pour les usagers.
+4
+11
+7
+0
+4
+Détérioration ou usure du dispositif de contrôle de mou de câbles - Risque de détérioration de matériel.
+5
+11
+7
+0
+5
+Dysfonctionnement du dispositif de contrôle d'allongement de cablette du limiteur - Risque de détérioration de matériel.
+1
+11
+8
+0
+1
+Mauvaise position des organes de sélection sur le dessus de la cabine, risque de destruction de ces derniers lors de fin de course. 
+2
+11
+8
+0
+2
+Usure ou oxydation du ruban de sélection - Risque de détérioration de matériel.
+3
+11
+8
+0
+3
+Inefficacité du contact électrique de contrôle d'allongement et/ou de rupture de la bande liaison du sélecteur - Risque détérioration du matériel.
+1
+11
+9
+0
+1
+Non fonctionnement du contact hors course haut, risque pour les usagers. 
+2
+11
+9
+0
+2
+Absence du contact hors course haut, risque pour les usagers. 
+3
+11
+9
+0
+3
+Non fonctionnement du contact hors course bas, risque pour les usagers. 
+4
+11
+9
+0
+4
+Absence du contact hors course bas, risque pour les usagers. 
+1
+11
+10
+0
+1
+Absence du contact de sécurité de fin de course inspection, risque d'écrasement pour les intervenants.
+2
+11
+10
+0
+2
+Non fonctionnement du contact de sécurité de fin de course inspection, risque d'écrasement pour les intervenants.
+3
+11
+10
+0
+3
+La position du contact de sécurité du fin de course inspection n’est pas correcte, risque d'écrasementpour les intervenants.
+1
+11
+11
+0
+1
+Non fonctionnement du système parachute, risque de chute de la cabine.
+2
+11
+11
+0
+2
+Non fonctionnement du contact électrique du système parachute, risque de dysfonctionnement.
+3
+11
+11
+0
+3
+Absence ou non visibilité de plaque de caractéristiques du limiteur de vitesse, risque de matériel inadapté.
+4
+11
+11
+0
+4
+Inaccessibilité du limiteur de vitesse et absence de dispositif d’essai à distance depuis l’extérieur de la gaine, risque de matériel inadapté.
+5
+11
+11
+0
+5
+Absence de contrôle électrique de l’allongement excessif du câble du limiteur de vitesse, risque de non fonctionnement du système parachute.
+6
+11
+11
+0
+6
+Non fonctionnement de contrôle électrique de l’allongement excessif du câble du limiteur de vitesse, risque de non fonctionnement du système parachute.
+7
+11
+11
+0
+7
+La vitesse de prise du limiteur de vitesse n’est pas adaptée à l’installation, risque de non fonctionnement.
+8
+11
+11
+0
+8
+Non fonctionnement du limiteur de vitesse, risque de chute de la cabine.
+9
+11
+11
+0
+9
+Absence ou détérioration du plombage de la vis de réglage de la soupape de rupture - Risque de choc des utilisateurs et détérioration de matériel.
+10
+11
+11
+0
+10
+Détérioration de la vis de réglage de débit hydraulique de vanne descente - Risque de difficultés dans les opérations d'essai du parachute.
+11
+11
+11
+0
+11
+Dysfonctionnement de la soupape de rupture hydraulique - Risque de choc des utilisateurs et détérioration de matériel.
+1
+11
+12
+0
+1
+Non fonctionnement du dispositif s’opposant à la dérive de la cabine, risque de chute de cette dernière.
+2
+11
+12
+0
+2
+Non fonctionnement du dispositif s’opposant à la dérive de la cabine porte ouverte, risque de chute pour les usagers.
+3
+11
+12
+0
+3
+Détérioration des tacquets antidérive, risque de dysfonctionneemnt de l'installation.
+4
+11
+12
+0
+4
+Détérioration des capteurs de nivelage, risque de chute des utilisateurs.
+5
+11
+12
+0
+5
+Dysfonctionnement du dispositif antidérive de la cabine, risque de détérioration de matériel.
+1
+12
+1
+0
+1
+Absence ou non fonctionnement du dispositif de verrouillage de l’échelle d’accès aux locaux en position de non emploi, risque de disparition de cette dernière et de difficulté d’intervention.
+2
+12
+1
+0
+2
+L'échelle d'accès aux locaux est non conforme ou inadaptée, risque de chute pour les intervenants.
+3
+12
+1
+0
+3
+Absence ou mauvais emplacement de la barre d’ancrage de l’échelle d’accès, risque de chute pour les intervenants.
+4
+12
+1
+0
+4
+Non fonctionnement du système de verrouillage de la trappe d’accès au local, risque d’intrusion de personne non autorisé.
+5
+12
+1
+0
+5
+Absence ou non-conformité du système de verrouillage de la trappe d’accès au local, risque de difficulté d’intervention ou d’intrusion de personne non autorisée.
+6
+12
+1
+0
+6
+Absence de poignées sur la trappe d’accès, risque de difficultés pour les intervenants.
+7
+12
+1
+0
+7
+Absence de pancarte réglementaire sur l’accès aux locaux, risque pour les intervenants. 
+8
+12
+1
+0
+8
+Les dimensions de la trappe d’accès aux locaux sont inappropriées, risque de difficulté et de chute pour les intervenants.
+9
+12
+1
+0
+9
+Non fonctionnement du contre-balancement de la trappe d'accès, risque pour les intervenants.
+10
+12
+1
+0
+10
+Absence de contre-balancement de la trappe d'accès, risque pour les intervenants
+11
+12
+1
+0
+11
+Absence de guidage et de protection sur le contrepoids de contre-balancement de la trappe d'accès, risque pour les intervenants en cas de rupture de l'organe de liaison.
+12
+12
+1
+0
+12
+Non fonctionnement du système de maintien de la trappe en position ouverte, risque pour les intervenants.
+13
+12
+1
+0
+13
+Absence de système de maintien de la trappe en position ouverte, risque pour les intervenants.
+14
+12
+1
+0
+14
+Mauvais positionnement ou absence du point d’allumage des locaux, risque de difficulté pour les intervenants.
+15
+12
+1
+0
+15
+Absence de crosse de rétablissement au débouché de l’accès aux locaux, risque de chute pour les intervenants.
+16
+12
+1
+0
+16
+Mauvais positionnement de la crosse de rétablissement en machinerie, risque de chute pour les intervenants.
+17
+12
+1
+0
+17
+Absence de paumelles  indégondables de la trappe d'accès aux locaux, risque de chute du vantail.
+18
+12
+1
+0
+18
+Absence de garde-corps autour de la trappe d'accès aux locaux, risque de chute pour les intervenants.
+19
+12
+1
+0
+19
+Absence de dispositif de verrouillage conforme sur le moyen d’accès aux locaux, risque d'enfermement pour les intervenants.
+20
+12
+1
+0
+20
+Non fonctionnement du système de verrouillage de la porte d’accès au local machinerie, risque de difficulté d’intervention.
+21
+12
+1
+0
+21
+Absence ou non-conformité du système de verrouillage de la porte d’accès au local machinerie, risque de difficulté d’intervention.
+22
+12
+1
+0
+22
+Absence de poignées sur la porte d’accès, risque de difficultés pour les intervenants. 
+23
+12
+1
+0
+23
+Absence de poignée de manutention sur la trappe et/ou la porte sur le cheminement d’accès aux locaux, risque pour les intervenants.
+24
+12
+1
+0
+24
+Absence de garde-corps autour de la trappe d'accès aux locaux du fait de l’insuffisance d’espace ou de local exigu.
+25
+12
+1
+0
+25
+Absence d’un point d’allumage sur le parcours d’accès, risque de difficulté pour les intervenants.
+26
+12
+1
+0
+26
+Les dimensions de la porte d’accès aux locaux sont inappropriées, risque difficulté et de heurt pour les intervenants.
+1
+12
+2
+0
+1
+Présence de trous sur le massif béton entre la machinerie et la gaine, risque de chute d’outils et de blessure pour les intervenants.
+2
+12
+2
+0
+2
+Absence ou insuffisance de fourreaux au passage des câbles de traction sur le massif, risque de chute d’outils et de blessure pour les intervenants.
+3
+12
+2
+0
+3
+Absence ou insuffisance de fourreaux au passage des câbles du limiteur de vitesse sur le massif, risque de chute d’outils et de blessure pour les intervenants.
+4
+12
+2
+0
+4
+Les espaces de circulation sur le parcours d’accès aux locaux sont réduits, risque de difficulté pour les intervenants.
+5
+12
+2
+0
+5
+Présence de corps gras sur le sol des locaux, risque de chute des intervenants.
+6
+12
+2
+0
+6
+Présence de ressaut ou obstacle au sol de la machinerie, risque de chute pour les intervenants.
+7
+12
+2
+0
+7
+Présence de canalisation électrique non protégé mécaniquement sur le sol des locaux, risque d’électrisation ou de chute des intervenants.
+8
+12
+2
+0
+8
+Résistance mécanique du sol incertaine (bois parquet), risque de chute pour les intervenants.
+9
+12
+2
+0
+9
+Surface de sol inégale dans le local Machinerie / Poulies, risque de chute des intervenants.
+1
+12
+3
+0
+1
+Absence d’échelon antidérapant sur l'accès au massif, risque de chute pour les intervenants.
+2
+12
+3
+0
+2
+Mauvaise fixation et/ou insuffisance d’espace entre l'échelon d'accès et le mur du massif, risque de chute des intervenants.
+3
+12
+3
+0
+3
+Non-conformité du garde-corps sur le massif machinerie, risque de chute des intervenants.
+4
+12
+3
+0
+4
+Absence de garde-corps sur le massif machinerie, risque de chute des intervenants.
+5
+12
+3
+0
+5
+Absence de crosse de rétablissement sur le massif machinerie, risque de chute des intervenants.
+6
+12
+3
+0
+6
+Absence de locaux exclusivement réservé à l’ascenseur, risque d’intrusion par des personnes non autorisées.
+7
+12
+3
+0
+7
+Espace insuffisant autour des organes de travail, risque pour des intervenants.
+1
+12
+4
+0
+1
+Absence de dispositif de consignation à proximité du disjoncteur principal, risque pour les intervenants en cas de réarmement.
+2
+12
+4
+0
+2
+Tableau d'arrivée de courant ne disposant pas de disjoncteur principal distinct par ascenseur - Risque de choc électrique et cisaillement des intervenants.
+3
+12
+4
+0
+3
+Calibrage du disjoncteur principal inadapté à la consommation électrique de l'installation - Risque de détérioration de matériel.
+4
+12
+4
+0
+4
+Dysfonctionnement du disjoncteur principal - Risque de détérioration de matériel.
+1
+12
+5
+0
+1
+Non fonctionnement de l'éclairage de secours des locaux, risque de difficulté d’intervention.
+2
+12
+5
+0
+2
+Absence d’éclairage de secours dans les locaux, risque de difficulté d’intervention en cas de coupure secteur.
+3
+12
+5
+0
+3
+Non fonctionnement de l'éclairage des locaux, risque de difficulté d’intervention.
+4
+12
+5
+0
+4
+Le dispositif d’éclairage n’assure pas un éclairement suffisant (200 lux à 1m du sol) sur les zones de travail et de circulation dans le local machinerie, risque de chute et de difficulté d'intervention.
+5
+12
+5
+0
+5
+Absence d’un point d’allumage de la lumière de la gaine en machinerie, risque de difficultés pour les intervenants.
+6
+12
+5
+0
+6
+Absence d’identification du point d’allumage de lumière gaine et machinerie, risque de difficultés pour les intervenants
+7
+12
+5
+0
+7
+Le dispositif d’éclairage n’assure pas un éclairement suffisant (100 lux à 1m du sol) des zones de travail et de circulation dans le local poulies, risque de chute et de difficulté d'intervention.
+8
+12
+5
+0
+8
+Absence de dispositif d’éclairage sur le parcours d’accès aux locaux, risque de chute pour les intervenants.
+9
+12
+5
+0
+9
+Absence de point de commande au débouché de l'accès au local Machinerie / Poulies - Risques de chute et cisaillement des intervenants.
+1
+12
+6
+0
+1
+Absence de dispositif d’arrêt dans le local poulie, risque pour les intervenants.
+2
+12
+6
+0
+2
+Inaccessibilité du dispositif d’arrêt dans le local poulie, risque pour les intervenants.
+3
+12
+6
+0
+3
+La position « Marche/Arrêt » du bouton « stop » dans le local poulie n’est pas correctement identifiée, risque d'erreur pour les intervenants.
+1
+12
+7
+0
+1
+Absence de coffre à clés à l’extérieur de la résidence contenant les clés, badges ou codes d’accès permettant l’accès dans l’immeuble, risque de difficulté d’intervention.
+2
+12
+7
+0
+2
+Absence de clés, badges ou codes d’accès dans le coffre à clés à l’extérieur de la résidence, risque de difficulté d’intervention.
+3
+12
+7
+0
+3
+Absence de boîte pompier, risque de difficulté d’intervention.
+4
+12
+7
+0
+4
+Absence de clé dans la boîte pompier, risque de difficulté d’intervention.
+5
+12
+7
+0
+5
+La boîte pompier est endommagée, risque de disparition des clés d’accès aux locaux.
+6
+12
+7
+0
+6
+Absence de moyen de manutention dans les locaux, risque de difficulté d’intervention.
+7
+12
+7
+0
+7
+Absence d’estampillage sur les moyens de manutention, risque d’utilisation inadaptée par les intervenants.
+8
+12
+7
+0
+8
+La manœuvre de l’ascenseur est obsolète et vétuste, risque de dysfonctionnement de l’installation. 
+9
+12
+7
+0
+9
+Le motoréducteur de l’ascenseur est obsolète et vétuste, risque de dysfonctionnement de l’installation. 
+10
+12
+7
+0
+10
+L’étanchéité du réducteur n’est plus assurée, risque d’usure prématuré et de mauvais fonctionnement.
+11
+12
+7
+0
+11
+Présence de jeux important entre la vis sans fin et la couronne du réducteur, risque de mauvais fonctionnement et de dérive de l’ascenseur.
+12
+12
+7
+0
+12
+Présence de matériel stocké dans les locaux, risque pour les intervenants.
+13
+12
+7
+0
+13
+Présence de canalisations ou installations étrangères dans les locaux de l’ascenseur, risque de dégradation du matériel.
+14
+12
+7
+0
+14
+Absence de plan du cheminement d’accès aux locaux, risque de difficulté d’intervention.
+15
+12
+7
+0
+15
+Absence de dispositif permettant l’accès au système de désincarcération, risque de difficulté d’intervention.
+16
+12
+7
+0
+16
+Le tableau d’arrivée de courant se trouve à l’extérieur de la machinerie, risque de coupure des protections par du personnel non autorisé.
+17
+12
+7
+0
+17
+L’armoire de manœuvre se trouve à l’extérieur de la machinerie, risque d’intervention sur le matériel par du personnel non autorisé.
+18
+12
+7
+0
+18
+Présence d’infiltration d’eau dans la machinerie, risque de dysfonctionnement du matériel électrique.
+19
+12
+7
+0
+19
+Absence de protection sur les ouvertures de ventilation des locaux, risque d’intrusion d’animaux et d’infiltration d’eau.
+20
+12
+7
+0
+20
+La machinerie est sale, présence importante de poussière, risque de dégradation du matériel. 
+21
+12
+7
+0
+21
+Le refroidisseur d'huile et la ventilation mécanique du local sont hors service - Risque de détérioration du matériel.
+1
+13
+1
+0
+1
+Usure du groupe de traction - Risque de détérioration de matériel.
+2
+13
+1
+0
+2
+Glissement anormal au niveau du frein de la machine - Risque de choc pour les usagers et/ou risque de détérioration de matériel.
+3
+13
+1
+0
+3
+Usure des garnitures de frein du groupe de traction - Risque de détérioration de matériel.
+4
+13
+1
+0
+4
+Fuite d'huile du groupe de traction - Risque de détérioration de matériel.
+5
+13
+1
+0
+5
+Usure des gorges de la poulie de traction - Risque de détérioration de matériel.
+6
+13
+1
+0
+6
+Usure des paliers / contrepaliers de la poulie de traction - Risque de détérioration de matériel.
+7
+13
+1
+0
+7
+Fonctionnement bruyant du groupe de traction - Risque de détérioration de matériel.
+8
+13
+1
+0
+8
+ Présence de glissement des câbles de traction sur la poulie d’adhérence, risque de dysfonctionnement.
+9
+13
+1
+0
+9
+Suradhérence des gorges de la poutre de traction – Risque de détérioration de matériel.
+1
+13
+1
+1
+1
+Dysfonctionnement des dispositifs de protection thermique, antipatinage, inversion de phase - Risque de détérioration de matériel.
+1
+13
+1
+2
+1
+Dysfonctionnement du manomètre - Risque de détérioration du matériel.
+2
+13
+1
+2
+2
+Dysfonctionnement du dispositif contre la surpression hydraulique - Risque de détérioration de matériel.
+1
+13
+2
+0
+1
+Non fonctionnement de la pompe de dépannage manuel, risque de difficulté pour les intervenants lors des opérations de désincarcération.
+2
+13
+2
+0
+2
+Absence du dispositif de visualisation de la zone de porte à proximité de la manœuvre de dépannage manuel, risque de difficulté lors des opérations de désincarcération d’usagers.
+3
+13
+2
+0
+3
+Non fonctionnement du dispositif de visualisation de la zone de porte à proximité de la manœuvre de dépannage manuel, risque de difficulté lors des opérations de désincarcération d’usagers bloqués.
+4
+13
+2
+0
+4
+ Absence du dispositif du déblocage du frein, risque de difficulté lors des opérations de désincarcération d’usagers bloqués. 
+5
+13
+2
+0
+5
+Mauvaise indication du sens de déplacement de la cabine sur le groupe de traction, risque d'erreur lors du déplacement manuel de la cabine.
+6
+13
+2
+0
+6
+Absence d'identification du sens de déplacement sur le groupe de traction, risque d'erreur lors du déplacement manuel de la cabine.
+7
+13
+2
+0
+7
+Absence de couleur sur le levier du frein, risque de confusion lors d'une intervention dans le cadre d'une manipulation pour dégager des usagers incarcérés.
+8
+13
+2
+0
+8
+Absence de notice de dépannage manuel, risque de difficultés lors d'une intervention dans le cadre d'une manipulation pour dégager des usagers incarcérés.
+9
+13
+2
+0
+9
+Absence de repérage des différents organes du distributeur de la centrale hydraulique, risque de difficulté d’intervention.
+10
+13
+2
+0
+10
+Inaccessibilité du dispositif de manœuvre de secours manuelle, risque de difficulté d’intervention.
+11
+13
+2
+0
+11
+Absence de contrôle électrique du volant de dépannage, risque pour les intervenants.
+12
+13
+2
+0
+12
+Le voyant de repère de niveau pour faciliter les opérations de manœuvre de secours manuelle est hors-service - Risque d'enfermement prolongé en cas de personne bloquée.
+13
+13
+2
+0
+13
+Dysfonctionnement du dispositif de secours manuel - Risque d’enfermement prolongé en cas de personne bloquée.
+1
+13
+3
+0
+1
+Non fonctionnement de la manœuvre électrique de rappel sur l’installation, risque de difficulté en cas d'intervention.
+2
+13
+3
+0
+2
+Absence de manœuvre électrique de rappel sur l’installation, risque de difficulté en cas d'intervention.
+3
+13
+3
+0
+3
+Absence de notice à proximité la manœuvre électrique de rappel, risque de difficulté en cas d'intervention.
+4
+13
+3
+0
+4
+Mauvais câblage de la manœuvre électrique de rappel sur l’installation, risque de difficulté d'intervention.
+5
+13
+3
+0
+5
+Les instructions pour l'utilisation de la manœuvre électrique de rappel ne correspondent pas à la manœuvre électrique de rappel installée.
+6
+13
+3
+0
+6
+Dysfonctionnement du dispositif de manœuvre de rappel électrique - Risque de difficultés lors des opérations de désincarcération.
+7
+13
+3
+0
+7
+Absence d'éclairage d'au moins 50 lux sur les instructions d'utilisation de la manœuvre électrique de rappel - Risque d'enfermement prolongé en cas d'absence d'éclairage ambiant.
+1
+13
+4
+0
+1
+Absence de protection de point rentrant autour des poulies de traction / renvoi / mouflage - Risque de happement des intervenants.
+2
+13
+4
+0
+2
+Inefficacité des protections de points rentrants autour des poulies de traction / renvoi / mouflage - Risque de happement des intervenants.
+3
+13
+4
+0
+3
+Insuffisance des protections de points rentrants autour des poulies de traction / renvoi / mouflage - Risque de happement des intervenants.
+4
+13
+4
+0
+4
+Absence de marquage jaune sur les organes tournants dans les locaux, risque de happement pour les intervenants.
+1
+13
+5
+0
+1
+Absence de dispositif permettant une précision d'arrêt de la cabine inférieure à 20 mm - Risque de chute des utilisateurs.
+2
+13
+5
+0
+2
+Réglage inadapté du dispositif permettant une précision d'arrêt de la cabine inférieure à 20 mm - Risque de chute des utilisateurs.
+3
+13
+5
+0
+3
+Dysfonctionnement du dispositif permettant une précision d'arrêt de la cabine inférieure à 20 mm - Risque de chute des utilisateurs.
+1
+13
+6
+0
+1
+Absence d'indication de la charge maximale admissible sur les supports ou crochets de levage - Risque d'écrasement pour les intervenants.
+2
+13
+6
+0
+2
+Absence d'estampillage sur les crochets de manutention - Risque d'écrasement pour les intervenants.
+3
+13
+6
+0
+3
+Absence de boîtier de programmation et diagnostique manœuvre – Risque de difficultés dans les opérations de contrôle et dépannage.
+4
+13
+6
+0
+4
+La vitesse nominale réelle de la cabine (0,85m/s) ne correspond pas aux caractéristiques de l'installation (1m/s) – Utilisation sous-dimensionnée de l'installation.
+5
+13
+6
+0
+5
+La machine correspondant à l'armoire de manoeuvre n'est pas clairement identifiable - Risque de confusion.
+6
+13
+6
+0
+6
+Présence de jeux important entre la vis sans fin et la couronne du réducteur, risque de mauvais fonctionnement et de dérive de l’ascenseur.
+7
+13
+6
+0
+7
+L’étanchéité du réducteur n’est plus assurée, risque d’usure prématuré et de mauvais fonctionnement.
+8
+13
+6
+0
+8
+Le motoréducteur de l’ascenseur est obsolète et vétuste, risque de dysfonctionnement de l’installation. 
+1
+14
+1
+0
+1
+Absence de liaison équipotentielle sur le limiteur de vitesse, risque d'électrisation des intervenants.
+2
+14
+1
+0
+2
+Absence de liaison équipotentielle sur le coffret de manœuvre, risque d'électrisation des intervenants.
+3
+14
+1
+0
+3
+Absence de liaison équipotentielle sur les éléments métalliques de variation de fréquence, risque d'électrisation des intervenants.
+4
+14
+1
+0
+4
+Absence de liaison équipotentielle sur le sol métallique, risque d'électrisation des intervenants.
+5
+14
+1
+0
+5
+Absence de liaison équipotentielle sur les parois métalliques des locaux, risque d'électrisation des intervenants.
+6
+14
+1
+0
+6
+Absence de liaison équipotentielle sur les protections métalliques des canalisations électriques, risque d'électrisation des intervenants.
+7
+14
+1
+0
+7
+Absence de liaison équipotentielle sur les prises de courant dans les locaux, risque d'électrisation des intervenants.
+8
+14
+1
+0
+8
+La valeur de la résistance de la terre est anormalement élevée, risque d’électrisation pour les usagers et les intervenants.
+9
+14
+1
+0
+9
+Absence de liaison équipotentielle sur  X , risque d'électrisation pour les intervenants / utilisateurs.
+10
+14
+1
+0
+10
+Défaut sur le circuit de terre sur la prise de courant installée en cuvette - Risque électrique pour les intervenants.
+1
+14
+2
+0
+1
+Absence ou incohérence de l’identification des éléments électriques du tableau d’arrivée de courant, risque pour les intervenants.
+2
+14
+2
+0
+2
+Présence d’éléments électriques étrangers à l’ascenseur, risque de confusion pour les intervenants.
+3
+14
+2
+0
+3
+Vétusté importante du tableau électrique et de ses organes de protection, risque de dysfonctionnement.
+4
+14
+2
+0
+4
+Absence de protection différentielle sur les circuits électriques de lumière ou prise de courant - Risque de choc électrique des intervenants.
+5
+14
+2
+0
+5
+Détérioration des disjoncteurs du tableau d'arrivée de courant - Risque de choc électrique des intervenants.
+6
+14
+2
+0
+6
+Présence d'ouverture sur le capot du tableau d'arrivée de courant - Risque de choc électrique des intervenants.
+7
+14
+2
+0
+7
+Défaut sur le circuit de terre sur la prise de courant installée en cuvette - Risque électrique pour les intervenants.
+8
+14
+2
+0
+8
+Absence de capotage sur les éléments électriques en machinerie / gaine / toit de cabine / cuvette - Risque de choc électrique des intervenants.
+9
+14
+2
+0
+9
+Dysfonctionnement du disjoncteur différentiel du circuit lumière / prise de courant du tableau d'arrivée de courant - Risque de choc électrique des intervenants.
+1
+14
+3
+0
+1
+Absence d'enveloppe de protection de type IP2X autour des éléments électriques du tableau d'arrivée de courant, risque d'élrctrisation pour les intervenants.
+2
+14
+3
+0
+2
+Absence de protection IP2X sur la boite de jonction du moteur de traction, risque d'électrisation des intervenants.
+3
+14
+3
+0
+3
+Absence de protection IP2X sur la boite de jonction du frein, risque d'électrisation des intervenants. 
+4
+14
+3
+0
+4
+Absence de protection IP2X sur les boîtiers de jonction dans les locaux, risque d’électrisation pour les intervenants.
+5
+14
+3
+0
+5
+Absence de protection IP2X sur La ou les  boîtes de jonction sur le dessus de la cabine, risque d’électrisation pour les intervenants.
+6
+14
+3
+0
+6
+Absence de protection IP2X sur le bornier moteur de l’opérateur de la porte cabine, risque d’électrisation pour les intervenants.
+7
+14
+3
+0
+7
+Absence de protection IP2X sur le ou les contacts électriques de la porte cabine, risque d’électrisation pour les intervenants.
+8
+14
+3
+0
+8
+Absence de protection par disjoncteur différentiel  des circuits d’éclairage et de prise de courant, risque d’électrisation pour les intervenants et les usagers.
+9
+14
+3
+0
+9
+Non fonctionnement des protections par disjoncteur différentiel des circuits d’éclairage et de prise de courant, risque d’électrisation pour les intervenants et les usagers.
+10
+14
+3
+0
+10
+Absence de séparation des circuits d’éclairage et de puissance, risque pour les intervenants.
+11
+14
+3
+0
+11
+Absence de signalisation de la présence d’un onduleur à proximité du tableau d’arrivée de courant, risque d’électrisation pour les intervenants.
+12
+14
+3
+0
+12
+Absence de signalisation de présence de courant après coupure du disjoncteur principal sur les bornes électriques en armoire de manœuvre - Risque de choc électrique des intervenants.
+13
+14
+3
+0
+13
+Absence de protection sur les bornes électriques en armoire restant sous tension après coupure du disjoncteur principal - Risque de choc électrique des intervenants.
+14
+14
+3
+0
+14
+Détérioration des écrans de protection autour des éléments électriques de l'armoire de manœuvre - Risque de choc électrique des intervenants.
+15
+14
+3
+0
+15
+Détérioration des capots de protection des éléments électriques en machinerie / gaine / cuvette / toit de cabine – Risque de choc électrique des intervenants.
+1
+14
+4
+0
+1
+Absence de protection mécanique sur les canalisations électriques installées sur le toit de cabine – Risque de détérioration du matériel.
+2
+14
+4
+0
+2
+Présence de câbles électriques non raccordés sur le toit de cabine - Risque électrique pour les intervenants et/ou risque de détérioration du matériel.
+3
+14
+4
+0
+3
+Présence d'équipements non fixés dans l'armoire de manœuvre - Risque de détérioration du matériel.
+4
+14
+4
+0
+4
+La manœuvre de l’ascenseur est obsolète et vétuste, risque de dysfonctionnement de l’installation. 
+5
+14
+4
+0
+5
+Identifier correctement les différentes armoires de manœuvre - Risque de confusion et/ou risque de personne bloquée.

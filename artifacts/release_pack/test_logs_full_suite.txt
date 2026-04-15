@@ -1,0 +1,150 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-8.4.2, pluggy-1.6.0 -- /home/gloirekyabutwa/.cache/pypoetry/virtualenvs/saas-ascenseurs-JK2PYiXG-py3.12/bin/python
+cachedir: .pytest_cache
+rootdir: /home/gloirekyabutwa/Téléchargements/CTQ
+configfile: pyproject.toml
+plugins: anyio-4.12.1
+collecting ... collected 10 items
+
+app/tests/test_missions.py::test_read_missions PASSED                    [ 10%]
+app/tests/test_missions.py::test_create_mission FAILED                   [ 20%]
+app/tests/test_missions.py::test_read_checklist_templates PASSED         [ 30%]
+app/tests/test_pdf.py::test_pdf_pipeline PASSED                          [ 40%]
+app/tests/test_pdf.py::test_mission_convenience_endpoint PASSED          [ 50%]
+app/tests/test_rbac.py::test_rbac_missions PASSED                        [ 60%]
+app/tests/test_rls.py::test_rls_isolation PASSED                         [ 70%]
+app/tests/test_rls_hardening.py::test_rls_policy_correctness PASSED      [ 80%]
+app/tests/test_rls_hardening.py::test_connection_cleanup PASSED          [ 90%]
+app/tests/test_rls_hardening.py::test_rbac_transitions PASSED            [100%]
+
+=================================== FAILURES ===================================
+_____________________________ test_create_mission ______________________________
+app/tests/test_missions.py:18: in test_create_mission
+    "service_type_id": str(st.id),
+                           ^^^^^
+E   AttributeError: 'NoneType' object has no attribute 'id'
+=============================== warnings summary ===============================
+app/db/base.py:11
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/db/base.py:11: MovedIn20Warning: The ``as_declarative()`` function is now available as sqlalchemy.orm.as_declarative() (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+    @as_declarative()
+
+app/core/config.py:25
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/core/config.py:25: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    @validator("SQLALCHEMY_DATABASE_URI", pre=True)
+
+app/core/config.py:37
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/core/config.py:37: PydanticDeprecatedSince20: Pydantic V1 style `@validator` validators are deprecated. You should migrate to Pydantic V2 style `@field_validator` validators, see the migration guide for more details. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    @validator("SQLALCHEMY_ADMIN_DATABASE_URI", pre=True)
+
+app/core/config.py:7
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/core/config.py:7: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class Settings(BaseSettings):
+
+../../.cache/pypoetry/virtualenvs/saas-ascenseurs-JK2PYiXG-py3.12/lib/python3.12/site-packages/passlib/utils/__init__.py:854
+  /home/gloirekyabutwa/.cache/pypoetry/virtualenvs/saas-ascenseurs-JK2PYiXG-py3.12/lib/python3.12/site-packages/passlib/utils/__init__.py:854: DeprecationWarning: 'crypt' is deprecated and slated for removal in Python 3.13
+    from crypt import crypt as _crypt
+
+app/schemas/users_tenants.py:17
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/users_tenants.py:17: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class TenantResponse(TenantBase):
+
+app/schemas/users_tenants.py:40
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/users_tenants.py:40: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class UserResponse(UserBase):
+
+app/schemas/assets.py:20
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/assets.py:20: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class SiteResponse(SiteBase):
+
+app/schemas/assets.py:42
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/assets.py:42: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class AssetResponse(AssetBase):
+
+app/schemas/services.py:14
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/services.py:14: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class ServiceTypeResponse(ServiceTypeBase):
+
+app/schemas/services.py:33
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/services.py:33: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class ChecklistItemResponse(ChecklistItemBase):
+
+app/schemas/services.py:52
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/services.py:52: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class ChecklistTemplateResponse(ChecklistTemplateBase):
+
+app/schemas/missions.py:28
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/missions.py:28: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class MissionResponse(MissionBase):
+
+app/schemas/checklist_runs.py:15
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/checklist_runs.py:15: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class ChecklistRunItemResponse(ChecklistRunItemBase):
+
+app/schemas/checklist_runs.py:36
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/checklist_runs.py:36: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class ChecklistRunResponse(ChecklistRunBase):
+
+app/schemas/findings_documents.py:15
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/findings_documents.py:15: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class EvidenceResponse(EvidenceBase):
+
+app/schemas/findings_documents.py:44
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/findings_documents.py:44: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class FindingResponse(FindingBase):
+
+app/schemas/findings_documents.py:60
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/findings_documents.py:60: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class CommentResponse(BaseModel):
+
+app/schemas/findings_documents.py:80
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/findings_documents.py:80: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class DocumentFileResponse(BaseModel):
+
+app/schemas/findings_documents.py:90
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/schemas/findings_documents.py:90: PydanticDeprecatedSince20: Support for class-based `config` is deprecated, use ConfigDict instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    class DocumentResponse(DocumentBase):
+
+app/tests/test_missions.py: 1 warning
+app/tests/test_pdf.py: 2 warnings
+app/tests/test_rbac.py: 3 warnings
+app/tests/test_rls.py: 2 warnings
+app/tests/test_rls_hardening.py: 3 warnings
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/core/security.py:16: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    expire = datetime.utcnow() + expires_delta
+
+app/tests/test_pdf.py: 18 warnings
+app/tests/test_rbac.py: 8 warnings
+app/tests/test_rls.py: 12 warnings
+app/tests/test_rls_hardening.py: 18 warnings
+  /home/gloirekyabutwa/.cache/pypoetry/virtualenvs/saas-ascenseurs-JK2PYiXG-py3.12/lib/python3.12/site-packages/sqlalchemy/sql/schema.py:3624: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    return util.wrap_callable(lambda ctx: fn(), fn)  # type: ignore
+
+app/tests/test_pdf.py::test_pdf_pipeline
+app/tests/test_pdf.py::test_mission_convenience_endpoint
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/services/pdf.py:145: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    request.updated_at = datetime.utcnow()
+
+app/tests/test_pdf.py::test_pdf_pipeline
+app/tests/test_pdf.py::test_mission_convenience_endpoint
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/services/pdf.py:100: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    generated_at=datetime.utcnow(),
+
+app/tests/test_pdf.py::test_pdf_pipeline
+app/tests/test_pdf.py::test_mission_convenience_endpoint
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/services/pdf.py:264: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+    request.updated_at = datetime.utcnow()
+
+app/tests/test_rbac.py::test_rbac_missions
+app/tests/test_rbac.py::test_rbac_missions
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/api/routers/missions.py:66: PydanticDeprecatedSince20: The `dict` method is deprecated; use `model_dump` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    db_mission = Mission(**mission.dict(), tenant_id=current_tenant.id)
+
+app/tests/test_rbac.py::test_rbac_missions
+app/tests/test_rbac.py::test_rbac_missions
+  /home/gloirekyabutwa/Téléchargements/CTQ/app/api/routers/missions.py:96: PydanticDeprecatedSince20: The `dict` method is deprecated; use `model_dump` instead. Deprecated in Pydantic V2.0 to be removed in V3.0. See Pydantic V2 Migration Guide at https://errors.pydantic.dev/2.12/migration/
+    update_data = mission_update.dict(exclude_unset=True)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+=========================== short test summary info ============================
+FAILED app/tests/test_missions.py::test_create_mission - AttributeError: 'Non...
+=================== 1 failed, 9 passed, 97 warnings in 3.81s ===================

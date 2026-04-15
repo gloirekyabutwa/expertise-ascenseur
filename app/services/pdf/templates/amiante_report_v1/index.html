@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>{{ document.title }}</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+    <!-- ===== RUNNING HEADER (pages 2+) ===== -->
+    <div id="running-header">
+        <div class="rh-left">
+            {% if tenant.branding_logo_url %}
+            <img src="{{ tenant.branding_logo_url }}" class="rh-logo" alt="Logo" />
+            {% else %}
+            <div class="rh-name">{{ tenant.name }}</div>
+            <div class="rh-tagline">Sécurité · Conseil · Expertises</div>
+            {% endif %}
+            <div class="rh-web">{{ tenant.website or "" }}</div>
+        </div>
+        <div class="rh-right">
+            <div class="rh-site">{{ site.name }}</div>
+            <div class="rh-address">{{ site.address }} — {{ site.postal_code or "" }} {{ site.city or "" }}</div>
+        </div>
+    </div>
+
+    <!-- ===== FOOTER (toutes pages) ===== -->
+    <div id="footer">
+        <div class="footer-company">{{ tenant.name }}</div>
+        <div class="footer-meta">
+            Siège social : {{ tenant.address or "—" }}
+            {% if tenant.agencies %} &nbsp;|&nbsp; Agences : {{ tenant.agencies }}{% endif %}
+            <br/>
+            S.A. au capital de {{ tenant.capital or "—" }} &mdash;
+            SIRET {{ tenant.siret or "—" }} &mdash;
+            APE {{ tenant.ape_code or "—" }} &mdash;
+            TVA {{ tenant.vat_id or "—" }}
+            {% if tenant.legal_mentions %}<br/>{{ tenant.legal_mentions }}{% endif %}
+        </div>
+    </div>
+
+    <!-- ==========================================================
+       PAGE DE GARDE
+       ========================================================== -->
+    <section class="cover">
+
+        <!-- En-tête -->
+        <header class="cover-header">
+            <div class="brand">
+                {% if tenant.branding_logo_url %}
+                <img class="brand-logo" src="{{ tenant.branding_logo_url }}" alt="Logo" />
+                {% else %}
+                <div class="brand-name">{{ tenant.name }}</div>
+                <div class="brand-tagline">Sécurité · Conseil · Expertises</div>
+                {% endif %}
+                <div class="brand-web">{{ tenant.website or "" }}</div>
+            </div>
+            <div class="agency">
+                <div class="agency-title">{{ tenant.name }} — {{ tenant.region or "Région" }}</div>
+                <div class="agency-line">{{ tenant.address }}</div>
+                <div class="agency-line">Tél : {{ tenant.phone or "—" }}</div>
+                <div class="agency-line">Fax : {{ tenant.fax or "—" }}</div>
+            </div>
+        </header>
+
+        <!-- Titre principal -->
+        <div class="cover-title-box">
+            <div class="cover-title-main">
+                Repérage Amiante Avant Travaux<br/>Ascenseur
+            </div>
+            <div class="cover-title-sub">
+                {% if template_type == "CE" %}
+                CONFORME (CE) — SELON ARTICLE R 125-2-4 DU CCH
+                {% elif template_type == "LEVEE" %}
+                ATTESTATION DE LEVÉE DE RÉSERVES
+                {% else %}
+                SELON ARTICLE R 125-2-4 DU CODE DE LA CONSTRUCTION ET DE L'HABITATION
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Badge type -->
+        {% if template_type == "CE" %}
+        <div class="cover-type-badge ce">✓ INSTALLATION CONFORME — CE</div>
+        {% elif template_type == "LEVEE" %}
+        <div class="cover-type-badge levee">↗ LEVÉE DE RÉSERVES</div>
+        {% else %}
+        <div class="cover-type-badge non-ce">⚠ RAPPORT COMPLET — NON CE</div>
+        {% endif %}
+
+        <!-- Cadre réglementaire -->
+        <div class="cover-legal">
+            Décret n° 2004-964 du 9 septembre 2004, modifié par les décrets n° 2008-291 du 28 mars 2008,<br/>
+            n° 2013-664 du 23 juillet 2013 et arrêté du 07 août 2012 modifié par l'arrêté du 20 août 2013
+        </div>
+
+        <!-- Client / Propriétaire -->
+        <div class="cover-section-title">Client / Propriétaire</div>
+        <div class="cover-centered-block">
+            <div class="cover-strong">
+                {% if client and client.name %}{{ client.name }}{% else %}SYNDIC / PROPRIÉTAIRE{% endif %}
+            </div>
+            <div class="cover-note">
+                {% if client and client.address %}{{ client.address }}{% endif %}
+                {% if client and client.contact_name %}<br/>À l'attention de : {{ client.contact_name }}{% endif %}
+            </div>
+        </div>
+
+        <!-- Tableau d'identification -->
+        <table class="cover-info-table">
+            <tr>
+                <td class="label">N° DU RAPPORT</td><td class="sep">:</td>
+                <td class="value"><strong>{{ document.title }}</strong></td>
+            </tr>
+            <tr>
+                <td class="label">N° DE COMMANDE CLIENT</td><td class="sep">:</td>
+                <td class="value">{{ mission.client_reference or "—" }}</td>
+            </tr>
+            <tr>
+                <td class="label">N° APPAREIL PRESTATAIRE</td><td class="sep">:</td>
+                <td class="value">{{ asset.installation_number or asset.serial_number or "—" }}</td>
+            </tr>
+            <tr>
+                <td class="label">PRESTATAIRE EN PLACE</td><td class="sep">:</td>
+                <td class="value">{{ asset.maintainer or "—" }}</td>
+            </tr>
+            <tr>
+                <td class="label">LOCALISATION APPAREIL</td><td class="sep">:</td>
+                <td class="value">{{ asset.label or "—" }}</td>
+            </tr>
+        </table>
+
+        <!-- Site -->
+        <div class="cover-section-title">Nom / Adresse du Site</div>
+        <div class="cover-centered-block">
+            <div class="cover-strong">{{ site.name }}</div>
+            <div class="cover-note">
+                {{ site.address }}<br/>
+                {{ site.postal_code or "" }} {{ site.city or "" }}
+            </div>
+        </div>
+
+        <!-- Dates -->
+        <table class="cover-info-table cover-info-table--dates">
+            <tr>
+                <td class="label">DATE DE LA VISITE</td><td class="sep">:</td>
+                <td class="value">
+                    {{ mission.scheduled_date.strftime('%d/%m/%Y') if mission.scheduled_date else "—" }}
+                    {% if mission.visit_start_datetime and mission.visit_end_datetime %}
+                    <span style="font-size:8pt;font-weight:normal">
+                        &nbsp;&mdash;&nbsp;De {{ mission.visit_start_datetime.strftime('%Hh%M') }}
+                        à {{ mission.visit_end_datetime.strftime('%Hh%M') }}
+                    </span>
+                    {% endif %}
+                </td>
+            </tr>
+            <tr>
+                <td class="label">DATE DU RAPPORT</td><td class="sep">:</td>
+                <td class="value">{{ document.generated_at_fr or "" }}</td>
+            </tr>
+        </table>
+
+        <!-- Intervenant / Auteur -->
+        <table class="cover-author-box">
+            <tr>
+                <td class="label">INTERVENANT ET AUTEUR DU RAPPORT</td><td class="sep">:</td>
+                <td><strong>{{ mission.assignee_name or "Non assigné" }}</strong></td>
+            </tr>
+            <tr>
+                <td class="label">N° DE CERTIFICATION</td><td class="sep">:</td>
+                <td>{{ mission.certification_number or "—" }}</td>
+            </tr>
+        </table>
+
+        <!-- Demande d'arrêt -->
+        {% if mission.stop_request_flag %}
+        <div class="stop-request-block">
+            <div class="stop-request-title">⚠ Demande de mise à l'arrêt de l'installation</div>
+            <table style="border:none;font-size:8pt;margin:0">
+                <tr>
+                    <td style="border:none;width:20%;font-weight:600">OUI :</td>
+                    <td style="border:none;width:5%">☑</td>
+                    <td style="border:none;width:20%;font-weight:600">NON :</td>
+                    <td style="border:none;width:5%">☐</td>
+                </tr>
+            </table>
+            {% if mission.stop_reason %}
+            <div style="margin-top:5px;font-size:8pt;">
+                <strong>Motif :</strong> {{ mission.stop_reason }}
+            </div>
+            {% endif %}
+        </div>
+        {% else %}
+        <table class="cover-info-table" style="margin-top:10px">
+            <tr>
+                <td class="label">DEMANDE D'ARRÊT DE L'INSTALLATION</td><td class="sep">:</td>
+                <td>OUI ☐ &nbsp;&nbsp; NON ☑</td>
+            </tr>
+        </table>
+        {% endif %}
+
+        <!-- Signature -->
+        <div class="signature-block">
+            {% if mission.signed_at %}
+            Fait à <strong>{{ mission.place_signed or "—" }}</strong>,
+            le <strong>{{ mission.signed_at.strftime('%d/%m/%Y') }}</strong><br/>
+            Signé par : <strong>{{ mission.signed_by_name or mission.assignee_name }}</strong>
+            {% if mission.signature_url %}
+            <div class="signature-image"><img src="{{ mission.signature_url }}" alt="Signature" /></div>
+            {% else %}
+            <div style="margin-top:16px;border-bottom:1px solid #ccc;width:160px;"></div>
+            {% endif %}
+            {% else %}
+            Fait à ______________________, le __________________<br/>
+            <div style="margin-top:20px;border-bottom:1px solid #ccc;width:160px;"></div>
+            <div style="font-size:7.5pt;margin-top:3px;color:#777">Signature et cachet</div>
+            {% endif %}
+        </div>
+
+        <!-- Membres organismes -->
+        <div class="cover-members">
+            <div>Membre de l'<strong>AFNOR</strong></div>
+            <div>Membre de la <strong>FIEBCA</strong></div>
+        </div>
+    </section>
+
+    <!-- Page break après couverture -->
+    <div class="page-break"></div>
+
+    <!-- ==========================================================
+       TEMPLATE TYPE: COMPLET (CLIENT / NON CE)
+       ========================================================== -->
+    {% if template_type != "CE" and template_type != "LEVEE" %}
+
+    <!-- 1. Législation -->
+    <div class="chapter-header">1) Législation inhérente au contrôle technique ascenseur</div>
+    <div class="text-block">
+        <p>
+            Le contrôle technique réglementaire est régi par la <strong>Loi n° 2003-590 du 02 Juillet 2003</strong>,
+            son décret d'application <strong>n° 2004-964 du 9 septembre 2004</strong> modifié par les décrets
+            n° 2008-291 du 28 mars 2008, n° 2013-664 du 23 juillet 2013 et l'arrêté du 07 août 2012.
+        </p>
+        <p>
+            L'article R.125-2-4 du décret n°2004-964 du 9 septembre 2004 impose au propriétaire d'un ascenseur
+            la réalisation, tous les 5 ans, du contrôle technique de son installation. Le contrôle technique a pour objet :
+        </p>
+        <p>
+            &bull; De vérifier que les appareils sont équipés des dispositifs prévus par le décret n° 2000-810
+            du 24 août 2000 et que ceux-ci sont en bon état.<br/>
+            &bull; De repérer tout défaut présentant un danger pour la sécurité des personnes ou portant atteinte
+            au bon fonctionnement de l'appareil.
+        </p>
+        <p>
+            Conformément à l'article R125-2-6 du CCH : la personne qui effectue le contrôle technique établit
+            un rapport indiquant les opérations réalisées et, le cas échéant, les défauts repérés. Dans le mois
+            suivant la fin de l'intervention, elle remet ce rapport au propriétaire.
+        </p>
+    </div>
+
+    <!-- 2. Documents -->
+    <div class="chapter-header">2) Documents mis à la disposition du contrôleur technique</div>
+    <p class="section-intro">Liste des documents présentés lors de la visite :</p>
+    <table class="doc-table">
+        <thead>
+            <tr>
+                <th style="width:55%">Documents</th>
+                <th class="center" style="width:8%">P</th>
+                <th class="center" style="width:8%">NP</th>
+                <th class="center" style="width:8%">NC</th>
+                <th>Observations</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set default_docs = [
+                "Dossier technique comportant l'ensemble des caractéristiques de l'installation",
+                "Notice d'instruction nécessaire à l'entretien",
+                "Dernière étude de sécurité (décret 2008-1325 du 15 décembre 2008)",
+                "Rapport de vérification après transformation ou modification",
+                "Carnet d'entretien (art. R 125-2-1 du CCH)",
+                "Rapport annuel d'activité de l'entreprise de maintenance",
+                "Précédent rapport de contrôle technique quinquennal",
+                "Plan électrique de l'installation",
+                "Plan mécanique de l'installation",
+                "Déclaration de conformité CE et dossier technique"
+            ] %}
+            {% for doc in documents_provided %}
+            <tr>
+                <td>{{ doc.document_name }}</td>
+                <td class="center">{% if doc.is_provided %}✓{% endif %}</td>
+                <td class="center">{% if not doc.is_provided and doc.is_applicable %}✗{% endif %}</td>
+                <td class="center">{% if not doc.is_applicable %}—{% endif %}</td>
+                <td>{{ doc.comment or "" }}</td>
+            </tr>
+            {% else %}
+            {% for doc_name in default_docs %}
+            <tr>
+                <td>{{ doc_name }}</td>
+                <td class="center"></td>
+                <td class="center"></td>
+                <td class="center"></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <p class="legend">P = Présent ou transmis &nbsp;|&nbsp; NP = Non présent ou non transmis &nbsp;|&nbsp; NC = Non Concerné</p>
+
+    <!-- 3. Malveillance -->
+    <div class="chapter-header">3) Information sur la prévention des actes de malveillance</div>
+    <div class="text-block" style="border:1px solid #ccd3de;padding:8px 12px;border-radius:3px;">
+        {% if mission.owner_malveillance_flag %}
+        ☑ Le propriétaire nous informe que l'installation nécessite de prévenir les actes de malveillance portant atteinte au verrouillage des portes palières.
+        {% else %}
+        ☐ Aucune information du propriétaire.<br/>
+        ☐ Le propriétaire nous informe que l'installation nécessite de prévenir les actes de malveillance.<br/>
+        ☑ Le propriétaire nous informe que l'installation ne nécessite pas de prévenir les actes de malveillance.
+        {% endif %}
+    </div>
+
+    <!-- 4. Précédents contrôles -->
+    <div class="chapter-header">4) Précédents contrôles techniques</div>
+    <table class="standard-table">
+        <thead>
+            <tr>
+                <th>N° Contrôle</th>
+                <th>Date</th>
+                <th>Type</th>
+                <th>Technicien</th>
+                <th>Résultat</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for pc in previous_controls %}
+            <tr>
+                <td class="center">{{ loop.index }}</td>
+                <td>{{ pc.control_date.strftime('%d/%m/%Y') }}</td>
+                <td>{{ pc.control_type }}</td>
+                <td>{{ pc.technician_name or "—" }}</td>
+                <td>{{ pc.result or "—" }}</td>
+            </tr>
+            {% else %}
+            {% for i in range(1, 4) %}
+            <tr>
+                <td class="center">{{ i }}ème AMIANTE</td>
+                <td style="color:#ccc">——/——/————</td>
+                <td></td><td></td><td></td>
+            </tr>
+            {% endfor %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- 5. Renseignements contrôleur -->
+    <div class="chapter-header">5) Renseignements sur le contrôleur technique</div>
+    <table class="specs-table" style="margin-bottom:8px">
+        <tr>
+            <td class="label">Nom Prénom</td>
+            <td class="value">{{ mission.assignee_name or "—" }}</td>
+            <td class="label">N° Certification</td>
+            <td class="value">{{ mission.certification_number or "—" }}</td>
+        </tr>
+        <tr>
+            <td class="label">Pour le compte de</td>
+            <td class="value">{{ tenant.name }}</td>
+            <td class="label">Tél</td>
+            <td class="value">{{ tenant.phone or "—" }}</td>
+        </tr>
+        <tr>
+            <td class="label">Adresse</td>
+            <td class="value" colspan="3">{{ tenant.address or "—" }}</td>
+        </tr>
+    </table>
+
+    <!-- 6. Personnes présentes -->
+    <div class="chapter-header">6) Personnes présentes lors du contrôle</div>
+    <table class="standard-table">
+        <thead>
+            <tr>
+                <th>Nom Prénom</th>
+                <th>Qualité / Société</th>
+                <th class="center" style="width:10%">Présence</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for att in attendees %}
+            <tr>
+                <td>{{ att.full_name }}</td>
+                <td>{{ att.role }}{% if att.company %} &mdash; ({{ att.company }}){% endif %}</td>
+                <td class="center">{% if att.is_present %}OUI{% else %}NON{% endif %}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" style="color:#aaa;font-style:italic">Aucun intervenant renseigné.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- 7. Rappel travaux obligatoires -->
+    <div class="chapter-header">7) Rappel des travaux de mise en sécurité obligatoires (Art. R 125-1.2 du CCH)</div>
+    <div class="text-block" style="font-size:8pt">
+        <p><strong>I — Avant le 31 décembre 2010 :</strong></p>
+        <p>1. Serrures munies de dispositifs de contrôle de fermeture et verrouillage des portes palières.<br/>
+        2. Dispositif de détection de la présence des personnes destiné à les protéger contre le choc des portes coulissantes.<br/>
+        3. Clôture de la gaine empêchant l'accès et aux éléments de déverrouillage des serrures.<br/>
+        4. Pour les ascenseurs électriques : parachute de cabine et limiteur de vitesse en descente.<br/>
+        5. Dispositif destiné à éviter toute chute en gaine lorsque la cabine est immobilisée hors zone de déverrouillage.</p>
+        <p><strong>II — Avant le 3 juillet 2014 :</strong></p>
+        <p>1. Système de contrôle de l'arrêt et du maintien à niveau de la cabine (ERP avant 1983).<br/>
+        2. Système de téléalarme entre la cabine et un service d'intervention + éclairage de secours.<br/>
+        3. Résistance mécanique suffisante des portes palières vitrées.<br/>
+        4. Pour ascenseurs hydrauliques : prévention chute libre, dérive et excès de vitesse.</p>
+        <p><strong>III — Avant le 3 juillet 2018 :</strong></p>
+        <p>1. Dispositif de demande de secours géolocalisable bidirectionnel permettant de traiter le risque d'enfermement en gaine.<br/>
+        2. Dispositif s'opposant à la vitesse excessive en montée.<br/>
+        3. Système de contrôle et maintien à niveau (précision ≤ 20 mm).</p>
+    </div>
+
+    {% endif %}
+    {# -- END of FULL REPORT SECTION -- #}
+
+    <!-- ==========================================================
+       TEMPLATE TYPE: CE ONLY (Rapport Préstataire)
+       ========================================================== -->
+    {% if template_type == "CE" %}
+
+    <div class="chapter-header">Observations incombant au prestataire</div>
+    <p class="section-intro">Points relevés à la charge du prestataire de maintenance en place :</p>
+    {% endif %}
+
+    <!-- ==========================================================
+       SECTION COMMUNE : CARACTÉRISTIQUES TECHNIQUES
+       ========================================================== -->
+    <div class="chapter-header">{% if template_type == "CE" %}1{% elif template_type == "LEVEE" %}1{% else %}8{% endif %}) Caractéristiques techniques de l'installation</div>
+    <table class="specs-table no-break">
+        <tr>
+            <td class="label">N° Installation</td>
+            <td class="value">{{ asset.installation_number or "—" }}</td>
+            <td class="label">Charge utile</td>
+            <td class="value">{{ asset.load_capacity or "—" }} kg</td>
+        </tr>
+        <tr>
+            <td class="label">Marque / Constructeur</td>
+            <td class="value">{{ asset.manufacturer or asset.label or "—" }}</td>
+            <td class="label">Vitesse nominale</td>
+            <td class="value">{{ asset.nominal_speed or "—" }}</td>
+        </tr>
+        <tr>
+            <td class="label">Type de dispositif</td>
+            <td class="value">{{ asset.device_type or "—" }}</td>
+            <td class="label">Nbre de niveaux</td>
+            <td class="value">{{ asset.number_of_levels or "—" }}</td>
+        </tr>
+        <tr>
+            <td class="label">Type de machinerie</td>
+            <td class="value">{{ asset.feature_type or "—" }}</td>
+            <td class="label">Emplacement machinerie</td>
+            <td class="value">{{ asset.machinery_location or "—" }}</td>
+        </tr>
+        <tr>
+            <td class="label">Année mise en service</td>
+            <td class="value">{{ asset.year_commissioned or "—" }}</td>
+            <td class="label">Usage</td>
+            <td class="value">{{ asset.usage_type or "—" }}</td>
+        </tr>
+        <tr>
+            <td class="label">Prestataire Maintenance</td>
+            <td class="value" colspan="3">{{ asset.maintainer or "—" }}</td>
+        </tr>
+    </table>
+
+    <!-- ==========================================================
+       ANOMALIES
+       ========================================================== -->
+    <div class="chapter-header">{% if template_type == "CE" %}2{% elif template_type == "LEVEE" %}2{% else %}9{% endif %}) Relevé des anomalies</div>
+
+    {% if anomalies %}
+    <table class="findings-table">
+        <thead>
+            <tr>
+                <th style="width:8%">Code</th>
+                <th style="width:48%">Description de l'anomalie</th>
+                <th style="width:14%">Sévérité</th>
+                <th style="width:10%">Statut</th>
+                <th>Commentaire / Localisation</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for anom in anomalies %}
+            <tr>
+                <td class="center"><strong>{{ anom.code or "—" }}</strong></td>
+                <td>{{ anom.description }}</td>
+                <td class="center">
+                    <span class="badge {{ anom.criticality|lower if anom.criticality else 'normal' }}">
+                        {{ anom.criticality or "NORMAL" }}
+                    </span>
+                </td>
+                <td class="center">
+                    <span class="badge {{ anom.status|lower if anom.status else 'open' }}">
+                        {% if anom.status == "OPEN" %}Ouverte
+                        {% elif anom.status == "RESOLVED" %}Résolue
+                        {% elif anom.status == "IN_PROGRESS" %}En cours
+                        {% elif anom.status == "WAIVED" %}Levée
+                        {% else %}{{ anom.status }}{% endif %}
+                    </span>
+                </td>
+                <td>{{ anom.comment or "—" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <div class="text-block center" style="padding:12px;background:#f0fdf4;border:1px solid #86efac;border-radius:3px;color:#15803d;font-weight:600">
+        ✓ Aucune anomalie constatée lors de ce contrôle.
+    </div>
+    {% endif %}
+
+    <!-- ==========================================================
+       TRAVAUX (Rapport complet + CE)
+       ========================================================== -->
+    {% if template_type != "LEVEE" %}
+    <div class="chapter-header">{% if template_type == "CE" %}3{% else %}10{% endif %}) Travaux à réaliser / Préconisations</div>
+    <table class="standard-table">
+        <thead>
+            <tr>
+                <th style="width:12%">Échéance</th>
+                <th style="width:60%">Description des travaux préconisés</th>
+                <th style="width:15%">Statut</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for wi in work_items %}
+            <tr>
+                <td class="center"><strong>{{ wi.deadline_year or "—" }}</strong></td>
+                <td>{{ wi.work_description }}</td>
+                <td class="center wi-status {{ wi.status|lower if wi.status else '' }}">
+                    {% if wi.status == "DONE" %}Réalisé ✓
+                    {% elif wi.status == "TODO" %}À faire
+                    {% elif wi.status == "IN_PROGRESS" %}En cours…
+                    {% elif wi.status == "CANCELLED" %}Annulé
+                    {% else %}{{ wi.status }}{% endif %}
+                </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" style="color:#aaa;font-style:italic">Aucun travaux planifiés.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+    <!-- ==========================================================
+       GRILLE CHECKLIST (Rapport complet uniquement)
+       ========================================================== -->
+    {% if template_type != "CE" %}
+    <div class="chapter-header">{% if template_type == "LEVEE" %}3{% else %}11{% endif %}) Détail des points de contrôle (grille réglementaire)</div>
+
+    {% if template_type == "LEVEE" %}
+    <!-- LEVÉE DE RÉSERVES : tableau Fait/Non Fait -->
+    <table class="reserve-table">
+        <thead>
+            <tr>
+                <th style="width:8%">N° Obs</th>
+                <th style="width:60%">Observations relevées</th>
+                <th class="center" style="width:15%">Fait</th>
+                <th class="center" style="width:15%">Non Fait</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for anom in anomalies %}
+            <tr>
+                <td class="center">{{ anom.code or loop.index }}</td>
+                <td>{{ anom.description }}</td>
+                <td class="reserve-done">{% if anom.status == "RESOLVED" %}✓{% endif %}</td>
+                <td class="reserve-not-done">{% if anom.status != "RESOLVED" %}✗{% endif %}</td>
+            </tr>
+            {% else %}
+            <tr><td colspan="4" style="color:#aaa;font-style:italic">Aucune réserve à lever.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <!-- GRILLE CHECKLIST COMPLÈTE -->
+    {% for section in checklist_sections %}
+    <div class="section-header">{{ section.title }}</div>
+    <table class="checklist-table">
+        {% for item in section.items %}
+        <tr>
+            <td class="label">{{ item.label }}</td>
+            <td class="status {{ item.status|lower if item.status else '' }}">
+                {% if item.status == 'CONCERNED' %}OK
+                {% elif item.status == 'NOT_CONCERNED' %}SO
+                {% elif item.status == 'NOT_CHECKED' %}NV
+                {% else %}{{ item.status }}{% endif %}
+            </td>
+            <td>{{ item.observation or "" }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <p style="color:#aaa;font-style:italic;margin:8px 0">Aucun point de contrôle renseigné.</p>
+    {% endfor %}
+    {% endif %}
+    {% endif %}
+
+    <!-- ==========================================================
+       ANNEXES PHOTOS
+       ========================================================== -->
+    {% if annexes %}
+    <div class="page-break"></div>
+    <div class="chapter-header">Annexes — Photos</div>
+    <div class="gallery">
+        {% for photo in annexes %}
+        <div class="photo no-break">
+            <img src="{{ photo.url }}" alt="Photo" />
+            <div class="photo-caption">{{ photo.caption }}<br/>({{ photo.finding_ref }})</div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+</body>
+</html>

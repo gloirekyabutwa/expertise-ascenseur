@@ -1,0 +1,58 @@
+/home/gloirekyabutwa/Téléchargements/CTQ/scripts/verify_pdf.py:55: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  scheduled_start=datetime.utcnow()
+/home/gloirekyabutwa/Téléchargements/CTQ/scripts/verify_pdf.py:70: DeprecationWarning: datetime.datetime.utcnow() is deprecated and scheduled for removal in a future version. Use timezone-aware objects to represent datetimes in UTC: datetime.datetime.now(datetime.UTC).
+  run = ChecklistRun(mission_id=mission.id, template_id=tpl.id, status="COMPLETED", started_at=datetime.utcnow(), tenant_id=tenant.id)
+PDF Generation Failed: name 'joinedload' is not defined
+Traceback (most recent call last):
+  File "/home/gloirekyabutwa/Téléchargements/CTQ/app/services/pdf.py", line 157, in render_pdf
+    context = self.prepare_context(request.entity_id, template, request_id)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gloirekyabutwa/Téléchargements/CTQ/app/services/pdf.py", line 52, in prepare_context
+    findings = self.db.query(Finding).options(joinedload(Finding.evidences)).filter(Finding.mission_id == mission_id).all()
+                                              ^^^^^^^^^^
+NameError: name 'joinedload' is not defined
+PDF Generation Failed: name 'joinedload' is not defined
+Traceback (most recent call last):
+  File "/home/gloirekyabutwa/Téléchargements/CTQ/app/services/pdf.py", line 157, in render_pdf
+    context = self.prepare_context(request.entity_id, template, request_id)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gloirekyabutwa/Téléchargements/CTQ/app/services/pdf.py", line 52, in prepare_context
+    findings = self.db.query(Finding).options(joinedload(Finding.evidences)).filter(Finding.mission_id == mission_id).all()
+                                              ^^^^^^^^^^
+NameError: name 'joinedload' is not defined
+PDF Generation Failed: Mission 7489c480-4bae-4e98-a18d-d607cadc384c not found
+Traceback (most recent call last):
+  File "/home/gloirekyabutwa/Téléchargements/CTQ/app/services/pdf.py", line 157, in render_pdf
+    context = self.prepare_context(request.entity_id, template, request_id)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/gloirekyabutwa/Téléchargements/CTQ/app/services/pdf.py", line 46, in prepare_context
+    raise ValueError(f"Mission {mission_id} not found")
+ValueError: Mission 7489c480-4bae-4e98-a18d-d607cadc384c not found
+🚀 Starting PDF Verification & Proof Generation...
+
+--- 1. Seeding Data ---
+✅ Tenant: 2586b313-8593-4d74-b58b-a189f5b71948 (Verify Tenant 044fad4b)
+✅ Site Created
+   RLS Context Check: 2586b313-8593-4d74-b58b-a189f5b71948
+✅ Mission: a1f9bbfe-7074-47e6-8a06-65153940ea8b
+✅ Data Seeded.
+
+--- 2. Creating Render Request (RBAC Check: User Role = ADMIN) ---
+✅ Request Created: 9c3d9e52-8de5-47bd-ab6c-5554ff27152b (Status: PdfRenderStatus.QUEUED)
+
+--- 3. Running PDF Generation (Simulating Background Task) ---
+🔐 Setting RLS Context: app.current_tenant = 2586b313-8593-4d74-b58b-a189f5b71948
+
+--- 4. Verification Proofs ---
+1️⃣ Payload JSON Saved:
+{} ... (truncated)
+   ❌ Payload missing sections!
+   ❌ No output document version found!
+6️⃣ Idempotence Check: Re-running same request_id...
+   Status after re-run: PdfRenderStatus.FAILED (Should remain SUCCEEDED without error/change)
+7️⃣ Error Handling Check: Creating invalid request...
+   Status: PdfRenderStatus.FAILED
+   Error Field: Mission 7489c480-4bae-4e98-a18d-d607cadc384c not found
+   ✅ Error captured correctly.
+
+✅ Verification Complete.
