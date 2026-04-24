@@ -69,12 +69,19 @@ class MissionAnomaly(Base, TenantMixin):
     mission_id: Mapped[UUID] = mapped_column(UUID(as_uuid=True), ForeignKey("missions.id"), nullable=False, index=True)
     catalog_anomaly_id: Mapped[Optional[UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("anomaly_catalog.id"))
     
+    # New: Link to the specific checklist category item that triggered this anomaly
+    catalog_item_id: Mapped[Optional[UUID]] = mapped_column(UUID(as_uuid=True), ForeignKey("checklist_categories.id"), nullable=True)
+    
     # If custom anomaly not in catalog
     custom_code: Mapped[Optional[str]] = mapped_column(String(50))
     custom_description: Mapped[Optional[str]] = mapped_column(Text)
+    
+    # New: Severity
+    severity: Mapped[str] = mapped_column(String(20), default="MEDIUM") # LOW, MEDIUM, HIGH, CRITICAL
     
     status: Mapped[str] = mapped_column(String(20), default="OPEN") # OPEN, RESOLVED
     comment: Mapped[Optional[str]] = mapped_column(Text)
     
     mission: Mapped["Mission"] = relationship("Mission", back_populates="anomalies")
     catalog_anomaly: Mapped["AnomalyCatalog"] = relationship("AnomalyCatalog")
+    referenced_item: Mapped[Optional["ChecklistCatalog"]] = relationship("ChecklistCatalog")

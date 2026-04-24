@@ -57,10 +57,30 @@ class AssetCreate(AssetBase):
 class AssetUpdate(AssetBase):
     site_id: Optional[uuid.UUID] = None
 
+# Technical Characteristics Schema
+class AssetTechnicalCharacteristicsResponse(BaseModel):
+    year_commissioned: Optional[int] = None
+    load_capacity_kg: Optional[int] = None
+    persons_capacity: Optional[int] = None
+    nominal_speed_ms: Optional[str] = None
+    travel_height_m: Optional[str] = None
+    stops_count: Optional[int] = None
+    machinery_type: Optional[str] = None
+    machinery_location: Optional[str] = None
+    controller_type: Optional[str] = None
+    door_type: Optional[str] = None
+    safety_gear_type: Optional[str] = None
+    last_major_renovation_date: Optional[date] = None
+    maintenance_contract_ref: Optional[str] = None
+
+    class Config:
+        from_attributes = True
+
 class AssetResponse(AssetBase):
     id: uuid.UUID
     site_id: uuid.UUID
     tenant_id: uuid.UUID
+    technical_characteristics: Optional[AssetTechnicalCharacteristicsResponse] = None
     
     class Config:
         from_attributes = True

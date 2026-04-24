@@ -67,8 +67,10 @@ class MissionChecklistResultResponse(MissionChecklistResultBase):
 
 class MissionAnomalyBase(BaseModel):
     catalog_anomaly_id: Optional[UUID] = None
+    catalog_item_id: Optional[UUID] = None # Link back to checklist
     custom_code: Optional[str] = None
     custom_description: Optional[str] = None
+    severity: str = "MEDIUM"
     status: str = "OPEN"
     comment: Optional[str] = None
     # Usually frontend sends either ID or Custom fields
@@ -84,6 +86,7 @@ class MissionAnomalyResponse(MissionAnomalyBase):
     mission_id: UUID
     # Include catalog details if loaded?
     catalog_anomaly: Optional[AnomalyCatalogResponse] = None
+    severity: str
 
     class Config:
         from_attributes = True

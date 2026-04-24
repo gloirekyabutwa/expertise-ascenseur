@@ -8,6 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { MissionPdfTab } from "@/components/missions/MissionPdfTab";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { MissionComplianceTab } from "@/components/missions/MissionComplianceTab";
 import { MissionProvider } from "@/context/MissionContext";
 
@@ -19,20 +21,26 @@ import { PhotoManager } from "@/components/missions/compliance/PhotoManager";
 import { complianceService } from "@/services/compliance";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
+import { useAuth } from "@/hooks/useAuth";
+
 export default function MissionDetailsPage({ params }: { params: { id: string } }) {
     const missionId = params.id;
+    const { user } = useAuth();
+    const tenantId = user?.tenant_id;
 
-    const { data: mission, isLoading: isMissionLoading } = useQuery({
-        queryKey: ["mission", missionId],
+    const { data: mission, isLoading: isMissionLoading, error: missionError } = useQuery({
+        queryKey: ["mission", missionId, tenantId],
         queryFn: async () => {
             const res = await apiClient.get<Mission>(`/missions/${missionId}`);
             return res.data;
         },
+        enabled: !!missionId && !!tenantId,
     });
 
     const { data: bundle, isLoading: isBundleLoading, error: bundleError } = useQuery({
-        queryKey: ["compliance", missionId],
+        queryKey: ["compliance", missionId, tenantId],
         queryFn: () => complianceService.getBundle(missionId),
+        enabled: !!missionId && !!tenantId,
     });
 
     const { data: catalog } = useQuery({
@@ -49,14 +57,39 @@ export default function MissionDetailsPage({ params }: { params: { id: string } 
 
     if (isMissionLoading || isBundleLoading) {
         return (
-            <div className="space-y-6">
+            <div className="space-y-6 flex flex-col p-8">
                 <Skeleton className="h-12 w-1/3" />
-                <Skeleton className="h-[400px] w-full" />
+                <Skeleton className="h-[400px] w-full mt-4" />
             </div>
         );
     }
 
-    if (!mission || !bundle) return <div>Data not found</div>;
+    if (missionError || bundleError) {
+        return (
+            <div className="p-8">
+                <Alert variant="destructive">
+                    <AlertTitle>Erreur de récupération</AlertTitle>
+                    <AlertDescription>
+                        {((missionError || bundleError) as any)?.message || "Impossible de charger les données de la mission."}
+                    </AlertDescription>
+                </Alert>
+            </div>
+        );
+    }
+
+    if (!mission || !bundle) {
+        return (
+            <div className="p-8 text-center bg-muted/20 rounded-xl border border-dashed py-20">
+                <p className="text-muted-foreground font-medium">Données non trouvées</p>
+                <p className="text-xs text-muted-foreground mt-2">
+                    Vérifiez que vous avez accès à ce tenant ou que la mission n'a pas été supprimée.
+                </p>
+                <Link href="/missions">
+                    <Button variant="outline" className="mt-4">Retour aux missions</Button>
+                </Link>
+            </div>
+        );
+    }
 
     return (
         <MissionProvider>
@@ -85,7 +118,7 @@ export default function MissionDetailsPage({ params }: { params: { id: string } 
                         <TabsTrigger value="documents" className="py-2">Galerie & Pièces</TabsTrigger>
                         <TabsTrigger value="pdf" className="py-2 text-primary font-semibold">Rapport PDF</TabsTrigger>
                     </TabsList>
-                    
+
                     <TabsContent value="checklist">
                         <Card>
                             <CardHeader>
@@ -134,15 +167,15 @@ export default function MissionDetailsPage({ params }: { params: { id: string } 
                                     <CardDescription>Attachez vos photos aux points de contrôles ou anomalies.</CardDescription>
                                 </CardHeader>
                                 <CardContent>
-                                    <PhotoManager 
-                                        missionId={missionId} 
-                                        checklistOptions={catalog?.flatMap((c: any) => 
-                                            c.item_type === "ITEM" ? [{ id: c.id, label: `${c.code} - ${c.label}` }] : 
-                                            (c.children || []).map((child: any) => ({ id: child.id, label: `${child.code} - ${child.label}` }))
+                                    <PhotoManager
+                                        missionId={missionId}
+                                        checklistOptions={catalog?.flatMap((c: any) =>
+                                            c.item_type === "ITEM" ? [{ id: c.id, label: `${c.code} - ${c.label}` }] :
+                                                (c.children || []).map((child: any) => ({ id: child.id, label: `${child.code} - ${child.label}` }))
                                         ) || []}
                                         anomalyOptions={bundle.anomalies?.map(a => {
                                             const cat = anomalyCatalog?.find(c => c.id === a.catalog_anomaly_id);
-                                            return { id: a.id, label: cat ? `${cat.code} - ${cat.description.substring(0,30)}...` : a.custom_description?.substring(0,30) || "Anomalie manuelle" };
+                                            return { id: a.id, label: cat ? `${cat.code} - ${cat.description.substring(0, 30)}...` : a.custom_description?.substring(0, 30) || "Anomalie manuelle" };
                                         }) || []}
                                     />
                                 </CardContent>

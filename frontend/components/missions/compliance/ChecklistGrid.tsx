@@ -56,46 +56,44 @@ function StatusButtons({ currentStatus, hasAnomaly, onStatus }: {
     const isNa = currentStatus === "NOT_CONCERNED";
 
     return (
-        <div className="inline-flex items-center rounded-md border border-border overflow-hidden text-xs h-7">
+        <div className="inline-flex items-center rounded-md border border-border overflow-hidden text-xs h-8 bg-background shadow-sm">
             <button
                 onClick={() => onStatus("CONCERNED")}
                 className={cn(
-                    "px-2.5 h-full flex items-center gap-1 transition-colors font-medium",
+                    "px-3 h-full flex items-center gap-1.5 transition-all font-semibold border-r border-border last:border-0",
                     isOk
-                        ? "bg-emerald-500 text-white"
-                        : "text-muted-foreground hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/30"
+                        ? "bg-emerald-600 text-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]"
+                        : "text-muted-foreground hover:text-emerald-600 hover:bg-emerald-50 dark:hover:bg-emerald-950/20"
                 )}
                 title="Conforme"
             >
-                <Check className="h-3 w-3" />
+                <Check className={cn("h-3.5 w-3.5", isOk ? "text-emerald-100" : "text-emerald-500")} />
                 <span>OK</span>
             </button>
-            <div className="w-px h-full bg-border" />
             <button
                 onClick={() => onStatus("NOK")}
                 className={cn(
-                    "px-2.5 h-full flex items-center gap-1 transition-colors font-medium",
+                    "px-3 h-full flex items-center gap-1.5 transition-all font-semibold border-r border-border last:border-0",
                     isNok
-                        ? "bg-red-500 text-white"
-                        : "text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/30"
+                        ? "bg-red-600 text-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]"
+                        : "text-muted-foreground hover:text-red-600 hover:bg-red-50 dark:hover:bg-red-950/20"
                 )}
-                title="Non Conforme"
+                title="Non Conforme - Créer une anomalie"
             >
-                <AlertCircle className="h-3 w-3" />
+                <AlertCircle className={cn("h-3.5 w-3.5", isNok ? "text-red-100" : "text-red-500")} />
                 <span>NOK</span>
             </button>
-            <div className="w-px h-full bg-border" />
             <button
                 onClick={() => onStatus("NOT_CONCERNED")}
                 className={cn(
-                    "px-2.5 h-full flex items-center gap-1 transition-colors font-medium",
+                    "px-3 h-full flex items-center gap-1.5 transition-all font-semibold",
                     isNa
-                        ? "bg-slate-400 text-white"
-                        : "text-muted-foreground hover:text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800/30"
+                        ? "bg-slate-500 text-white shadow-[inset_0_1px_2px_rgba(0,0,0,0.1)]"
+                        : "text-muted-foreground hover:text-slate-600 hover:bg-slate-100 dark:hover:bg-slate-800/20"
                 )}
                 title="Non Applicable"
             >
-                <Ban className="h-3 w-3" />
+                <Ban className={cn("h-3.5 w-3.5", isNa ? "text-slate-100" : "text-slate-400")} />
                 <span>NA</span>
             </button>
         </div>
@@ -252,7 +250,7 @@ export function ChecklistGrid({ missionId, catalog, results }: ChecklistGridProp
             {anomalyTarget && (
                 <AddAnomalyModal
                     missionId={missionId}
-                    prefilledRule={anomalyTarget.code}
+                    prefilledItem={anomalyTarget}
                     onClose={() => {
                         queryClient.invalidateQueries({ queryKey: ["compliance", missionId] });
                         setAnomalyTarget(null);
@@ -350,18 +348,22 @@ export function ChecklistGrid({ missionId, catalog, results }: ChecklistGridProp
                                             </div>
 
                                             {/* Value */}
-                                            <div>
+                                            <div className="flex items-center">
                                                 {item.field_type === "MEASURE" ? (
-                                                    <div className="flex items-center gap-1">
+                                                    <div className="flex items-center gap-2">
                                                         <Input
-                                                            className="w-16 h-7 text-xs text-right px-1.5"
+                                                            className="w-20 h-8 text-sm text-right px-2 font-mono bg-muted/30 focus:bg-background transition-colors border-muted-foreground/20"
                                                             value={pendingValues[item.id] !== undefined ? pendingValues[item.id] : (item.result?.result_value || "")}
                                                             onChange={(e) => setPendingValues(p => ({ ...p, [item.id]: e.target.value }))}
                                                             onBlur={() => handleValueBlur(item)}
                                                             onKeyDown={(e) => e.key === "Enter" && handleValueBlur(item)}
-                                                            placeholder="0.0"
+                                                            placeholder="—"
                                                         />
-                                                        {item.unit && <span className="text-xs text-muted-foreground">{item.unit}</span>}
+                                                        {item.unit && (
+                                                            <span className="text-[10px] uppercase font-bold text-muted-foreground bg-muted px-1 rounded h-fit">
+                                                                {item.unit}
+                                                            </span>
+                                                        )}
                                                     </div>
                                                 ) : (
                                                     <span className="text-muted-foreground/30 text-xs">—</span>
@@ -369,14 +371,31 @@ export function ChecklistGrid({ missionId, catalog, results }: ChecklistGridProp
                                             </div>
 
                                             {/* Observation */}
-                                            <div className="flex flex-col gap-0.5">
-                                                {item.result?.observation_code && (
-                                                    <Badge variant="destructive" className="text-xs w-fit px-1.5 py-0">
-                                                        {item.result.observation_code}
-                                                    </Badge>
-                                                )}
-                                                {item.result?.comment && (
-                                                    <span className="text-xs text-muted-foreground italic line-clamp-1">{item.result.comment}</span>
+                                            <div className="flex flex-col gap-1">
+                                                {item.result?.observation_code ? (
+                                                    <button
+                                                        onClick={() => handleStatus(item, "NOK")}
+                                                        className="group relative flex items-center gap-1.5"
+                                                    >
+                                                        <Badge variant="destructive" className="text-[10px] font-bold px-1.5 py-0 h-5 flex items-center gap-1 hover:bg-red-700 transition-colors">
+                                                            <AlertTriangle className="h-2.5 w-2.5" />
+                                                            {item.result.observation_code}
+                                                        </Badge>
+                                                        {item.result?.comment && (
+                                                            <span className="text-[10px] text-muted-foreground font-medium italic line-clamp-1 max-w-[120px]">
+                                                                {item.result.comment}
+                                                            </span>
+                                                        )}
+                                                    </button>
+                                                ) : (
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="sm"
+                                                        className="h-6 w-fit text-[10px] text-muted-foreground/50 hover:text-red-500 hover:bg-red-50 px-1.5 border border-dashed border-muted-foreground/20"
+                                                        onClick={() => handleStatus(item, "NOK")}
+                                                    >
+                                                        + Préciser
+                                                    </Button>
                                                 )}
                                             </div>
                                         </div>

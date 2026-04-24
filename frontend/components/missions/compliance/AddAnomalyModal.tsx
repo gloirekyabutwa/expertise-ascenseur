@@ -1,38 +1,24 @@
 "use client";
 
-import { useState } from "react";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { complianceService } from "@/services/compliance";
-import { Loader2 } from "lucide-react";
-import { SEVERITY_LEVELS } from "@/constants/elevator-specs";
 import { MissionAnomaly } from "@/types/compliance";
+import { AnomalyForm } from "./AnomalyForm";
 
 interface AddAnomalyModalProps {
     missionId: string;
-    prefilledRule: string; // The code from Checklist (e.g., "I.2")
+    prefilledItem: { id: string; code: string; label: string }; // The item from Checklist
     onClose: () => void;
 }
 
-export function AddAnomalyModal({ missionId, prefilledRule, onClose }: AddAnomalyModalProps) {
+export function AddAnomalyModal({ missionId, prefilledItem, onClose }: AddAnomalyModalProps) {
     const queryClient = useQueryClient();
-    
-    // Fetch anomaly catalog to prepopulate suggestions based on code (if needed)
-    const { data: catalog } = useQuery({
+
+    // Fetch anomaly catalog
+    const { data: catalog = [] } = useQuery({
         queryKey: ["anomaly-catalog"],
         queryFn: complianceService.getAnomalyCatalog,
-    });
-
-    const defaultSeverity = "MEDIUM";
-    
-    const [formData, setFormData] = useState<Partial<MissionAnomaly>>({
-        status: "OPEN",
-        custom_code: prefilledRule, // Link it to the rule
-        custom_description: `Non conformité relevée sur le point: ${prefilledRule}`,
     });
 
     const createMutation = useMutation({
@@ -43,53 +29,32 @@ export function AddAnomalyModal({ missionId, prefilledRule, onClose }: AddAnomal
         }
     });
 
-    const handleSubmit = () => {
+    const handleSubmit = (formData: Partial<MissionAnomaly>) => {
         createMutation.mutate({
             ...formData,
-            severity: (formData as any).severity || defaultSeverity
-        } as any);
+            catalog_item_id: prefilledItem.id, // Explicit link
+            custom_code: prefilledItem.code // Backup code
+        });
     };
 
     return (
         <Dialog open={true} onOpenChange={(open) => !open && onClose()}>
-            <DialogContent className="sm:max-w-[500px]">
-                <DialogHeader>
-                    <DialogTitle>Ajouter une Anomalie (Règle {prefilledRule})</DialogTitle>
+            <DialogContent className="sm:max-w-[550px] p-0 overflow-hidden border-none shadow-2xl">
+                <DialogHeader className="bg-primary/5 px-6 pt-6 pb-4">
+                    <DialogTitle className="text-xl font-bold flex items-center gap-2">
+                        Préciser une Anomalie
+                    </DialogTitle>
+                    <p className="text-sm text-muted-foreground">Enregistrez un constat détaillé pour enrichir le rapport de mission.</p>
                 </DialogHeader>
-                <div className="grid gap-4 py-4">
-                    <div className="grid gap-2">
-                        <Label>Sévérité (Par défaut: Moyen)</Label>
-                        <Select
-                            value={(formData as any).severity || "MEDIUM"}
-                            onValueChange={(val) => setFormData(prev => ({ ...prev, severity: val }))}
-                        >
-                            <SelectTrigger><SelectValue /></SelectTrigger>
-                            <SelectContent>
-                                {SEVERITY_LEVELS.map(s => (
-                                    <SelectItem key={s.value} value={s.value}>
-                                        {s.icon} {s.label}
-                                    </SelectItem>
-                                ))}
-                            </SelectContent>
-                        </Select>
-                    </div>
-                    <div className="grid gap-2">
-                        <Label>Description de l'anomalie</Label>
-                        <Textarea
-                            value={formData.custom_description || ""}
-                            onChange={(e) => setFormData(prev => ({ ...prev, custom_description: e.target.value }))}
-                            placeholder="Détaillez le problème rencontré..."
-                            rows={4}
-                        />
-                    </div>
+                <div className="px-6 pb-6">
+                    <AnomalyForm
+                        catalog={catalog}
+                        onSubmit={handleSubmit}
+                        onCancel={onClose}
+                        isSaving={createMutation.isPending}
+                        prefilledItem={prefilledItem}
+                    />
                 </div>
-                <DialogFooter>
-                    <Button variant="outline" onClick={onClose}>Annuler</Button>
-                    <Button onClick={handleSubmit} disabled={createMutation.isPending}>
-                        {createMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                        Enregistrer
-                    </Button>
-                </DialogFooter>
             </DialogContent>
         </Dialog>
     );

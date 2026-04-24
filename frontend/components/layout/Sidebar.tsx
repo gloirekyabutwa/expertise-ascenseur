@@ -13,6 +13,9 @@ import { useSidebar } from "@/context/SidebarContext";
 import { useLanguage } from "@/context/LanguageContext";
 import { TranslationKey } from "@/lib/i18n";
 import { useAuth } from "@/hooks/useAuth";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/lib/api/client";
+import { Skeleton } from "@/components/ui/skeleton";
 
 interface NavItem {
     nameKey: TranslationKey;
@@ -22,10 +25,10 @@ interface NavItem {
 }
 
 const mainNavItems: NavItem[] = [
-    { nameKey: "nav_dashboard",  descKey: "nav_dashboard_desc",  href: "/dashboard", icon: LayoutDashboard },
-    { nameKey: "nav_missions",   descKey: "nav_missions_desc",   href: "/missions",  icon: ClipboardList  },
-    { nameKey: "nav_assets",     descKey: "nav_assets_desc",     href: "/assets",    icon: Building2      },
-    { nameKey: "nav_documents",  descKey: "nav_documents_desc",  href: "/documents", icon: FolderOpen     },
+    { nameKey: "nav_dashboard", descKey: "nav_dashboard_desc", href: "/dashboard", icon: LayoutDashboard },
+    { nameKey: "nav_missions", descKey: "nav_missions_desc", href: "/missions", icon: ClipboardList },
+    { nameKey: "nav_assets", descKey: "nav_assets_desc", href: "/assets", icon: Building2 },
+    { nameKey: "nav_documents", descKey: "nav_documents_desc", href: "/documents", icon: FolderOpen },
 ];
 
 const settingsNavItems: NavItem[] = [
@@ -38,6 +41,13 @@ export function Sidebar() {
     const { collapsed, toggle } = useSidebar();
     const { t } = useLanguage();
     const { user } = useAuth();
+
+    const { data: tenant, isLoading: tenantLoading } = useQuery<any>({
+        queryKey: ["current-tenant", user?.tenant_id],
+        queryFn: () => apiClient.get(`/tenants/${user?.tenant_id}`).then(res => res.data),
+        enabled: !!user?.tenant_id,
+        staleTime: 1000 * 60 * 30, // 30 minutes
+    });
 
     const isActive = (href: string) => pathname === href || pathname.startsWith(href + "/");
 
@@ -128,7 +138,7 @@ export function Sidebar() {
                         : <>
                             <ChevronLeft className="h-4 w-4" />
                             <span>Réduire</span>
-                          </>
+                        </>
                     }
                 </button>
 
@@ -139,7 +149,13 @@ export function Sidebar() {
                         </div>
                         <div className="min-w-0">
                             <p className="text-[10px] text-muted-foreground">Tenant actif</p>
-                            <p className="text-[9px] font-mono text-muted-foreground/60 truncate">{tenantId?.slice(0, 18)}…</p>
+                            {tenantLoading ? (
+                                <Skeleton className="h-3 w-24 mt-1" />
+                            ) : (
+                                <p className="text-[10px] font-semibold text-foreground truncate" title={tenant?.name}>
+                                    {tenant?.name || "—"}
+                                </p>
+                            )}
                         </div>
                     </div>
                 )}

@@ -71,8 +71,10 @@ export interface MissionAnomaly {
     id: string;
     mission_id: string;
     catalog_anomaly_id?: string;
+    catalog_item_id?: string; // Link to checklist
     custom_code?: string;
     custom_description?: string;
+    severity?: string; // LOW, MEDIUM, HIGH, CRITICAL
     status: string; // OPEN
     comment?: string;
     catalog_anomaly?: AnomalyCatalogResponse;

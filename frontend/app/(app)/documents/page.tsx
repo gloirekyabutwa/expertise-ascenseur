@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { FileText, Download, Eye, FileArchive, Search, Filter } from "lucide-react";
 import { Document, DocumentFile } from "@/lib/api/types";
 import { Input } from "@/components/ui/input";
+import { useAuth } from "@/hooks/useAuth";
 
 const columns: ColumnDef<Document>[] = [
     {
@@ -43,7 +44,7 @@ const columns: ColumnDef<Document>[] = [
         cell: ({ row }) => {
             const status = row.getValue("status") as string;
             return (
-                <Badge 
+                <Badge
                     variant={status === "PUBLISHED" ? "default" : "secondary"}
                 >
                     {status}
@@ -69,12 +70,12 @@ const columns: ColumnDef<Document>[] = [
 
             return (
                 <div className="flex items-center gap-2">
-                     <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
+                    <Button variant="ghost" size="sm" className="h-8 w-8 p-0">
                         <Eye className="h-4 w-4" />
                     </Button>
-                    <Button 
-                        variant="ghost" 
-                        size="sm" 
+                    <Button
+                        variant="ghost"
+                        size="sm"
                         className="h-8 w-8 p-0"
                         onClick={handleDownload}
                         disabled={!row.original.files?.length}
@@ -88,9 +89,13 @@ const columns: ColumnDef<Document>[] = [
 ];
 
 export default function DocumentsPage() {
+    const { user } = useAuth();
+    const tenantId = user?.tenant_id;
+
     const { data: documents, isLoading } = useQuery({
-        queryKey: ["documents"],
+        queryKey: ["documents", tenantId],
         queryFn: () => documentsService.list(),
+        enabled: !!tenantId,
     });
 
     return (

@@ -7,20 +7,15 @@ import {
     Table, TableBody, TableCell, TableHead, TableHeader, TableRow
 } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import {
-    Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter
+    Dialog, DialogContent, DialogHeader, DialogTitle
 } from "@/components/ui/dialog";
-import { Label } from "@/components/ui/label";
-import {
-    Select, SelectContent, SelectItem, SelectTrigger, SelectValue
-} from "@/components/ui/select";
 import { MissionAnomaly, AnomalyCatalogResponse } from "@/types/compliance";
 import { complianceService } from "@/services/compliance";
-import { Loader2, Plus, Pencil, Trash2, AlertCircle, AlertTriangle, Info, CheckCircle2 } from "lucide-react";
+import { Plus, Pencil, Trash2, AlertCircle, AlertTriangle, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { ANOMALY_STATUSES, SEVERITY_LEVELS } from "@/constants/elevator-specs";
+import { SEVERITY_LEVELS } from "@/constants/elevator-specs";
+import { AnomalyForm } from "./AnomalyForm";
 
 // Severity badge
 const SeverityBadge = ({ severity }: { severity?: string }) => {
@@ -35,7 +30,6 @@ const SeverityBadge = ({ severity }: { severity?: string }) => {
 
 // Status badge
 const StatusBadge = ({ status }: { status?: string }) => {
-    const s = ANOMALY_STATUSES.find(a => a.value === status);
     const colorMap: Record<string, string> = {
         OPEN: "bg-red-100 text-red-700 border-red-200",
         IN_PROGRESS: "bg-amber-100 text-amber-700 border-amber-200",
@@ -44,7 +38,7 @@ const StatusBadge = ({ status }: { status?: string }) => {
     };
     return (
         <span className={`text-xs px-2 py-0.5 rounded border font-medium ${colorMap[status || "OPEN"] || colorMap.OPEN}`}>
-            {s?.label || status}
+            {status}
         </span>
     );
 };
@@ -60,20 +54,13 @@ export function AnomaliesList({ missionId, anomalies, catalog }: AnomaliesListPr
     const [isOpen, setIsOpen] = useState(false);
     const [editingAnomaly, setEditingAnomaly] = useState<MissionAnomaly | null>(null);
 
-    // Form State
-    const [formData, setFormData] = useState<Partial<MissionAnomaly>>({
-        status: "OPEN",
-        custom_description: "",
-        comment: ""
-    });
-
     // Mutations
     const createMutation = useMutation({
         mutationFn: (data: Partial<MissionAnomaly>) => complianceService.createAnomaly(missionId, data),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["compliance", missionId] });
             setIsOpen(false);
-            resetForm();
+            setEditingAnomaly(null);
         }
     });
 
@@ -83,7 +70,7 @@ export function AnomaliesList({ missionId, anomalies, catalog }: AnomaliesListPr
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["compliance", missionId] });
             setIsOpen(false);
-            resetForm();
+            setEditingAnomaly(null);
         }
     });
 
@@ -94,45 +81,22 @@ export function AnomaliesList({ missionId, anomalies, catalog }: AnomaliesListPr
         }
     });
 
-    const resetForm = () => {
-        setFormData({ status: "OPEN", custom_description: "", comment: "" });
-        setEditingAnomaly(null);
-    };
-
     const handleEdit = (anomaly: MissionAnomaly) => {
         setEditingAnomaly(anomaly);
-        setFormData({
-            catalog_anomaly_id: anomaly.catalog_anomaly_id,
-            custom_description: anomaly.custom_description,
-            status: anomaly.status,
-            comment: anomaly.comment
-        });
         setIsOpen(true);
     };
 
     const handleDelete = (id: string) => {
-        if (confirm("Are you sure you want to delete this anomaly?")) {
+        if (confirm("Voulez-vous vraiment supprimer cette anomalie ?")) {
             deleteMutation.mutate(id);
         }
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (formData: Partial<MissionAnomaly>) => {
         if (editingAnomaly) {
             updateMutation.mutate({ id: editingAnomaly.id, data: formData });
         } else {
             createMutation.mutate(formData);
-        }
-    };
-
-    const handleCatalogSelect = (catalogId: string) => {
-        const item = catalog.find(c => c.id === catalogId);
-        if (item) {
-            setFormData(prev => ({
-                ...prev,
-                catalog_anomaly_id: catalogId,
-                // Optional: prefill description if custom one is empty
-                custom_description: prev.custom_description || item.description
-            }));
         }
     };
 
@@ -142,62 +106,62 @@ export function AnomaliesList({ missionId, anomalies, catalog }: AnomaliesListPr
         <div className="space-y-4">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 text-sm">
-                    <span className="text-muted-foreground">{anomalies.length} anomalie(s) enregistrée(s)</span>
+                    <span className="text-muted-foreground font-medium">{anomalies.length} anomalie(s) enregistrée(s)</span>
                     {anomalies.some(a => a.status === "OPEN") && (
-                        <span className="text-xs bg-red-100 text-red-700 px-2 py-0.5 rounded-full border border-red-200">
+                        <span className="text-[10px] uppercase font-bold bg-red-100 text-red-700 px-2 py-0.5 rounded border border-red-200 shadow-sm">
                             {anomalies.filter(a => a.status === "OPEN").length} ouverte(s)
                         </span>
                     )}
                 </div>
-                <Button onClick={() => { resetForm(); setIsOpen(true); }} className="gap-2" size="sm">
+                <Button onClick={() => { setEditingAnomaly(null); setIsOpen(true); }} className="gap-2 h-9" size="sm">
                     <Plus className="h-4 w-4" /> Ajouter une anomalie
                 </Button>
             </div>
 
-            <div className="border rounded-md">
+            <div className="border rounded-lg overflow-hidden bg-background shadow-sm">
                 <Table>
-                    <TableHeader>
+                    <TableHeader className="bg-muted/30">
                         <TableRow>
-                            <TableHead>Description</TableHead>
-                            <TableHead className="w-[130px]">Sévérité</TableHead>
-                            <TableHead className="w-[130px]">Statut</TableHead>
-                            <TableHead className="w-[100px]">Actions</TableHead>
+                            <TableHead className="font-bold text-xs uppercase tracking-wider">Désignation & Code</TableHead>
+                            <TableHead className="w-[130px] font-bold text-xs uppercase tracking-wider">Sévérité</TableHead>
+                            <TableHead className="w-[130px] font-bold text-xs uppercase tracking-wider">Statut</TableHead>
+                            <TableHead className="w-[100px] text-right font-bold text-xs uppercase tracking-wider px-4">Actions</TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
                         {anomalies.map((anomaly) => {
                             const catalogItem = anomaly.catalog_anomaly || catalog.find(c => c.id === anomaly.catalog_anomaly_id);
-                            const description = anomaly.custom_description || catalogItem?.description || "No description";
+                            const description = anomaly.custom_description || catalogItem?.description || "Sans description";
                             const code = anomaly.custom_code || catalogItem?.code;
 
                             return (
-                                <TableRow key={anomaly.id}>
+                                <TableRow key={anomaly.id} className="hover:bg-muted/10 transition-colors">
                                     <TableCell>
-                                        <div className="flex flex-col">
+                                        <div className="flex flex-col gap-1">
                                             <div className="flex items-center gap-2">
-                                                {code && <Badge variant="outline">{code}</Badge>}
-                                                <span className="font-medium">{description}</span>
+                                                {code && <Badge variant="secondary" className="font-mono text-[10px] h-5 px-1.5">{code}</Badge>}
+                                                <span className="font-semibold text-sm leading-tight">{description}</span>
                                             </div>
                                             {anomaly.comment && (
-                                                <span className="text-xs text-muted-foreground mt-1">
-                                                    Comment: {anomaly.comment}
+                                                <span className="text-[10px] text-muted-foreground italic bg-muted/30 w-fit px-1 rounded">
+                                                    Note: {anomaly.comment}
                                                 </span>
                                             )}
                                         </div>
                                     </TableCell>
                                     <TableCell>
-                                        <SeverityBadge severity={(anomaly as any).severity} />
+                                        <SeverityBadge severity={anomaly.severity} />
                                     </TableCell>
                                     <TableCell>
                                         <StatusBadge status={anomaly.status} />
                                     </TableCell>
-                                    <TableCell>
-                                        <div className="flex items-center gap-2">
-                                            <Button variant="ghost" size="icon" onClick={() => handleEdit(anomaly)}>
-                                                <Pencil className="h-4 w-4" />
+                                    <TableCell className="px-4">
+                                        <div className="flex items-center justify-end gap-1">
+                                            <Button variant="ghost" size="icon" className="h-8 w-8 hover:text-primary hover:bg-primary/5" onClick={() => handleEdit(anomaly)}>
+                                                <Pencil className="h-3.5 w-3.5" />
                                             </Button>
-                                            <Button variant="ghost" size="icon" onClick={() => handleDelete(anomaly.id)}>
-                                                <Trash2 className="h-4 w-4 text-destructive" />
+                                            <Button variant="ghost" size="icon" className="h-8 w-8 hover:text-destructive hover:bg-destructive/5" onClick={() => handleDelete(anomaly.id)}>
+                                                <Trash2 className="h-3.5 w-3.5" />
                                             </Button>
                                         </div>
                                     </TableCell>
@@ -206,8 +170,8 @@ export function AnomaliesList({ missionId, anomalies, catalog }: AnomaliesListPr
                         })}
                         {anomalies.length === 0 && (
                             <TableRow>
-                                <TableCell colSpan={3} className="text-center py-8 text-muted-foreground">
-                                    No anomalies recorded.
+                                <TableCell colSpan={4} className="text-center py-12 text-muted-foreground italic">
+                                    Aucune anomalie enregistrée pour cette mission.
                                 </TableCell>
                             </TableRow>
                         )}
@@ -216,86 +180,24 @@ export function AnomaliesList({ missionId, anomalies, catalog }: AnomaliesListPr
             </div>
 
             <Dialog open={isOpen} onOpenChange={setIsOpen}>
-                <DialogContent>
-                    <DialogHeader>
-                        <DialogTitle>{editingAnomaly ? "Edit Anomaly" : "New Anomaly"}</DialogTitle>
+                <DialogContent className="sm:max-w-[550px] p-0 overflow-hidden border-none shadow-2xl">
+                    <DialogHeader className="bg-primary/5 px-6 pt-6 pb-4">
+                        <DialogTitle className="text-xl font-bold">
+                            {editingAnomaly ? "Modifier l'Anomalie" : "Nouvelle Anomalie"}
+                        </DialogTitle>
+                        <p className="text-sm text-muted-foreground">
+                            {editingAnomaly ? "Mettez à jour les détails du constat." : "Enregistrez une nouvelle non-conformité."}
+                        </p>
                     </DialogHeader>
-                    <div className="grid gap-4 py-4">
-                        <div className="grid gap-2">
-                            <Label>Standard Anomaly (Optional)</Label>
-                            <Select
-                                value={formData.catalog_anomaly_id || "custom"}
-                                onValueChange={(val) => val === "custom" ?
-                                    setFormData(prev => ({ ...prev, catalog_anomaly_id: undefined })) :
-                                    handleCatalogSelect(val)
-                                }
-                            >
-                                <SelectTrigger>
-                                    <SelectValue placeholder="Select standard anomaly..." />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectItem value="custom">Custom (None)</SelectItem>
-                                    {catalog.map(c => (
-                                        <SelectItem key={c.id} value={c.id}>
-                                            {c.code} - {c.description.substring(0, 50)}...
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="grid gap-2">
-                            <Label>Description</Label>
-                            <Textarea
-                                value={formData.custom_description || ""}
-                                onChange={(e) => setFormData(prev => ({ ...prev, custom_description: e.target.value }))}
-                                placeholder="Describe the anomaly..."
-                            />
-                        </div>
-                        <div className="grid gap-2">
-                            <Label>Sévérité</Label>
-                            <Select
-                                value={(formData as any).severity || "MEDIUM"}
-                                onValueChange={(val) => setFormData(prev => ({ ...prev, severity: val }))}
-                            >
-                                <SelectTrigger><SelectValue /></SelectTrigger>
-                                <SelectContent>
-                                    {SEVERITY_LEVELS.map(s => (
-                                        <SelectItem key={s.value} value={s.value}>
-                                            {s.icon} {s.label}
-                                        </SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="grid gap-2">
-                            <Label>Statut</Label>
-                            <Select
-                                value={formData.status || "OPEN"}
-                                onValueChange={(val) => setFormData(prev => ({ ...prev, status: val }))}
-                            >
-                                <SelectTrigger><SelectValue /></SelectTrigger>
-                                <SelectContent>
-                                    {ANOMALY_STATUSES.map(s => (
-                                        <SelectItem key={s.value} value={s.value}>{s.label}</SelectItem>
-                                    ))}
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="grid gap-2">
-                            <Label>Comment (Internal)</Label>
-                            <Input
-                                value={formData.comment || ""}
-                                onChange={(e) => setFormData(prev => ({ ...prev, comment: e.target.value }))}
-                            />
-                        </div>
+                    <div className="px-6 pb-6">
+                        <AnomalyForm
+                            initialData={editingAnomaly || undefined}
+                            catalog={catalog}
+                            onSubmit={handleSubmit}
+                            onCancel={() => setIsOpen(false)}
+                            isSaving={isSaving}
+                        />
                     </div>
-                    <DialogFooter>
-                        <Button variant="outline" onClick={() => setIsOpen(false)}>Cancel</Button>
-                        <Button onClick={handleSubmit} disabled={isSaving}>
-                            {isSaving && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Save
-                        </Button>
-                    </DialogFooter>
                 </DialogContent>
             </Dialog>
         </div>

@@ -21,31 +21,36 @@ import {
 import { useLanguage } from "@/context/LanguageContext";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
+import { useTenant } from "@/hooks/useTenant";
 
 const STATUS_FR: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
-    COMPLETED:   { label: "Terminée",   variant: "default" },
-    IN_PROGRESS: { label: "En cours",   variant: "secondary" },
-    DRAFT:       { label: "Brouillon",  variant: "outline" },
-    CANCELLED:   { label: "Annulée",    variant: "destructive" },
-    PLANNED:     { label: "Planifiée",  variant: "outline" },
+    COMPLETED: { label: "Terminée", variant: "default" },
+    IN_PROGRESS: { label: "En cours", variant: "secondary" },
+    DRAFT: { label: "Brouillon", variant: "outline" },
+    CANCELLED: { label: "Annulée", variant: "destructive" },
+    PLANNED: { label: "Planifiée", variant: "outline" },
 };
 
 const STATUS_EN: Record<string, { label: string; variant: "default" | "secondary" | "outline" | "destructive" }> = {
-    COMPLETED:   { label: "Completed",    variant: "default" },
-    IN_PROGRESS: { label: "In Progress",  variant: "secondary" },
-    DRAFT:       { label: "Draft",        variant: "outline" },
-    CANCELLED:   { label: "Cancelled",    variant: "destructive" },
-    PLANNED:     { label: "Planned",      variant: "outline" },
+    COMPLETED: { label: "Completed", variant: "default" },
+    IN_PROGRESS: { label: "In Progress", variant: "secondary" },
+    DRAFT: { label: "Draft", variant: "outline" },
+    CANCELLED: { label: "Cancelled", variant: "destructive" },
+    PLANNED: { label: "Planned", variant: "outline" },
 };
+
+import { useAuth } from "@/hooks/useAuth";
 
 export default function MissionsPage() {
     const { lang } = useLanguage();
+    const { user } = useAuth();
+    const tenantId = user?.tenant_id;
     const [search, setSearch] = useState("");
     const [filterStatus, setFilterStatus] = useState("ALL");
     const [filterServiceType, setFilterServiceType] = useState("ALL");
 
     const { data: missions, isLoading } = useQuery({
-        queryKey: ["missions"],
+        queryKey: ["missions", tenantId],
         queryFn: async () => {
             const res = await apiClient.get("/missions/");
             return res.data as Mission[];
@@ -53,7 +58,7 @@ export default function MissionsPage() {
     });
 
     const { data: serviceTypes } = useQuery({
-        queryKey: ["service-types"],
+        queryKey: ["service-types", tenantId],
         queryFn: async () => {
             const res = await apiClient.get("/service-types/");
             return res.data as { id: string; label: string; code: string }[];
@@ -73,9 +78,13 @@ export default function MissionsPage() {
     const filtered = useMemo(() => {
         if (!missions) return [];
         return missions.filter((m) => {
+            const searchLower = search.toLowerCase();
             const matchSearch = search === "" ||
-                (m.title || "").toLowerCase().includes(search.toLowerCase()) ||
-                (m.certification_number || "").toLowerCase().includes(search.toLowerCase());
+                (m.title || "").toLowerCase().includes(searchLower) ||
+                (m.certification_number || "").toLowerCase().includes(searchLower) ||
+                ((m as any).site?.name || "").toLowerCase().includes(searchLower) ||
+                ((m as any).service_type?.label || "").toLowerCase().includes(searchLower);
+
             const matchStatus = filterStatus === "ALL" || m.status === filterStatus;
             const matchType = filterServiceType === "ALL" || m.service_type_id === filterServiceType;
             return matchSearch && matchStatus && matchType;

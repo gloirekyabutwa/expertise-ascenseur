@@ -6,7 +6,7 @@ import { z } from "zod";
 import { useRouter } from "next/navigation";
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/lib/api/client";
-import { CreateMissionSchema, Site, ServiceType, Mission } from "@/lib/api/types";
+import { CreateMissionSchema, Site, ServiceType, Mission, Asset } from "@/lib/api/types";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
@@ -20,6 +20,23 @@ type MissionFormValues = z.infer<typeof CreateMissionSchema>;
 export function MissionForm() {
     const router = useRouter();
     const queryClient = useQueryClient();
+
+    // Fetch dependencies for selects
+    const form = useForm<MissionFormValues>({
+        // @ts-ignore
+        resolver: zodResolver(CreateMissionSchema) as any,
+        defaultValues: {
+            title: "",
+            status: "DRAFT",
+            service_type_id: "",
+            site_id: "",
+            asset_id: "",
+            client_reference: "",
+            certification_number: "",
+        },
+    });
+
+    const selectedSiteId = form.watch("site_id");
 
     // Fetch dependencies for selects
     const { data: sites } = useQuery({
@@ -42,17 +59,14 @@ export function MissionForm() {
         }
     });
 
-    const form = useForm<MissionFormValues>({
-        // Cast resolver to any to avoid strict type mismatch with optional/default fields
-        // @ts-ignore
-        resolver: zodResolver(CreateMissionSchema) as any,
-        defaultValues: {
-            title: "",
-            status: "DRAFT",
-            service_type_id: "", // Hook form needs a string even if schema expects UUID, validation will catch empty
-            client_reference: "",
-            certification_number: "",
+    const { data: assets } = useQuery({
+        queryKey: ["assets", selectedSiteId],
+        queryFn: async () => {
+            if (!selectedSiteId) return [];
+            const res = await apiClient.get<Asset[]>(`/assets/?site_id=${selectedSiteId}`);
+            return res.data;
         },
+        enabled: !!selectedSiteId
     });
 
     const mutation = useMutation({
@@ -130,7 +144,13 @@ export function MissionForm() {
                                 render={({ field }) => (
                                     <FormItem>
                                         <FormLabel>Site</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value || undefined}>
+                                        <Select
+                                            onValueChange={(val) => {
+                                                field.onChange(val);
+                                                form.setValue("asset_id", ""); // Reset asset when site changes
+                                            }}
+                                            defaultValue={field.value || undefined}
+                                        >
                                             <FormControl>
                                                 <SelectTrigger>
                                                     <SelectValue placeholder="Select site" />
@@ -140,6 +160,40 @@ export function MissionForm() {
                                                 {sites?.map((site) => (
                                                     <SelectItem key={site.id} value={site.id}>
                                                         {site.name}
+                                                    </SelectItem>
+                                                ))}
+                                            </SelectContent>
+                                        </Select>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+
+                            <FormField
+                                control={form.control}
+                                name="asset_id"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Appareil (Optionnel)</FormLabel>
+                                        <Select
+                                            onValueChange={field.onChange}
+                                            value={field.value || ""}
+                                            disabled={!selectedSiteId}
+                                        >
+                                            <FormControl>
+                                                <SelectTrigger>
+                                                    <SelectValue placeholder={selectedSiteId ? "Sélectionner un appareil" : "Choisir un site d'abord"} />
+                                                </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                                {assets?.length === 0 && (
+                                                    <div className="py-2 px-4 text-sm text-muted-foreground italic">
+                                                        Aucun appareil sur ce site
+                                                    </div>
+                                                )}
+                                                {assets?.map((asset) => (
+                                                    <SelectItem key={asset.id} value={asset.id}>
+                                                        {asset.label} ({asset.installation_number || asset.serial_number || "S/N inconnu"})
                                                     </SelectItem>
                                                 ))}
                                             </SelectContent>

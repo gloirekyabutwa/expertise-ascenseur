@@ -56,11 +56,8 @@ apiClient.interceptors.response.use(
 
         if (status === 401) {
             // Unauthorized - Clear session and redirect to login
-            if (typeof window !== "undefined") {
-                // TODO: Implement refresh token logic if backend supports /refresh endpoint
-                // For now, logout
+            if (typeof window !== "undefined" && window.location.pathname !== "/login") {
                 localStorage.removeItem("access_token");
-                // localStorage.removeItem("selected_tenant_id"); // Keep tenant?
                 window.location.href = "/login";
             }
         }

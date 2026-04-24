@@ -22,9 +22,11 @@ import { CreateAssetModal } from "@/components/assets/CreateAssetModal";
 // Compute next CTQ deadline & compliance status from missions
 function AssetComplianceInfo({ assetId }: { assetId: string }) {
     const { lang } = useLanguage();
+    const { user } = useAuth();
+    const tenantId = user?.tenant_id;
 
     const { data: missions } = useQuery({
-        queryKey: ["asset-missions-quick", assetId],
+        queryKey: ["asset-missions-quick", assetId, tenantId],
         queryFn: async () => {
             const res = await apiClient.get("/missions/", { params: { asset_id: assetId } });
             return res.data as any[];
@@ -33,12 +35,13 @@ function AssetComplianceInfo({ assetId }: { assetId: string }) {
     });
 
     const { data: anomalies } = useQuery({
-        queryKey: ["asset-anomalies-count", assetId],
+        queryKey: ["asset-anomalies-count", assetId, tenantId],
         queryFn: async () => {
             // get compliance bundle would be expensive per asset, so we approximate from missions
             // We check missions with status COMPLETED and their anomalies count
             return [] as any[];
         },
+        enabled: !!assetId && !!tenantId,
         staleTime: 1000 * 60 * 5,
     });
 
@@ -94,16 +97,17 @@ export default function AssetsPage() {
     const [isCreateAssetOpen, setIsCreateAssetOpen] = useState(false);
     const { lang } = useLanguage();
     const { user } = useAuth();
+    const tenantId = user?.tenant_id;
 
     const { data: sites, isLoading: sitesLoading } = useQuery({
-        queryKey: ["sites"],
+        queryKey: ["sites", tenantId],
         queryFn: () => sitesService.list(),
     });
 
     const { data: assets, isLoading: assetsLoading } = useQuery({
-        queryKey: ["assets", selectedSiteId],
+        queryKey: ["assets", selectedSiteId, tenantId],
         queryFn: () => selectedSiteId ? assetsService.getBySite(selectedSiteId) : Promise.resolve([]),
-        enabled: !!selectedSiteId,
+        enabled: !!selectedSiteId && !!tenantId,
     });
 
     const selectedSite = sites?.find(s => s.id === selectedSiteId);

@@ -131,6 +131,27 @@ def create_mission_anomaly(
         **anomaly_in.dict()
     )
     db.add(db_anomaly)
+    
+    # Logic: If linked to a checklist item, update the checklist result automatically
+    if anomaly_in.catalog_item_id:
+        # Determine the observation code to display in the checklist
+        # Prioritize catalog code, then custom code
+        obs_code = anomaly_in.custom_code
+        if anomaly_in.catalog_anomaly_id:
+            cat_anom = db.query(AnomalyCatalog).get(anomaly_in.catalog_anomaly_id)
+            if cat_anom:
+                obs_code = cat_anom.code
+        
+        existing_res = db.query(MissionChecklistResult).filter(
+            MissionChecklistResult.mission_id == mission_id,
+            MissionChecklistResult.catalog_item_id == anomaly_in.catalog_item_id
+        ).first()
+        
+        if existing_res:
+            existing_res.observation_code = obs_code
+            existing_res.status = "CONCERNED" # It's checked and has an anomaly
+            # Note: We don't overwrite the comment unless needed, but obs_code is primary linkage
+            
     db.commit()
     db.refresh(db_anomaly)
     return db_anomaly

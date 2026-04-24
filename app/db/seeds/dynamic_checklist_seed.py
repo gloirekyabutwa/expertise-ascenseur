@@ -7,8 +7,14 @@ from sqlalchemy.orm import Session
 # Add project root to path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "..")))
 
-from app.db.session import SessionLocal, engine
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from app.core.config import settings
 from app.db.models.checklist import ChecklistCatalog, AnomalyCatalog
+
+# Use admin URI for seeding
+engine = create_engine(str(settings.SQLALCHEMY_ADMIN_DATABASE_URI))
+SessionLocalAdmin = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 def seed_checklist():
     # Ensure columns exist
@@ -24,7 +30,7 @@ def seed_checklist():
         except Exception as e:
             print(f"DDL Error: {e}")
 
-    db = SessionLocal()
+    db = SessionLocalAdmin()
     try:
         # 1. Clear existing catalog (optional, but good for clean demo)
         db.execute(text("DELETE FROM mission_checklist_results"))
@@ -68,6 +74,27 @@ def seed_checklist():
             ("I.3", "Eclairage de la gaine", "Luminosité minimum", 3, "BOOL", None),
             ("I.4", "Distance de sécurité en cuvette", "Espace de survie", 4, "MEASURE", "mm"),
         ]
+
+        # Items for Section II (Machinerie)
+        items_ii = [
+            ("II.1", "Accès à la machinerie", "Sécurité et éclairage des accès", 1, "BOOL", None),
+            ("II.2", "Protection des parties tournantes", "Présence de carters", 2, "BOOL", None),
+            ("II.3", "Interrupteur d'arrêt (STOP)", "Fonctionnement et accessibilité", 3, "BOOL", None),
+        ]
+
+        # Items for Section III (Cabine)
+        items_iii = [
+            ("III.1", "Eclairage de secours", "Fonctionnement en cas de coupure", 1, "BOOL", None),
+            ("III.2", "Dispositif de demande de secours", "Téléalarme fonctionnelle", 2, "BOOL", None),
+            ("III.3", "Précision d'arrêt", "Nivelage par rapport au palier", 3, "MEASURE", "mm"),
+        ]
+
+        # Items for Section VII (Portes Palières)
+        items_vii = [
+            ("VII.1", "Verrouillage des portes", "Impossibilité d'ouvrir sans cabine", 1, "BOOL", None),
+            ("VII.2", "Etat des suspentes de portes", "Usure et fixation", 2, "BOOL", None),
+            ("VII.3", "Contacts de sécurité", "Coupure série sécurité si ouvert", 3, "BOOL", None),
+        ]
         
         # Items for Section VIII (Measurements)
         items_viii = [
@@ -76,36 +103,34 @@ def seed_checklist():
             ("VIII.3", "Charge maximum testée", "Poids lors de l'essai", 3, "MEASURE", "kg"),
         ]
 
-        for code, label, desc, order, ftype, unit in items_i:
-            item = ChecklistCatalog(
-                code=code,
-                label=label,
-                description=desc,
-                order_index=order,
-                item_type="ITEM",
-                field_type=ftype,
-                unit=unit,
-                parent_id=section_map["I"]
-            )
-            db.add(item)
+        item_collections = [
+            ("I", items_i),
+            ("II", items_ii),
+            ("III", items_iii),
+            ("VII", items_vii),
+            ("VIII", items_viii),
+        ]
 
-        for code, label, desc, order, ftype, unit in items_viii:
-            item = ChecklistCatalog(
-                code=code,
-                label=label,
-                description=desc,
-                order_index=order,
-                item_type="ITEM",
-                field_type=ftype,
-                unit=unit,
-                parent_id=section_map["VIII"]
-            )
-            db.add(item)
+        for section_code, collection in item_collections:
+            for code, label, desc, order, ftype, unit in collection:
+                item = ChecklistCatalog(
+                    code=code,
+                    label=label,
+                    description=desc,
+                    order_index=order,
+                    item_type="ITEM",
+                    field_type=ftype,
+                    unit=unit,
+                    parent_id=section_map[section_code]
+                )
+                db.add(item)
 
         # 4. Anomalies
         anomalies = [
             ("1A", "Parois présentant des aspérités dangereuses", "NORMAL"),
             ("1B", "Ventilation obstruée ou insuffisante", "NORMAL"),
+            ("2A", "Accès à la machinerie encombré", "HIGH"),
+            ("7A", "Porte palière déverrouillable de l'extérieur", "HIGH"),
             ("8A", "Vitesse supérieure à 5% de la vitesse nominale", "HIGH"),
         ]
         for acode, adesc, acrit in anomalies:

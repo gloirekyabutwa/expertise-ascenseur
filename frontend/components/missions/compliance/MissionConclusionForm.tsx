@@ -35,10 +35,12 @@ export function MissionConclusionForm({ mission }: MissionConclusionFormProps) {
         signed_by_name: mission.signed_by_name || "",
         place_signed: mission.place_signed || "",
         signature_date: mission.signed_at ? format(parseISO(mission.signed_at), "yyyy-MM-dd'T'HH:mm") : "",
-        signature_base64: mission.metadata_json?.signature_base64 || ""
+        client_signature: mission.metadata_json?.client_signature || "",
+        tech_signature: mission.metadata_json?.tech_signature || ""
     });
 
-    const sigCanvas = useRef<any>(null);
+    const clientSigCanvas = useRef<any>(null);
+    const techSigCanvas = useRef<any>(null);
 
     const updateMutation = useMutation({
         mutationFn: (data: any) => complianceService.updateMission(mission.id, data),
@@ -59,10 +61,17 @@ export function MissionConclusionForm({ mission }: MissionConclusionFormProps) {
 
     const handleSave = () => {
         let finalMetadata = mission.metadata_json || {};
-        if (sigCanvas.current && !sigCanvas.current.isEmpty()) {
-            finalMetadata.signature_base64 = sigCanvas.current.getTrimmedCanvas().toDataURL("image/png");
-        } else if (formData.signature_base64) {
-            finalMetadata.signature_base64 = formData.signature_base64;
+        
+        if (clientSigCanvas.current && !clientSigCanvas.current.isEmpty()) {
+            finalMetadata.client_signature = clientSigCanvas.current.getTrimmedCanvas().toDataURL("image/png");
+        } else if (formData.client_signature) {
+            finalMetadata.client_signature = formData.client_signature;
+        }
+
+        if (techSigCanvas.current && !techSigCanvas.current.isEmpty()) {
+            finalMetadata.tech_signature = techSigCanvas.current.getTrimmedCanvas().toDataURL("image/png");
+        } else if (formData.tech_signature) {
+            finalMetadata.tech_signature = formData.tech_signature;
         }
 
         updateMutation.mutate({
@@ -162,30 +171,62 @@ export function MissionConclusionForm({ mission }: MissionConclusionFormProps) {
                     </div>
                 </div>
 
-                <div className="grid gap-2 mt-4">
-                    <Label className="flex items-center justify-between">
-                        Signature du client
-                        <Button variant="ghost" size="sm" onClick={() => sigCanvas.current?.clear()} className="h-6 text-xs text-muted-foreground">Effacer</Button>
-                    </Label>
-                    <div className="border rounded-md bg-white">
-                         {formData.signature_base64 && !sigCanvas.current ? (
-                             <img src={formData.signature_base64} alt="Signature" className="h-40 w-full object-contain" />
-                         ) : (
-                            <SignatureCanvas 
-                                ref={sigCanvas} 
-                                penColor="black"
-                                canvasProps={{ className: "w-full h-40" }} 
-                            />
-                         )}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div className="grid gap-2">
+                        <Label className="flex items-center justify-between text-muted-foreground uppercase text-xs tracking-wider">
+                            Signature Technicien
+                            <Button variant="ghost" size="sm" onClick={() => techSigCanvas.current?.clear()} className="h-6 text-xs text-muted-foreground">Effacer</Button>
+                        </Label>
+                        <div className="border border-muted/60 shadow-inner rounded-md bg-white">
+                            {formData.tech_signature ? (
+                                <img src={formData.tech_signature} alt="Signature Technicien" className="h-32 w-full object-contain" />
+                            ) : (
+                                <SignatureCanvas
+                                    ref={techSigCanvas}
+                                    penColor="blue"
+                                    canvasProps={{ className: "w-full h-32" }}
+                                />
+                            )}
+                        </div>
+                    </div>
+
+                    <div className="grid gap-2">
+                        <Label className="flex items-center justify-between text-primary uppercase text-xs tracking-wider font-bold">
+                            Signature Client / Représentant
+                            <Button variant="ghost" size="sm" onClick={() => clientSigCanvas.current?.clear()} className="h-6 text-xs text-muted-foreground">Effacer</Button>
+                        </Label>
+                        <div className="border-2 border-primary/20 shadow-sm rounded-md bg-white">
+                            {formData.client_signature ? (
+                                <img src={formData.client_signature} alt="Signature Client" className="h-32 w-full object-contain" />
+                            ) : (
+                                <SignatureCanvas
+                                    ref={clientSigCanvas}
+                                    penColor="black"
+                                    canvasProps={{ className: "w-full h-32" }}
+                                />
+                            )}
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex justify-end pt-4">
-                <Button onClick={handleSave} disabled={updateMutation.isPending}>
-                    {updateMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                    Save Conclusion
-                </Button>
+            <div className="flex justify-between items-center pt-4 border-t">
+                <p className="text-xs text-muted-foreground italic">
+                    Note: La clôture de la mission générera automatiquement le rapport PDF final et l'enverra au client.
+                </p>
+                <div className="flex gap-2">
+                    <Button variant="outline" onClick={handleSave} disabled={updateMutation.isPending}>
+                        {updateMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Sauvegarder Brouillon
+                    </Button>
+                    <Button onClick={() => {
+                        handleSave();
+                        updateMutation.mutate({ status: 'COMPLETED' });
+                    }} disabled={updateMutation.isPending} className="bg-green-600 hover:bg-green-700">
+                        {updateMutation.isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                        Clôturer & Envoyer Rapport
+                    </Button>
+                </div>
             </div>
         </div>
     );
