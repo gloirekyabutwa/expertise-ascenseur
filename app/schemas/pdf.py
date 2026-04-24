@@ -195,42 +195,6 @@ class PdfContext(BaseModel):
     
     model_config = ConfigDict(from_attributes=True)
 
-# --- API Schemas ---
-
-class PdfRenderRequestCreate(BaseModel):
-    doc_type: str
-    entity_type: str
-    entity_id: UUID
-    template_id: UUID
-    options: dict = {}
-
-class PdfRenderRequestResponse(BaseModel):
-    id: UUID
-    status: str
-    created_at: datetime
-    output_document_id: Optional[UUID] = None
-    output_document_version_id: Optional[UUID] = None
-    error: Optional[str] = None
-    
-    model_config = ConfigDict(from_attributes=True)
-
-class PdfTemplateCreate(BaseModel):
-    code: str
-    version: int
-    engine: str = "WEASYPRINT"
-    template_path: str
-    style_path: Optional[str] = None
-    assets_json: Optional[dict] = None
-
-class PdfTemplateResponse(PdfTemplateCreate):
-    id: UUID
-    status: str
-    created_at: datetime
-    
-    model_config = ConfigDict(from_attributes=True)
-
-# --- API Schemas ---
-
 class PdfRenderRequestCreate(BaseModel):
     doc_type: str
     entity_type: str

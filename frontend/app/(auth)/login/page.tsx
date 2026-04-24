@@ -38,8 +38,8 @@ export default function LoginPage() {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            email: "admin@ascenseurs-express.com",
-            password: "admin123",
+            email: "",
+            password: "",
             tenantId: "7327c495-606c-45c4-8896-416dd6a46367",
         },
     });

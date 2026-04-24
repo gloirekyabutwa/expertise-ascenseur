@@ -1,4 +1,3 @@
-from typing import Generator, Optional
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
@@ -31,10 +30,10 @@ def get_current_user(
             detail="Could not validate credentials",
         )
     
-    # RLS is active here because generic 'db' session uses app_user.
-    # 'current_tenant' dependency has already set 'app.current_tenant'.
-    # So this query only finds users in the current tenant.
-    user = db.query(User).filter(User.id == token_data.sub).first()
+    user = db.query(User).filter(
+        User.id == token_data.sub,
+        User.tenant_id == current_tenant.id,
+    ).first()
     
     if not user:
         raise HTTPException(status_code=404, detail="User not found")

@@ -1,21 +1,20 @@
 import os
 import io
 import logging
+import tempfile
 from uuid import UUID
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 from weasyprint import HTML, CSS
 
 from sqlalchemy.orm import Session, joinedload
-from sqlalchemy import func, text
+from sqlalchemy import func
 from sqlalchemy.exc import IntegrityError
 from fastapi import HTTPException
 
-from app.core.config import settings
 from app.db.models.pdf import PdfRenderRequest, PdfRenderStatus, PdfTemplate
 from app.db.models.missions import Mission
-from app.db.models.services import ChecklistItem, ChecklistTemplate, ServiceType
-from app.db.models.tenants_and_assets import Site, Asset, Tenant
+from app.db.models.tenants_and_assets import Site, Asset, Tenant, User
 from app.db.models.findings import Finding, Evidence
 from app.db.models.documents import Document, DocumentFile
 from app.db.models.client import Client
@@ -24,7 +23,7 @@ from app.db.models.compliance import (
     MissionWorkItem, Attachment
 )
 from app.db.models.checklist import (
-    ChecklistCatalog, MissionChecklistResult, AnomalyCatalog, MissionAnomaly
+    MissionChecklistResult, MissionAnomaly
 )
 from app.schemas.pdf import (
     PdfContext, TenantInfo, DocumentInfo, MissionInfo, SiteInfo, AssetInfo, 
@@ -47,13 +46,85 @@ class PdfService:
         self.db = db
         self.storage = minio_storage
 
+    def _resolve_template_relative_path(self, template_path: str) -> str:
+        normalized = os.path.normpath(template_path).replace("\\", "/")
+        resolved = os.path.abspath(os.path.join(TEMPLATE_DIR, normalized))
+        template_root = os.path.abspath(TEMPLATE_DIR)
+
+        if not resolved.startswith(f"{template_root}{os.sep}"):
+            raise ValueError("Template path escapes the templates directory")
+
+        if os.path.exists(resolved):
+            return normalized
+
+        legacy_name_map = {
+            "template.html": "index.html",
+            "style.css": "styles.css",
+        }
+        basename = os.path.basename(normalized)
+        legacy_name = legacy_name_map.get(basename)
+        if legacy_name:
+            legacy_relative = os.path.join(os.path.dirname(normalized), legacy_name).replace("\\", "/")
+            legacy_resolved = os.path.abspath(os.path.join(TEMPLATE_DIR, legacy_relative))
+            if legacy_resolved.startswith(f"{template_root}{os.sep}") and os.path.exists(legacy_resolved):
+                return legacy_relative
+
+        raise FileNotFoundError(f"Template asset not found: {template_path}")
+
+    def _notify_mission_completed(self, request: PdfRenderRequest, pdf_bytes: bytes) -> None:
+        if request.entity_type != "MISSION":
+            return
+
+        mission = self.db.query(Mission).filter(Mission.id == request.entity_id).first()
+        if not mission or mission.status not in {"COMPLETED", "DONE"}:
+            return
+
+        recipient_email = None
+        if mission.site_id:
+            site = self.db.query(Site).filter(Site.id == mission.site_id).first()
+            if site and site.client_id:
+                client = self.db.query(Client).filter(Client.id == site.client_id).first()
+                if client and client.email:
+                    recipient_email = client.email
+
+        if not recipient_email:
+            admin_user = self.db.query(User).filter(
+                User.tenant_id == request.tenant_id,
+                User.role == "ADMIN",
+                User.is_active.is_(True),
+            ).order_by(User.created_at.asc()).first()
+            if admin_user:
+                recipient_email = admin_user.email
+
+        if not recipient_email:
+            logger.info("Skipping mission completion email for %s: no recipient found", request.id)
+            return
+
+        from app.services.notifications import notification_service
+
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".pdf") as tmp:
+            tmp.write(pdf_bytes)
+            tmp_path = tmp.name
+
+        try:
+            sent = notification_service.notify_mission_completed(
+                mission_id=str(mission.id),
+                recipient_email=recipient_email,
+                report_pdf_path=tmp_path,
+            )
+            if not sent:
+                logger.warning("Notification email could not be sent for request %s", request.id)
+        finally:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
+
     def get_template(self, template_id: UUID) -> PdfTemplate:
         template = self.db.query(PdfTemplate).filter(PdfTemplate.id == template_id).first()
         if not template:
             raise HTTPException(status_code=404, detail="Template not found")
         return template
 
-    def prepare_context(self, mission_id: UUID, template: PdfTemplate, request_id: UUID) -> PdfContext:
+    def prepare_context(self, mission_id: UUID, template: PdfTemplate, request_id: UUID, doc_type: str) -> PdfContext:
         mission = self.db.query(Mission).filter(Mission.id == mission_id).first()
         if not mission:
             raise ValueError(f"Mission {mission_id} not found")
@@ -221,7 +292,7 @@ class PdfService:
                 agencies=tenant.agencies if tenant else None
             ),
             document=DocumentInfo(
-                doc_type="CTQ_REPORT",
+                doc_type=doc_type,
                 title=f"Rapport {mission.certification_number or mission.id}",
                 generated_at=datetime.utcnow(),
                 render_request_id=request_id,
@@ -293,6 +364,7 @@ class PdfService:
         return context
 
     def render_pdf(self, request_id: UUID):
+        request = None
         try:
             # 1. Load Request
             request = self.db.query(PdfRenderRequest).filter(PdfRenderRequest.id == request_id).first()
@@ -322,21 +394,32 @@ class PdfService:
 
             # 2. Prepare or Load Context (Hardening #4: Reproducibility)
             template = self.get_template(request.template_id)
-            
-            if request.payload_json and len(request.payload_json) > 0 and 'tenant' in request.payload_json:
+            request_options = {}
+            if request.payload_json and isinstance(request.payload_json, dict):
+                request_options = request.payload_json.get("options", {}) or {}
+
+            if request.payload_json and isinstance(request.payload_json, dict) and "context" in request.payload_json:
+                context = PdfContext.model_validate(request.payload_json["context"])
+                logger.info(f"Rendering from saved payload for {request_id}")
+            elif request.payload_json and len(request.payload_json) > 0 and 'tenant' in request.payload_json:
                 # Reconstruct from saved payload for reproducibility
                 context = PdfContext.model_validate(request.payload_json)
+                request.payload_json = {
+                    "options": request_options,
+                    "context": context.model_dump(mode="json"),
+                }
                 logger.info(f"Rendering from saved payload for {request_id}")
             else:
                 # First time: prepare and save
-                context = self.prepare_context(request.entity_id, template, request_id)
-                request.payload_json = context.model_dump(mode='json')
+                context = self.prepare_context(request.entity_id, template, request_id, request.doc_type)
+                request.payload_json = {
+                    "options": request_options,
+                    "context": context.model_dump(mode="json"),
+                }
                 logger.info(f"Prepared fresh context for {request_id}")
 
             # 3. Extract template type from options
-            template_type = "FULL"
-            if request.payload_json and 'options' in request.payload_json:
-                template_type = request.payload_json['options'].get('template_type', "FULL")
+            template_type = request_options.get("template_type", "FULL")
 
             # 4. Generate fresh URLs for annexes (Hardening #5)
             for annex in context.annexes:
@@ -348,7 +431,8 @@ class PdfService:
                     annex.url = "#"  # Fallback
             
             # 5. Render HTML
-            jinja_template = env.get_template(template.template_path)
+            resolved_template_path = self._resolve_template_relative_path(template.template_path)
+            jinja_template = env.get_template(resolved_template_path)
             # Pass the Pydantic object directly - Jinja2 can access attributes
             html_content = jinja_template.render(
                 tenant=context.tenant,
@@ -366,9 +450,9 @@ class PdfService:
             # 6. Render PDF
             css = []
             if template.style_path:
-                 css_path = os.path.join(TEMPLATE_DIR, template.style_path)
-                 if os.path.exists(css_path):
-                     css.append(CSS(filename=css_path))
+                 resolved_style_path = self._resolve_template_relative_path(template.style_path)
+                 css_path = os.path.join(TEMPLATE_DIR, resolved_style_path)
+                 css.append(CSS(filename=css_path))
             
             pdf_bytes = HTML(string=html_content, base_url=TEMPLATE_DIR).write_pdf(stylesheets=css)
             
@@ -450,6 +534,7 @@ class PdfService:
             self.db.commit()
             
             logger.info(f"PDF generated successfully: {file_name}")
+            self._notify_mission_completed(request, pdf_bytes)
 
         except Exception as e:
             logger.exception(f"PDF Generation Failed: {e}")
@@ -466,8 +551,10 @@ def run_pdf_generation(request_id: UUID, tenant_id: UUID):
     from sqlalchemy import text
     db = SessionLocal()
     try:
-        # Enforce RLS Context (Validation Point 5)
-        db.execute(text("SET LOCAL app.current_tenant = :tenant_id"), {"tenant_id": str(tenant_id)})
+        db.execute(
+            text("SELECT set_config('app.current_tenant', :tenant_id, false)"),
+            {"tenant_id": str(tenant_id)},
+        )
         service = PdfService(db)
         service.render_pdf(request_id)
     finally:

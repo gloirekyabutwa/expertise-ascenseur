@@ -3,12 +3,11 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
+from app.api.deps import RoleChecker, get_current_active_user, get_db
 from app.db.models.client import Client
 from app.db.models.tenants_and_assets import Tenant
 from app.schemas.client import ClientCreate, ClientUpdate, ClientResponse
 from app.core.tenancy import get_tenant
-from app.api.deps import get_db
 
 router = APIRouter()
 
@@ -16,6 +15,7 @@ router = APIRouter()
 def read_clients(
     skip: int = 0,
     limit: int = 100,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -24,6 +24,7 @@ def read_clients(
 @router.post("/", response_model=ClientResponse)
 def create_client(
     client: ClientCreate,
+    current_user=Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -36,6 +37,7 @@ def create_client(
 @router.get("/{client_id}", response_model=ClientResponse)
 def read_client(
     client_id: uuid.UUID,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -48,6 +50,7 @@ def read_client(
 def update_client(
     client_id: uuid.UUID,
     client_update: ClientUpdate,
+    current_user=Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):

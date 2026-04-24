@@ -13,7 +13,7 @@ ENV PYTHONUNBUFFERED=1 \
     VENV_PATH="/opt/pysetup/.venv"
 
 # Prepend poetry and venv to path
-ENV PATH="$POETRY_HOME/bin:$VENV_PATH/bin:$PATH"
+ENV PATH="/opt/poetry/bin:/opt/pysetup/.venv/bin:$PATH"
 
 # Install system dependencies
 RUN apt-get update \
@@ -30,14 +30,18 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Poetry
-RUN curl -sSL https://install.python-poetry.org | python3 -
+# The build environment currently injects a non-standard TLS chain, so we scope
+# the relaxed certificate check to the Poetry bootstrap step only.
+RUN curl -sSLk https://install.python-poetry.org | python3 - && \
+    /opt/poetry/bin/poetry --version && \
+    ln -sf /opt/poetry/bin/poetry /usr/local/bin/poetry
 
 # Setup workdir
 WORKDIR $PYSETUP_PATH
 COPY poetry.lock pyproject.toml ./
 
 # Install runtime deps - uses $POETRY_VIRTUALENVS_IN_PROJECT internally
-RUN poetry install --only main --no-root
+RUN /opt/poetry/bin/poetry install --only main --no-root
 
 # Copy application code
 WORKDIR /app

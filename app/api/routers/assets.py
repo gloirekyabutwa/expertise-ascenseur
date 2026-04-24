@@ -1,9 +1,9 @@
 from typing import List, Optional
 import uuid
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
-from app.db.session import SessionLocal
+from app.api.deps import RoleChecker, get_current_active_user
 from app.db.models import Asset, Tenant, Site
 from app.schemas.assets import AssetCreate, AssetResponse, AssetUpdate
 from app.core.tenancy import get_tenant
@@ -16,10 +16,11 @@ def read_assets(
     site_id: Optional[uuid.UUID] = None,
     skip: int = 0,
     limit: int = 100,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
-    query = db.query(Asset).filter(Asset.tenant_id == current_tenant.id)
+    query = db.query(Asset).options(joinedload(Asset.technical_characteristics)).filter(Asset.tenant_id == current_tenant.id)
     if site_id:
         query = query.filter(Asset.site_id == site_id)
         
@@ -29,6 +30,7 @@ def read_assets(
 @router.post("/", response_model=AssetResponse)
 def create_asset(
     asset: AssetCreate,
+    current_user=Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -46,10 +48,11 @@ def create_asset(
 @router.get("/{asset_id}", response_model=AssetResponse)
 def read_asset(
     asset_id: uuid.UUID,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
-    asset = db.query(Asset).filter(Asset.id == asset_id, Asset.tenant_id == current_tenant.id).first()
+    asset = db.query(Asset).options(joinedload(Asset.technical_characteristics)).filter(Asset.id == asset_id, Asset.tenant_id == current_tenant.id).first()
     if not asset:
         raise HTTPException(status_code=404, detail="Asset not found")
     return asset
@@ -58,6 +61,7 @@ def read_asset(
 def update_asset(
     asset_id: uuid.UUID,
     asset_update: AssetUpdate,
+    current_user=Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):

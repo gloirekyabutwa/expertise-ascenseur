@@ -3,7 +3,7 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
+from app.api.deps import RoleChecker, get_current_active_user
 from app.db.models import User, Tenant
 from app.schemas.users_tenants import UserCreate, UserResponse, UserUpdate
 from app.core import security
@@ -11,8 +11,6 @@ from app.core.tenancy import get_tenant
 from app.api.routers.auth import get_db
 
 router = APIRouter()
-
-from app.api.deps import get_current_active_user
 
 @router.get("/me", response_model=UserResponse)
 def read_user_me(
@@ -27,6 +25,7 @@ def read_user_me(
 def read_users(
     skip: int = 0,
     limit: int = 100,
+    current_user: User = Depends(RoleChecker(["ADMIN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -36,6 +35,7 @@ def read_users(
 @router.post("/", response_model=UserResponse)
 def create_user(
     user: UserCreate,
+    current_user: User = Depends(RoleChecker(["ADMIN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -59,6 +59,7 @@ def create_user(
 @router.get("/{user_id}", response_model=UserResponse)
 def read_user(
     user_id: uuid.UUID,
+    current_user: User = Depends(RoleChecker(["ADMIN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):

@@ -5,11 +5,10 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
 from app.db.models import User, Tenant
 from app.core import security
 from app.core.config import settings
-from app.schemas.token import Token, UserLogin
+from app.schemas.token import Token
 from app.core.tenancy import get_tenant, get_db
 
 router = APIRouter()
@@ -23,7 +22,10 @@ def login_access_token(
     """
     OAuth2 compatible token login, get an access token for future requests
     """
-    user = db.query(User).filter(User.email == form_data.username).first()
+    user = db.query(User).filter(
+        User.email == form_data.username,
+        User.tenant_id == current_tenant.id,
+    ).first()
     if not user:
          raise HTTPException(status_code=400, detail="Incorrect email or password")
     

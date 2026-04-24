@@ -3,7 +3,7 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
+from app.api.deps import RoleChecker, get_current_active_user
 from app.db.models import Site, Tenant
 from app.schemas.assets import SiteCreate, SiteResponse, SiteUpdate
 from app.core.tenancy import get_tenant
@@ -15,6 +15,7 @@ router = APIRouter()
 def read_sites(
     skip: int = 0,
     limit: int = 100,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -24,6 +25,7 @@ def read_sites(
 @router.post("/", response_model=SiteResponse)
 def create_site(
     site: SiteCreate,
+    current_user=Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -36,6 +38,7 @@ def create_site(
 @router.get("/{site_id}", response_model=SiteResponse)
 def read_site(
     site_id: uuid.UUID,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -48,6 +51,7 @@ def read_site(
 def update_site(
     site_id: uuid.UUID,
     site_update: SiteUpdate,
+    current_user=Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):

@@ -4,7 +4,7 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
+from app.api.deps import RoleChecker, get_current_active_user
 from app.db.models import ChecklistRun, ChecklistRunItem, Mission, ChecklistTemplate, Tenant, ChecklistItem
 from app.schemas.checklist_runs import ChecklistRunCreate, ChecklistRunResponse, ChecklistRunUpdate, ChecklistRunItemUpdate, ChecklistRunItemResponse
 from app.core.tenancy import get_tenant
@@ -15,6 +15,7 @@ router = APIRouter()
 @router.post("/", response_model=ChecklistRunResponse)
 def create_checklist_run(
     run_in: ChecklistRunCreate,
+    current_user=Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -59,6 +60,7 @@ def create_checklist_run(
 @router.get("/{run_id}", response_model=ChecklistRunResponse)
 def read_checklist_run(
     run_id: uuid.UUID,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -71,6 +73,7 @@ def read_checklist_run(
 def update_checklist_run_status(
     run_id: uuid.UUID,
     run_update: ChecklistRunUpdate,
+    current_user=Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -95,6 +98,7 @@ def update_checklist_run_item(
     run_id: uuid.UUID,
     item_id: uuid.UUID,
     item_update: ChecklistRunItemUpdate,
+    current_user=Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):

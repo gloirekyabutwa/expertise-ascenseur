@@ -4,21 +4,21 @@ from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
-from app.db.models import Finding, Evidence, Comment, Mission, Tenant
+from app.api.deps import RoleChecker, get_current_active_user, get_db
+from app.db.models import Comment, Evidence, Finding, Mission, Tenant, User
 from app.schemas.findings_documents import FindingCreate, FindingResponse, FindingUpdate, EvidenceCreate, EvidenceResponse, CommentCreate, CommentResponse
 from app.core.tenancy import get_tenant
-from app.api.routers.auth import get_db
 
 router = APIRouter()
 
-@router.get("/findings", response_model=List[FindingResponse])
+@router.get("/", response_model=List[FindingResponse])
 def read_findings(
     mission_id: Optional[uuid.UUID] = None,
     status: Optional[str] = None,
     severity: Optional[str] = None,
     skip: int = 0,
     limit: int = 100,
+    current_user: User = Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -33,9 +33,10 @@ def read_findings(
         
     return query.offset(skip).limit(limit).all()
 
-@router.post("/findings", response_model=FindingResponse)
+@router.post("/", response_model=FindingResponse)
 def create_finding(
     finding: FindingCreate,
+    current_user: User = Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -54,10 +55,11 @@ def create_finding(
     db.refresh(db_finding)
     return db_finding
 
-@router.patch("/findings/{finding_id}", response_model=FindingResponse)
+@router.patch("/{finding_id}", response_model=FindingResponse)
 def update_finding(
     finding_id: uuid.UUID,
     finding_update: FindingUpdate,
+    current_user: User = Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -86,10 +88,11 @@ def update_finding(
     db.refresh(db_finding)
     return db_finding
 
-@router.post("/findings/{finding_id}/evidences", response_model=EvidenceResponse)
+@router.post("/{finding_id}/evidences", response_model=EvidenceResponse)
 def create_finding_evidence(
     finding_id: uuid.UUID,
     evidence: EvidenceCreate,
+    current_user: User = Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -107,24 +110,26 @@ def create_finding_evidence(
     db.refresh(db_evidence)
     return db_evidence
 
-@router.post("/findings/{finding_id}/comments", response_model=CommentResponse)
+@router.post("/{finding_id}/comments", response_model=CommentResponse)
 def create_finding_comment(
     finding_id: uuid.UUID,
     comment: CommentCreate,
+    current_user: User = Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
-    # In real app, we need current_user to set created_by
-    # For now we might need to mock or pass user_id via header/token
 ):
-    # Retrieve user from context (skipping for brevity, assuming standard way exists)
-    # Using a dummy user for MVP or picking first user
-    user = db.query(app.db.models.User).filter(app.db.models.User.tenant_id == current_tenant.id).first()
-    
+    db_finding = db.query(Finding).filter(
+        Finding.id == finding_id,
+        Finding.tenant_id == current_tenant.id,
+    ).first()
+    if not db_finding:
+        raise HTTPException(status_code=404, detail="Finding not found")
+
     db_comment = Comment(
         entity_type="FINDING",
         entity_id=finding_id,
         body=comment.body,
-        created_by=user.id if user else uuid.uuid4(),
+        created_by=current_user.id,
         tenant_id=current_tenant.id
     )
     db.add(db_comment)

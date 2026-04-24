@@ -28,8 +28,8 @@ def seed_full_ctq():
         print("Seeding Tenant...")
         tenant = Tenant(
             id="7327c495-606c-45c4-8896-416dd6a46367", # MATCH FRONTEND DEFAULT
-            name="SaaS Ascenseurs Demo",
-            slug="demo-asc",
+            name="Ascenseurs Express",
+            slug="ascenseurs-express",
             address="123 Rue de la République, 33000 Bordeaux", # Merged for simplicity or keep separate if model allows
             region="Nouvelle-Aquitaine",
             phone="01 23 45 67 89",
@@ -47,7 +47,10 @@ def seed_full_ctq():
         db.flush() 
         
         # Set RLS Context
-        db.execute(text(f"SET app.current_tenant = '{tenant.id}'"))
+        db.execute(
+            text("SELECT set_config('app.current_tenant', :tenant_id, false)"),
+            {"tenant_id": str(tenant.id)},
+        )
 
         print("Seeding Agency...")
         agency = TenantAgency(

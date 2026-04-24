@@ -1,14 +1,14 @@
 from typing import List, Optional
+import os
 import uuid
-from datetime import datetime
-from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
-from app.db.models import Document, DocumentFile, Tenant
+from app.api.deps import RoleChecker, get_current_active_user, get_db
+from app.db.models import Document, DocumentFile, Finding, Mission, Tenant, User
 from app.schemas.findings_documents import DocumentCreate, DocumentResponse, PresignedUrlResponse
 from app.core.tenancy import get_tenant
-from app.api.routers.auth import get_db
 from app.services.storage.minio_storage import storage
 
 router = APIRouter()
@@ -19,6 +19,7 @@ def read_documents(
     mission_id: Optional[uuid.UUID] = None,
     skip: int = 0,
     limit: int = 100,
+    current_user: User = Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -34,12 +35,47 @@ def read_documents(
     docs = query.offset(skip).limit(limit).all()
     return docs
 
-@router.post("/", response_model=DocumentResponse)
-def create_document(
-    doc: DocumentCreate,
+@router.get("/{document_id}", response_model=DocumentResponse)
+def read_document(
+    document_id: uuid.UUID,
+    current_user: User = Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
+    document = db.query(Document).filter(
+        Document.id == document_id,
+        Document.tenant_id == current_tenant.id,
+    ).first()
+    if not document:
+        raise HTTPException(status_code=404, detail="Document not found")
+    return document
+
+@router.post("/", response_model=DocumentResponse)
+def create_document(
+    doc: DocumentCreate,
+    current_user: User = Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
+    current_tenant: Tenant = Depends(get_tenant),
+    db: Session = Depends(get_db)
+):
+    if not doc.mission_id and not doc.finding_id:
+        raise HTTPException(status_code=400, detail="A document must be linked to a mission or finding")
+
+    if doc.mission_id:
+        mission = db.query(Mission).filter(
+            Mission.id == doc.mission_id,
+            Mission.tenant_id == current_tenant.id,
+        ).first()
+        if not mission:
+            raise HTTPException(status_code=404, detail="Mission not found")
+
+    if doc.finding_id:
+        finding = db.query(Finding).filter(
+            Finding.id == doc.finding_id,
+            Finding.tenant_id == current_tenant.id,
+        ).first()
+        if not finding:
+            raise HTTPException(status_code=404, detail="Finding not found")
+
     db_doc = Document(
         **doc.dict(),
         status="DRAFT",
@@ -55,6 +91,7 @@ def presign_upload(
     document_id: uuid.UUID,
     filename: str,
     content_type: str,
+    current_user: User = Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -62,7 +99,11 @@ def presign_upload(
     if not db_doc:
         raise HTTPException(status_code=404, detail="Document not found")
         
-    object_key = f"{current_tenant.id}/{document_id}/{filename}"
+    safe_filename = os.path.basename(filename)
+    if not safe_filename:
+        raise HTTPException(status_code=400, detail="Filename is required")
+
+    object_key = f"{current_tenant.id}/{document_id}/{safe_filename}"
     
     # Generate presigned URL (PUT)
     url = storage.get_presigned_url(object_key, method="PUT")
@@ -78,6 +119,7 @@ def confirm_upload(
     filename: str,
     size_bytes: int,
     content_type: str,
+    current_user: User = Depends(RoleChecker(["ADMIN", "TECHNICIAN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -85,7 +127,14 @@ def confirm_upload(
     if not db_doc:
          raise HTTPException(status_code=404, detail="Document not found")
     
-    object_key = f"{current_tenant.id}/{document_id}/{filename}"
+    safe_filename = os.path.basename(filename)
+    object_key = f"{current_tenant.id}/{document_id}/{safe_filename}"
+    next_version = (
+        db.query(func.max(DocumentFile.version))
+        .filter(DocumentFile.document_id == document_id)
+        .scalar()
+        or 0
+    ) + 1
     
     db_file = DocumentFile(
         document_id=document_id,
@@ -93,7 +142,7 @@ def confirm_upload(
         object_key=object_key,
         mime_type=content_type,
         size_bytes=size_bytes,
-        version=1, # Simple versioning
+        version=next_version,
         tenant_id=current_tenant.id
     )
     db.add(db_file)
@@ -105,6 +154,7 @@ def confirm_upload(
 def presign_download(
     document_id: uuid.UUID,
     file_id: uuid.UUID,
+    current_user: User = Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):

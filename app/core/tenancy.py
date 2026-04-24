@@ -1,14 +1,14 @@
-from typing import Generator, Optional
+from typing import Generator
 import uuid
 
 from fastapi import Depends, HTTPException, Header
+from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.db.session import SessionLocal
 from app.db.models import Tenant
 
 def get_db() -> Generator:
-    from sqlalchemy import text
     db = SessionLocal()
     try:
         yield db
@@ -28,12 +28,6 @@ def get_tenant(
     In a real app, this would be derived from the JWT token or subdomain.
     For MVP, we enforce it via header or token claims.
     """
-    if not x_tenant_id:
-         # For login, we might not have a tenant yet if we are logging in as superadmin or just checking existence
-         # BUT, our logic requires tenant for user lookup.
-         # Let's see if we can relax this or if client MUST send it.
-         return None
-    
     try:
         tenant_uuid = uuid.UUID(x_tenant_id)
     except ValueError:
@@ -43,15 +37,13 @@ def get_tenant(
     if not tenant:
         raise HTTPException(status_code=404, detail="Tenant not found")
     
-    # Set the tenant context for RLS
-    from sqlalchemy import text
     try:
-        # Use session-level setting (not LOCAL) so it persists across commits within request
-        db.execute(text(f"SET app.current_tenant = '{tenant.id}'"))
-    except Exception as e:
-        # Fallback or error handling if needed
-        # For now, just logging or re-raising might be appropriate
-        print(f"Failed to set tenant context: {e}")
+        # Use a parameterized session-level setting so it survives commits and rollbacks safely.
+        db.execute(
+            text("SELECT set_config('app.current_tenant', :tenant_id, false)"),
+            {"tenant_id": str(tenant.id)},
+        )
+    except Exception:
         raise HTTPException(status_code=500, detail="Failed to set tenant context")
 
     return tenant

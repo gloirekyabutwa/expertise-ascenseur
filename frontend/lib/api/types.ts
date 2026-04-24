@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 // --- Enums ---
-export const MissionStatus = z.enum(["DRAFT", "IN_PROGRESS", "COMPLETED", "CANCELLED"]);
+export const MissionStatus = z.enum(["DRAFT", "PLANNED", "IN_PROGRESS", "DONE", "COMPLETED", "CANCELLED"]);
 export const PdfRenderStatus = z.enum(["QUEUED", "RUNNING", "SUCCEEDED", "FAILED"]);
 export const UserRole = z.enum(["ADMIN", "TECHNICIAN", "VIEWER"]);
 
@@ -29,6 +29,7 @@ export const UserSchema = z.object({
     full_name: z.string().nullable(),
     role: UserRole,
     is_active: z.boolean(),
+    tenant_id: z.string().uuid().nullable().optional(),
 });
 
 export const SiteSchema = z.object({
@@ -60,6 +61,21 @@ export const AssetSchema = z.object({
     machinery_location: z.string().nullable().optional(),
     maintainer_name: z.string().nullable().optional(),
     maintainer_contract_ref: z.string().nullable().optional(),
+    technical_characteristics: z.object({
+        year_commissioned: z.number().int().nullable().optional(),
+        load_capacity_kg: z.number().int().nullable().optional(),
+        persons_capacity: z.number().int().nullable().optional(),
+        nominal_speed_ms: z.string().nullable().optional(),
+        travel_height_m: z.string().nullable().optional(),
+        stops_count: z.number().int().nullable().optional(),
+        machinery_type: z.string().nullable().optional(),
+        machinery_location: z.string().nullable().optional(),
+        controller_type: z.string().nullable().optional(),
+        door_type: z.string().nullable().optional(),
+        safety_gear_type: z.string().nullable().optional(),
+        last_major_renovation_date: z.string().nullable().optional(), // Date as string from JSON
+        maintenance_contract_ref: z.string().nullable().optional(),
+    }).nullable().optional(),
 });
 
 export const ServiceTypeSchema = z.object({
@@ -107,14 +123,11 @@ export const CreateMissionSchema = z.object({
 export const PdfRenderRequestSchema = z.object({
     id: z.string().uuid(),
     status: PdfRenderStatus,
-    mission_id: z.string().uuid(),
-    template_id: z.string().uuid(),
     created_at: z.string().datetime(),
-    completed_at: z.string().datetime().nullable(),
-    error_message: z.string().nullable(),
+    output_document_id: z.string().uuid().nullable().optional(),
+    output_document_version_id: z.string().uuid().nullable().optional(),
     download_url: z.string().url().nullable().optional(), // Presigned URL
-    retry_count: z.number().int().default(0),
-    max_retries: z.number().int().default(3),
+    error: z.string().nullable().optional(),
 });
 
 export const PdfTemplateSchema = z.object({
@@ -159,7 +172,7 @@ export type Mission = z.infer<typeof MissionSchema>;
 export type CreateMission = z.infer<typeof CreateMissionSchema>;
 export type Site = z.infer<typeof SiteSchema>;
 export type Asset = z.infer<typeof AssetSchema>;
-export type ServiceType = z.infer<typeof ServiceTypeSchema>; 
+export type ServiceType = z.infer<typeof ServiceTypeSchema>;
 export type PdfRenderRequest = z.infer<typeof PdfRenderRequestSchema>;
 export type User = z.infer<typeof UserSchema>;
 export type Tenant = z.infer<typeof TenantSchema>;

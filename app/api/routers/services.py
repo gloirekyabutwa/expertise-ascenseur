@@ -3,7 +3,7 @@ import uuid
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from app.db.session import SessionLocal
+from app.api.deps import RoleChecker, get_current_active_user
 from app.db.models import ServiceType, ChecklistTemplate, ChecklistItem, Tenant
 from app.schemas.services import (
     ServiceTypeResponse, ServiceTypeCreate,
@@ -19,6 +19,7 @@ router = APIRouter()
 def read_service_types(
     skip: int = 0,
     limit: int = 100,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -27,6 +28,7 @@ def read_service_types(
 @router.post("/service-types", response_model=ServiceTypeResponse)
 def create_service_type(
     service_type: ServiceTypeCreate,
+    current_user=Depends(RoleChecker(["ADMIN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -40,6 +42,7 @@ def create_service_type(
 @router.get("/checklist-templates", response_model=List[ChecklistTemplateResponse])
 def read_checklist_templates(
     service_type_id: uuid.UUID = None,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
@@ -51,12 +54,20 @@ def read_checklist_templates(
 @router.post("/checklist-templates", response_model=ChecklistTemplateResponse)
 def create_checklist_template(
     template: ChecklistTemplateCreate,
+    current_user=Depends(RoleChecker(["ADMIN"])),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):
+    service_type = db.query(ServiceType).filter(
+        ServiceType.id == template.service_type_id,
+        ServiceType.tenant_id == current_tenant.id,
+    ).first()
+    if not service_type:
+        raise HTTPException(status_code=404, detail="Service type not found")
+
     # create template
     db_template = ChecklistTemplate(
-        service_type_id=template.service_type_id,
+        service_type_id=service_type.id,
         version=template.version,
         title=template.title,
         description=template.description,
@@ -86,6 +97,7 @@ def create_checklist_template(
 @router.get("/checklist-templates/{template_id}", response_model=ChecklistTemplateResponse)
 def read_checklist_template(
     template_id: uuid.UUID,
+    current_user=Depends(get_current_active_user),
     current_tenant: Tenant = Depends(get_tenant),
     db: Session = Depends(get_db)
 ):

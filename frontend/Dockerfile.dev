@@ -2,16 +2,10 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-# Install dependencies
-COPY package.json package-lock.json* ./
-RUN npm ci
-
-# Copy source
-COPY . .
-
 EXPOSE 3000
 
-ENV PORT 3000
-ENV HOSTNAME "0.0.0.0"
+ENV PORT=3000
+ENV HOSTNAME=0.0.0.0
 
-CMD ["npm", "run", "dev"]
+# Command is now handled by docker-compose for better flexibility
+CMD ["sh", "-c", "npm install --legacy-peer-deps && npm run dev"]

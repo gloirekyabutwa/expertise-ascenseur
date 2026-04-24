@@ -54,18 +54,6 @@ export function MissionPdfTab({ mission }: MissionPdfTabProps) {
     const [isPolling, setIsPolling] = useState(false);
     const [requestId, setRequestId] = useState<string | null>(null);
     const [templateType, setTemplateType] = useState("FULL");
-    const [isSendingEmail, setIsSendingEmail] = useState(false);
-
-    const selectedTemplate = TEMPLATE_TYPES.find(t => t.value === templateType)!;
-
-    const handleSendEmail = async () => {
-        setIsSendingEmail(true);
-        // Simulate API call to send email
-        setTimeout(() => {
-            setIsSendingEmail(false);
-            toast.success(lang === "fr" ? "Email envoyé avec succès au syndic/client." : "Email sent successfully to client.");
-        }, 1500);
-    };
 
     const generateMutation = useMutation({
         mutationFn: async () => {
@@ -79,6 +67,29 @@ export function MissionPdfTab({ mission }: MissionPdfTabProps) {
         },
         onError: (error: any) => {
             toast.error(lang === "fr" ? "Erreur de génération" : "Generation failed", { description: error.message });
+        }
+    });
+
+    const sendEmailMutation = useMutation({
+        mutationFn: async () => {
+            if (!requestId) {
+                throw new Error(lang === "fr" ? "Aucun PDF disponible" : "No PDF available");
+            }
+            return await pdfService.sendEmail(requestId);
+        },
+        onSuccess: (data) => {
+            toast.success(
+                lang === "fr" ? "Email envoyé avec succès." : "Email sent successfully.",
+                {
+                    description: data.recipient_email,
+                }
+            );
+        },
+        onError: (error: any) => {
+            toast.error(
+                lang === "fr" ? "Impossible d'envoyer l'email" : "Unable to send the email",
+                { description: error.message }
+            );
         }
     });
 
@@ -169,10 +180,10 @@ export function MissionPdfTab({ mission }: MissionPdfTabProps) {
                             <Button
                                 variant="outline"
                                 className="gap-2 border-blue-200 text-blue-700 hover:bg-blue-50"
-                                onClick={handleSendEmail}
-                                disabled={isSendingEmail}
+                                onClick={() => sendEmailMutation.mutate()}
+                                disabled={sendEmailMutation.isPending}
                             >
-                                {isSendingEmail ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
+                                {sendEmailMutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Mail className="h-4 w-4" />}
                                 {lang === "fr" ? "Envoyer par mail" : "Send by email"}
                             </Button>
                         </>
@@ -241,7 +252,7 @@ export function MissionPdfTab({ mission }: MissionPdfTabProps) {
                                 <AlertTriangle className="h-4 w-4" />
                                 <AlertTitle>{lang === "fr" ? "Échec de génération" : "Generation failed"}</AlertTitle>
                                 <AlertDescription>
-                                    {requestStatus.error_message || (lang === "fr" ? "Erreur inconnue" : "Unknown error")}
+                                    {requestStatus.error || (lang === "fr" ? "Erreur inconnue" : "Unknown error")}
                                 </AlertDescription>
                             </Alert>
                         )}

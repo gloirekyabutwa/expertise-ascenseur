@@ -22,7 +22,10 @@ def seed_data():
             print(f"Created Tenant: {tenant.name}")
         
         # Create Users
-        admin = db.query(User).filter(User.email == "admin@ascenseurs-express.com").first()
+        admin = db.query(User).filter(
+            User.email == "admin@ascenseurs-express.com",
+            User.tenant_id == tenant.id,
+        ).first()
         if not admin:
             admin = User(
                 email="admin@ascenseurs-express.com",

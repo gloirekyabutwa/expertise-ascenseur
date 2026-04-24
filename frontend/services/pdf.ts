@@ -11,5 +11,10 @@ export const pdfService = {
     getStatus: async (requestId: string): Promise<PdfRenderRequest> => {
         const response = await apiClient.get<PdfRenderRequest>(`/pdf-render/${requestId}`);
         return response.data;
+    },
+
+    sendEmail: async (requestId: string): Promise<{ status: string; recipient_email: string }> => {
+        const response = await apiClient.post(`/pdf-render/${requestId}/send-email`);
+        return response.data;
     }
 };
